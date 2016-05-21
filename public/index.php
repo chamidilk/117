@@ -28,11 +28,12 @@ $app->get('/requests', function (Request $request, Response $response) {
 
 });
 $app->post('/requests', function (Request $request, Response $response) {
+    date_default_timezone_set('Asia/Colombo');
     $body = $request->getParsedBody();
     $db = getConnection();
     $person = new stdClass();
     $person->per_ID = null;
-    $person->nationalID = $body['nationalID'];
+    $person->nationalID = strtoupper($body['nationalID']);
     $person->per_fullname = $body['per_fullname'];
     $person->per_mobile = $body['per_mobile'];
     $person->per_phone_other = $body['per_phone_other'];
@@ -62,12 +63,13 @@ $app->post('/requests', function (Request $request, Response $response) {
 
     $resourceRequest = new stdClass();
     $resourceRequest->req_ID = null;
-    $resourceRequest->req_made_date = $body['req_made_date'];
-    $resourceRequest->req_close_date = $body['req_close_date'];
+    $resourceRequest->req_made_date = date('Y-m-d');
+    $resourceRequest->req_close_date = '0000-00-00';
     $resourceRequest->req_type_REF = $body['req_type_REF'];
     $resourceRequest->requestor_per_ID = $person->per_ID;
     $resourceRequest->donor_per_ID = 0;
-    $resourceRequest->reqarea_ID = $body['reqarea_ID'];
+    $resourceRequest->reqarea_ID = isset($body['reqarea_ID']) ? $body['reqarea_ID'] : 0;
+    $resourceRequest->req_area = $body['req_area'];
     $resourceRequest->req_address = $body['req_address'];
     $resourceRequest->req_GPS = $body['req_GPS'];
     $resourceRequest->req_for_people = $body['req_for_people'];
