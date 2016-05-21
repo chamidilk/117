@@ -1,8 +1,22 @@
+
+-- Author: chamindra@gmail.com
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Person`
---
+-- The Person table that store details about requestors, fulfillers, volunteers, staff, etc
+-- per_ID - primary key
+-- nationaID - National identity car number
+-- per_mobile - persons mobile phone that will be used to SMS status information
+-- per_phone_other - a secondary contact number
+-- per_organization - the organization name of the person
+-- per_email - email address of the person
+-- per_comment - details about this person 
+-- per_status_REF - the status of this person. Valid statues include
+--      - unverified
+--      - mob_verifed
+--      - verified
+--      - trusted
+--      - untrusted
 
 CREATE TABLE `Person` (
   `per_ID` int(11) NOT NULL,
