@@ -71,13 +71,13 @@ $app->post('/requests', function (Request $request, Response $response) {
     $resourceRequest->reqarea_ID = isset($body['reqarea_ID']) ? $body['reqarea_ID'] : 0;
     $resourceRequest->req_area = $body['req_area'];
     $resourceRequest->req_address = $body['req_address'];
-    $resourceRequest->req_GPS = $body['req_GPS'];
+    $resourceRequest->req_GPS = isset($body['req_GPS']) ? $body['req_GPS'] : "";
     $resourceRequest->req_for_people = $body['req_for_people'];
-    $resourceRequest->req_for_adults = $body['req_for_adults'];
-    $resourceRequest->req_for_kids = $body['req_for_kids'];
-    $resourceRequest->req_for_infants = $body['req_for_infants'];
-    $resourceRequest->req_summary = $body['req_summary'];
-    $resourceRequest->req_details = $body['req_details'];
+    $resourceRequest->req_for_adults = isset($body['req_for_adults']) ? $body['req_for_adults'] : 0;
+    $resourceRequest->req_for_kids = isset($body['req_for_kids']) ? $body['req_for_kids'] : 0;
+    $resourceRequest->req_for_infants = isset($body['req_for_infants']) ? $body['req_for_infants'] : 0;
+    $resourceRequest->req_summary = isset($body['req_summary']) ? $body['req_summary'] : "";
+    $resourceRequest->req_details = isset($body['req_details']) ? $body['req_details'] : "";
     $resourceRequest->reqstatus_REF = 0;
 
     try {
