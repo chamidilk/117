@@ -15,10 +15,11 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 $app->get('/requests', function (Request $request, Response $response) {
     $db = getConnection();
     /*if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
-        return $response->withJson(array('Authorization invalid'), 403);
+        return $response->withJson(array('error' => 'Authorization invalid'), 403);
     }*/
     $qParams = $request->getQueryParams();
-    $reqType = $qParams['reqType'];
+    $reqType = $qParams['req_type_REF'];
+    $reqStatus = $qParams['reqstatus_REF'];
     $startDate = $qParams['startDate'];
     $endDate = $qParams['endDate'];
     $limit = $qParams['limit'];
@@ -45,6 +46,7 @@ $app->get('/requests', function (Request $request, Response $response) {
         } else if(isset($endDate)) {
             $reqSql .= " WHERE Request.req_made_date <= '$endDate'";
         }
+
 
         if(isset($orderBy)) {
             $reqSql .= " ORDER BY Request.$orderBy " . strtoupper($orderingDirection);
@@ -171,7 +173,7 @@ function checkAuth($authHeader, $db) {
     $authParts = explode(':', base64_decode($authBase64));
     $username = $authParts[0];
     $password = md5($authParts[1]);
-    $authSql = "SELECT * FROM Person WHERE email=:email AND password=:password";
+    $authSql = "SELECT * FROM Person WHERE per_email=:email AND per_password=:password";
     $authStmt = $db->prepare($authSql);
     $authStmt->bindParam("email", $username );
     $authStmt->bindParam("password", $password);
