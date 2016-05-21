@@ -24,13 +24,21 @@ function DMCController($scope, $http) {
     $scope.loadRequests = function () {
         $scope.loading = true;
         $scope.requests = [];
-        $scope.filters.limit = $scope.limit;
-        $scope.filters.offset = $scope.offset;
+//        $scope.filters.limit = $scope.limit;
+//        $scope.filters.offset = $scope.offset;
+
+        var clone = angular.copy($scope.filters);
+
+        angular.forEach(clone, function (value, key) {
+            if (!value || !value.trim()) {
+                delete $scope.filters[key];
+            }
+        });
 
         $http({
             method: 'GET',
             url: 'http://one-one-seven.herokuapp.com/public/requests',
-            data: $scope.filters
+            params: $scope.filters
         }).then(function successCallback(response) {
             $scope.loading = false;
             $scope.requests = response.data; // @TODO handle pagination
