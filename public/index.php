@@ -32,7 +32,7 @@ $app->get('/requests', function (Request $request, Response $response) {
     try {
 
         // default query
-        $reqSql = "SELECT Request.*, Person.nationalID, Person.per_fullname, Person.per_mobile, Person.per_organization, Person.per_email, Person.per_user_level_REF FROM Request INNER JOIN Person ON Request.requestor_per_ID=Person.per_ID WHERE true";
+        $reqSql = "SELECT Request.*, Person.nationalID, Person.per_fullname, Person.per_mobile, Person.per_organization, Person.per_email, Person.per_user_level_REF, Person.per_comments FROM Request INNER JOIN Person ON Request.requestor_per_ID=Person.per_ID WHERE true";
 
         if(isset($reqType)) {
             $reqSql .= " AND Request.req_type_REF='$reqType'";
@@ -91,7 +91,7 @@ $app->post('/requests', function (Request $request, Response $response) {
     $person->per_phone_other = isset($body['per_phone_other']) ? $body['per_phone_other'] : "";
     $person->per_organization = isset($body['per_organization']) ? $body['per_organization'] : "";
     $person->per_email = $body['per_email'];
-    $person->per_comments = "";
+    $person->per_comments = isset($body['per_comments']) ? $body['per_comments'] : "";
     $person->per_status_REF = 0;
 
     $personSql = "SELECT * FROM Person WHERE nationalID=:nationalID";
