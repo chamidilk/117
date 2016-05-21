@@ -13,6 +13,11 @@ function DMCController($scope, $http) {
         reqstatus_REF: 'OPEN'
     };
 
+    $scope.townSelectorOptions = {
+        country: 'lk',
+        types: '(cities)'
+    };
+
     $scope.init = function () {
         $scope.loadRequests();
     };
