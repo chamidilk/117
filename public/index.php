@@ -12,7 +12,22 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 
     return $response->withJson(array('name' => $name));
 });
-$app->post('/request', function (Request $request, Response $response) {
+$app->get('/requests', function (Request $request, Response $response) {
+
+    try {
+        $db = getConnection();
+        $reqSql = "SELECT * FROM Request";
+        $reqStmt = $db->prepare($reqSql);
+        $reqStmt->execute();
+        $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $response->withJson($reqs);
+    } catch(PDOException $pdoe) {
+        return $response->withJson(array('error' => 'Error fetching request data',
+            'detail' => $pdoe->getMessage()), 500);
+    }
+
+});
+$app->post('/requests', function (Request $request, Response $response) {
     $body = $request->getParsedBody();
     $db = getConnection();
     $person = new stdClass();
@@ -31,7 +46,7 @@ $app->post('/request', function (Request $request, Response $response) {
     $personStmt->bindParam("nationalID", $person->nationalID );
     $personStmt->execute();
     $storedPerson = $personStmt->fetchAll(PDO::FETCH_ASSOC);
-    if(!isset($storedPerson['per_ID'])) {
+    if(!isset($storedPerson[0])) {
         // person does not exist, store as a new person
         try {
             $person->per_ID = insertObject($db,'Person', $person);
@@ -41,7 +56,7 @@ $app->post('/request', function (Request $request, Response $response) {
         }
 
     } else {
-        $person->per_ID = $storedPerson['per_ID'];
+        $person->per_ID = $storedPerson[0]['per_ID'];
     }
 
 
@@ -78,9 +93,9 @@ $app->run();
 function getConnection() {
     // mysql://b8b5ceedc559fd:d58b20ed@us-cdbr-iron-east-04.cleardb.net/heroku_2ceffc3dc0a99d5?reconnect=true
     try {
-        $db_username = "root";
-        $db_password = "";
-        $conn = new PDO('mysql:host=localhost;dbname=117', $db_username, $db_password);
+        $db_username = "b8b5ceedc559fd";
+        $db_password = "d58b20ed";
+        $conn = new PDO('mysql:host=us-cdbr-iron-east-04.cleardb.net;dbname=heroku_2ceffc3dc0a99d5', $db_username, $db_password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     } catch(PDOException $e) {
