@@ -18,8 +18,10 @@
 --      - trusted
 --      - untrusted
 
+DROP TABLE `Person`;
+
 CREATE TABLE `Person` (
-  `per_ID` int(11) NOT NULL,
+  `per_ID` int(11) NOT NULL AUTO_INCREMENT,
   `nationalID` varchar(20) NOT NULL,
   `per_fullname` varchar(200) NOT NULL,
   `per_mobile` varchar(20) NOT NULL,
@@ -33,8 +35,23 @@ CREATE TABLE `Person` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Request`
---
+-- Requst details table
+-- req_ID - primary key for requests
+-- req_made_date - date request was made
+-- req_close_date - date request was closed
+-- req_type_REF - the request type that can be
+--      - evac
+--      - shelter
+--      - medical
+--      - food
+--      - missing
+--      - damage
+--      - other
+-- requestor_per_ID - the reference per_ID of the requestor
+-- donor_per_ID - the reference per_ID of the donor
+-- req
+
+DROP TABLE `Request`;
 
 CREATE TABLE `Request` (
   `req_ID` int(11) NOT NULL,
@@ -42,7 +59,7 @@ CREATE TABLE `Request` (
   `req_close_date` date NOT NULL,
   `req_type_REF` varchar(20) NOT NULL,
   `requestor_per_ID` int(11) NOT NULL,
-  `donar_per_ID` int(11) NOT NULL,
+  `donor_per_ID` int(11) NOT NULL,
   `reqarea_ID` int(11) NOT NULL,
   `req_address` varchar(200) NOT NULL,
   `req_GPS` varchar(100) NOT NULL,
@@ -62,6 +79,8 @@ CREATE TABLE `Request` (
 -- Table structure for table `Request_Area`
 --
 
+DROP TABLE `Request_Area`;
+
 CREATE TABLE `Request_Area` (
   `reqloc_ID` int(11) NOT NULL,
   `reqloc_province` int(11) NOT NULL,
@@ -75,6 +94,8 @@ CREATE TABLE `Request_Area` (
 --
 -- Table structure for table `Request_Status_Log`
 --
+
+DROP TABLE `Request_Status_Log`;
 
 CREATE TABLE `Request_Status_Log` (
   `req_log_ID` int(11) NOT NULL,
@@ -90,6 +111,8 @@ CREATE TABLE `Request_Status_Log` (
 -- Table structure for table `Request_Type`
 --
 
+DROP TABLE `Request_Type`;
+
 CREATE TABLE `Request_Type` (
   `reqtype_ID` int(11) NOT NULL,
   `reqtype_status` varchar(20) NOT NULL
@@ -103,8 +126,7 @@ CREATE TABLE `Request_Type` (
 -- Indexes for table `Person`
 --
 ALTER TABLE `Person`
-  ADD PRIMARY KEY (`per_ID`),
-  ADD UNIQUE KEY `req_ID` (`per_ID`);
+  ADD PRIMARY KEY (`per_ID`);
 
 --
 -- Indexes for table `Request`
