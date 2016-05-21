@@ -29,22 +29,19 @@ $app->get('/requests', function (Request $request, Response $response) {
     try {
 
         // default query
-        $reqSql = "SELECT Request.*, Person.* FROM Request INNER JOIN Person ON Request.requestor_per_ID=Person.per_ID";
+        $reqSql = "SELECT Request.*, Person.* FROM Request INNER JOIN Person ON Request.requestor_per_ID=Person.per_ID WHERE true";
 
-        if(isset($reqType) && isset($startDate) && isset($endDate)) {
-            $reqSql .= " WHERE Request.req_type_REF='$reqType' AND Request.req_made_date >= '$startDate' AND Request.req_made_date <= '$endDate'";
-        } else if (isset($reqType) && isset($startDate)) {
-            $reqSql .= " WHERE Request.req_type_REF='$reqType' AND Request.req_made_date >= '$startDate'";
-        } else if (isset($reqType) && isset($endDate)) {
-            $reqSql .= " WHERE Request.req_type_REF='$reqType' AND Request.req_made_date <= '$endDate'";
-        } else if(isset($startDate) && isset($endDate)) {
-            $reqSql .= " WHERE Request.req_made_date >= '$startDate' AND Request.req_made_date <= '$endDate'";
-        } else if(isset($reqType)) {
-            $reqSql .= " WHERE Request.req_type_REF='$reqType'";
-        } else if(isset($startDate)) {
-            $reqSql .= " WHERE Request.req_made_date >= '$startDate'";
-        } else if(isset($endDate)) {
-            $reqSql .= " WHERE Request.req_made_date <= '$endDate'";
+        if(isset($reqType)) {
+            $reqSql .= " AND Request.req_type_REF='$reqType'";
+        }
+        if(isset($reqStatus)) {
+            $reqSql .= " AND Request.reqstatus_REF='$reqStatus'";
+        }
+        if(isset($startDate)) {
+            $reqSql .= " AND Request.req_made_date >= '$startDate'";
+        }
+        if(isset($endDate)) {
+            $reqSql .= " AND Request.req_made_date <= '$endDate'";
         }
 
 
@@ -62,6 +59,7 @@ $app->get('/requests', function (Request $request, Response $response) {
         $reqStmt = $db->prepare($reqSql);
         $reqStmt->execute();
         $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
+        $reqs['sql'] = $reqSql;
         return $response->withJson($reqs);
     } catch(PDOException $pdoe) {
         return $response->withJson(array('error' => 'Error fetching request data',
