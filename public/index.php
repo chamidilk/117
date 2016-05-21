@@ -13,6 +13,10 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
     return $response->withJson(array('name' => $name));
 });
 $app->get('/requests', function (Request $request, Response $response) {
+    $db = getConnection();
+    /*if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
+        return $response->withJson(array('Authorization invalid'), 403);
+    }*/
     $qParams = $request->getQueryParams();
     $reqType = $qParams['reqType'];
     $startDate = $qParams['startDate'];
@@ -22,28 +26,28 @@ $app->get('/requests', function (Request $request, Response $response) {
     $orderBy = $qParams['orderBy'];
     $orderingDirection = $qParams['direction'];
     try {
-        $db = getConnection();
+
         // default query
-        $reqSql = "SELECT * FROM Request";
+        $reqSql = "SELECT Request.*, Person.* FROM Request INNER JOIN Person ON Request.requestor_per_ID=Person.per_ID";
 
         if(isset($reqType) && isset($startDate) && isset($endDate)) {
-            $reqSql .= " WHERE req_type_REF='$reqType' AND req_made_date >= '$startDate' AND req_made_date <= '$endDate'";
+            $reqSql .= " WHERE Request.req_type_REF='$reqType' AND Request.req_made_date >= '$startDate' AND Request.req_made_date <= '$endDate'";
         } else if (isset($reqType) && isset($startDate)) {
-            $reqSql .= " WHERE req_type_REF='$reqType' AND req_made_date >= '$startDate'";
+            $reqSql .= " WHERE Request.req_type_REF='$reqType' AND Request.req_made_date >= '$startDate'";
         } else if (isset($reqType) && isset($endDate)) {
-            $reqSql .= " WHERE req_type_REF='$reqType' AND req_made_date <= '$endDate'";
+            $reqSql .= " WHERE Request.req_type_REF='$reqType' AND Request.req_made_date <= '$endDate'";
         } else if(isset($startDate) && isset($endDate)) {
-            $reqSql .= " WHERE req_made_date >= '$startDate' AND req_made_date <= '$endDate'";
+            $reqSql .= " WHERE Request.req_made_date >= '$startDate' AND Request.req_made_date <= '$endDate'";
         } else if(isset($reqType)) {
-            $reqSql .= " WHERE req_type_REF='$reqType'";
+            $reqSql .= " WHERE Request.req_type_REF='$reqType'";
         } else if(isset($startDate)) {
-            $reqSql .= " WHERE req_made_date >= '$startDate'";
+            $reqSql .= " WHERE Request.req_made_date >= '$startDate'";
         } else if(isset($endDate)) {
-            $reqSql .= " WHERE req_made_date <= '$endDate'";
+            $reqSql .= " WHERE Request.req_made_date <= '$endDate'";
         }
 
         if(isset($orderBy)) {
-            $reqSql .= " ORDER BY $orderBy " . strtoupper($orderingDirection);
+            $reqSql .= " ORDER BY Request.$orderBy " . strtoupper($orderingDirection);
         }
 
         if(isset($limit)) {
@@ -115,7 +119,7 @@ $app->post('/requests', function (Request $request, Response $response) {
     $resourceRequest->req_for_infants = isset($body['req_for_infants']) ? $body['req_for_infants'] : 0;
     $resourceRequest->req_summary = isset($body['req_summary']) ? $body['req_summary'] : "";
     $resourceRequest->req_details = isset($body['req_details']) ? $body['req_details'] : "";
-    $resourceRequest->reqstatus_REF = 0;
+    $resourceRequest->reqstatus_REF = 'open';
 
     try {
         $resourceRequest->req_ID = insertObject($db,'Request', $resourceRequest);
@@ -158,4 +162,24 @@ function insertObject($db, $table, &$object, $keyname = NULL) {
     }
     $sth->execute();
     return $db->lastInsertId();
+}
+function checkAuth($authHeader, $db) {
+    if(!isset($authHeader)) {
+        return false;
+    }
+    $authBase64 = explode(' ', $authHeader);
+    $authParts = explode(':', base64_decode($authBase64));
+    $username = $authParts[0];
+    $password = md5($authParts[1]);
+    $authSql = "SELECT * FROM Person WHERE email=:email AND password=:password";
+    $authStmt = $db->prepare($authSql);
+    $authStmt->bindParam("email", $username );
+    $authStmt->bindParam("password", $password);
+    $authStmt->execute();
+    $person = $authStmt->fetchAll(PDO::FETCH_ASSOC);
+    if(isset($person[0])) {
+        return true;
+    } else {
+        return false;
+    }
 }
