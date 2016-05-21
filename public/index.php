@@ -59,7 +59,7 @@ $app->get('/requests', function (Request $request, Response $response) {
         $reqStmt = $db->prepare($reqSql);
         $reqStmt->execute();
         $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
-        $reqs['sql'] = $reqSql;
+        //$reqs['sql'] = $reqSql;
         return $response->withJson($reqs);
     } catch(PDOException $pdoe) {
         return $response->withJson(array('error' => 'Error fetching request data',
