@@ -24,7 +24,7 @@ function RequestHelpController($scope, $state) {
 
     $scope.setLanguage = function (language) {
         $scope.language = language;
-        $state.go();
+        $state.go('requestForm');
     };
 
 }

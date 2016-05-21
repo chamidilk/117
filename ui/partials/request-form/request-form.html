@@ -1,1 +1,68 @@
-<div class="">FOrm</div>
+<div class="well" ng-controller="RequestFormController">
+    <div class="row">
+        <div class="form-group col-xs-12 col-lg-6">
+            <label for="name">Full Name:</label>
+            <input type="text" ng-model="model.per_fullname" class="form-control" id="name" />
+        </div>
+        <div class="form-group col-xs-12 col-lg-3">
+            <label for="name">NIC:</label>
+            <input type="text" ng-model="model.nationalID" class="form-control" id="nic" />
+        </div>
+        <div class="form-group col-xs-12 col-lg-3">
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="text" ng-model="model.per_mobile" class="form-control" id="mobileNumber" />
+        </div>        
+        <div class="form-group col-xs-12 col-lg-6">
+            <label for="email">Email:</label>
+            <input type="text" ng-model="model.per_email" class="form-control" id="email" />
+        </div>
+        <div class="form-group col-xs-12 col-lg-6">
+            <label for="organization">Organization:</label>
+            <input type="text" ng-model="model.per_organization" class="form-control" id="organization" />
+        </div>
+        <div class="form-group col-xs-12 col-lg-12">
+            <label for="address">Address:</label>
+            <input type="text" ng-model="model.req_address" class="form-control" id="address" />
+        </div>
+        <div class="form-group col-xs-12 col-lg-6">
+            <label for="area">Area:</label>
+            <input type="text" ng-model="model.req_area" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions" />
+        </div>
+        <div class="form-group col-xs-12 col-lg-6">
+            <label for="requestType">Request Type:</label>
+            <select ng-model="model.req_type_REF" class="form-control" id="requestType" >
+                <option value="">- Select -</option>
+                <option value="FOOD">Food</option>
+                <option value="SHELTER">Shelter</option>
+                <option value="MEDICAL">Medical</option>
+                <option value="EVACUATION">Evacuation</option>
+                <option value="MISSING_PERSON">Missing Person</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="OTHER">Other</option>
+            </select>
+        </div>
+        <div class="form-group col-xs-12 col-lg-6">
+            <label for="totalHeadCount">Total Headcount:</label>
+            <input type="number" ng-model="model.req_for_people" class="form-control" id="totalHeadCount" />
+        </div>
+        <div class="form-group col-xs-12 col-md-2 col-lg-2">
+            <label for="adultHeadCount">Adults:</label>
+            <input type="number" ng-model="model.req_for_adults" class="form-control" id="adultHeadCount" ng-blur="calculateTotalHeadCount()" />
+        </div>
+        <div class="form-group col-xs-12 col-md-2 col-lg-2">
+            <label for="adultHeadCount">Kids:</label>
+            <input type="number" ng-model="model.req_for_kids" class="form-control" id="kidsHeadCount" ng-blur="calculateTotalHeadCount()"/>
+        </div>
+        <div class="form-group col-xs-12 col-md-2 col-lg-2">
+            <label for="infantHeadCount">Infants:</label>
+            <input type="number" ng-model="model.req_for_infants" class="form-control" id="infantHeadCount" ng-blur="calculateTotalHeadCount()"/>
+        </div>
+        <div class="form-group col-xs-12 col-lg-12">
+            <label for="comment">Comment:</label>
+            <textarea type="text" ng-model="model.per_comments" class="form-control" id="comment"></textarea>
+        </div>
+        <div class="form-group col-xs-12">
+            <button class="btn btn-primary" ng-disabled="busy" ng-click="submitRequest()">{{busy? 'Wait...': 'Submit'}}</button>            
+        </div>
+    </div>
+</div>
