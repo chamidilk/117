@@ -38,7 +38,7 @@ CREATE TABLE `Person` (
   `per_organization` varchar(20) NOT NULL,
   `per_email` varchar(20) NOT NULL,
   `per_comments` varchar(300) NOT NULL,
-  `per_status_REF` int(11) NOT NULL,
+  `per_status_REF` varchar(20) NOT NULL,
   `per_password` varchar(64) NOT NULL,
   `per_user_level_REF` int(11) NOT NULL,
   PRIMARY KEY(`per_ID`)
