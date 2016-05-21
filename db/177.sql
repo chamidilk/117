@@ -3,6 +3,7 @@
 -- --------------------------------------------------------
 
 CREATE DATABASE 177Support;
+USE 177Support;
 
 --
 -- The Person table that store details about requestors, fulfillers, volunteers, staff, etc
@@ -52,7 +53,19 @@ CREATE TABLE `Person` (
 --      - other
 -- requestor_per_ID - the reference per_ID of the requestor
 -- donor_per_ID - the reference per_ID of the donor
--- req
+-- reqarea_ID - the GN,DS code reference
+-- req_address - the street address
+-- req_GPS - GPS coodinates
+-- req_for_* - this request is for number of *
+-- req_summary - summary title of requirement to be displaed in list
+-- req_details - details of requirement
+-- reqstatus_REF - status of Request
+--      - open
+--      - partial
+--      - fulfilled
+--      - deffered
+--      - duplicate
+--      - rejected
 
 DROP TABLE IF EXISTS `Request`;
 
@@ -66,14 +79,13 @@ CREATE TABLE `Request` (
   `reqarea_ID` int(11) NOT NULL,
   `req_address` varchar(200) NOT NULL,
   `req_GPS` varchar(100) NOT NULL,
-  `reqlocation_ID` int(11) NOT NULL,
   `req_for_people` int(11) NOT NULL,
   `req_for_adults` int(11) NOT NULL,
   `req_for_kids` int(11) NOT NULL,
   `req_for_infants` int(11) NOT NULL,
   `req_summary` varchar(20) NOT NULL,
   `req_details` varchar(400) NOT NULL,
-  `reqstatus_ID` int(11) NOT NULL,
+  `reqstatus_REF` varchar(20) NOT NULL,
   PRIMARY KEY(`req_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -99,6 +111,14 @@ CREATE TABLE `Request_Area` (
 --
 -- Table structure for table `Request_Status_Log`
 --
+-- req_status_REF - status of Request
+--      - open
+--      - partial
+--      - fulfilled
+--      - deffered
+--      - duplicate
+--      - rejected
+
 
 DROP TABLE IF EXISTS `Request_Status_Log`;
 
