@@ -13,17 +13,54 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
     return $response->withJson(array('name' => $name));
 });
 $app->get('/requests', function (Request $request, Response $response) {
-
+    $qParams = $request->getQueryParams();
+    $reqType = $qParams['reqType'];
+    $startDate = $qParams['startDate'];
+    $endDate = $qParams['endDate'];
+    $limit = $qParams['limit'];
+    $offset = $qParams['offset'];
+    $orderBy = $qParams['orderBy'];
+    $orderingDirection = $qParams['direction'];
     try {
         $db = getConnection();
+        // default query
         $reqSql = "SELECT * FROM Request";
+
+        if(isset($reqType) && isset($startDate) && isset($endDate)) {
+            $reqSql .= " WHERE req_type_REF='$reqType' AND req_made_date >= '$startDate' AND req_made_date <= '$endDate'";
+        } else if (isset($reqType) && isset($startDate)) {
+            $reqSql .= " WHERE req_type_REF='$reqType' AND req_made_date >= '$startDate'";
+        } else if (isset($reqType) && isset($endDate)) {
+            $reqSql .= " WHERE req_type_REF='$reqType' AND req_made_date <= '$endDate'";
+        } else if(isset($startDate) && isset($endDate)) {
+            $reqSql .= " WHERE req_made_date >= '$startDate' AND req_made_date <= '$endDate'";
+        } else if(isset($reqType)) {
+            $reqSql .= " WHERE req_type_REF='$reqType'";
+        } else if(isset($startDate)) {
+            $reqSql .= " WHERE req_made_date >= '$startDate'";
+        } else if(isset($endDate)) {
+            $reqSql .= " WHERE req_made_date <= '$endDate'";
+        }
+
+        if(isset($orderBy)) {
+            $reqSql .= " ORDER BY $orderBy " . strtoupper($orderingDirection);
+        }
+
+        if(isset($limit)) {
+            $reqSql .= " LIMIT $limit";
+        }
+
+        if(isset($offset)) {
+            $reqSql .= " OFFSET $offset";
+        }
         $reqStmt = $db->prepare($reqSql);
         $reqStmt->execute();
         $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
         return $response->withJson($reqs);
     } catch(PDOException $pdoe) {
         return $response->withJson(array('error' => 'Error fetching request data',
-            'detail' => $pdoe->getMessage()), 500);
+            'detail' => $pdoe->getMessage(),
+            'query' => $reqSql), 500);
     }
 
 });
@@ -37,7 +74,7 @@ $app->post('/requests', function (Request $request, Response $response) {
     $person->per_fullname = $body['per_fullname'];
     $person->per_mobile = $body['per_mobile'];
     $person->per_phone_other = isset($body['per_phone_other']) ? $body['per_phone_other'] : "";
-    $person->per_organization = $body['per_organization'];
+    $person->per_organization = isset($body['per_organization']) ? $body['per_organization'] : "";
     $person->per_email = $body['per_email'];
     $person->per_comments = "";
     $person->per_status_REF = 0;
@@ -65,14 +102,14 @@ $app->post('/requests', function (Request $request, Response $response) {
     $resourceRequest->req_ID = null;
     $resourceRequest->req_made_date = date('Y-m-d');
     $resourceRequest->req_close_date = '0000-00-00';
-    $resourceRequest->req_type_REF = $body['req_type_REF'];
+    $resourceRequest->req_type_REF = strtoupper($body['req_type_REF']);
     $resourceRequest->requestor_per_ID = $person->per_ID;
     $resourceRequest->donor_per_ID = 0;
     $resourceRequest->reqarea_ID = isset($body['reqarea_ID']) ? $body['reqarea_ID'] : 0;
     $resourceRequest->req_area = $body['req_area'];
     $resourceRequest->req_address = $body['req_address'];
     $resourceRequest->req_GPS = isset($body['req_GPS']) ? $body['req_GPS'] : "";
-    $resourceRequest->req_for_people = $body['req_for_people'];
+    $resourceRequest->req_for_people = isset($body['req_for_people']) ? $body['req_for_people'] : 0;
     $resourceRequest->req_for_adults = isset($body['req_for_adults']) ? $body['req_for_adults'] : 0;
     $resourceRequest->req_for_kids = isset($body['req_for_kids']) ? $body['req_for_kids'] : 0;
     $resourceRequest->req_for_infants = isset($body['req_for_infants']) ? $body['req_for_infants'] : 0;
