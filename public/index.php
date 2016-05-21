@@ -36,7 +36,7 @@ $app->post('/requests', function (Request $request, Response $response) {
     $person->nationalID = strtoupper($body['nationalID']);
     $person->per_fullname = $body['per_fullname'];
     $person->per_mobile = $body['per_mobile'];
-    $person->per_phone_other = $body['per_phone_other'];
+    $person->per_phone_other = isset($body['per_phone_other']) ? $body['per_phone_other'] : "";
     $person->per_organization = $body['per_organization'];
     $person->per_email = $body['per_email'];
     $person->per_comments = "";
