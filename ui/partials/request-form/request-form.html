@@ -1,5 +1,8 @@
 <div class="well" ng-controller="RequestFormController">
     <div class="row">
+        <div class="form-group col-xs-12 col-lg-12">
+            <h3>Requester Details</h3>
+        </div>
         <div class="form-group col-xs-12 col-lg-6">
             <label for="name">Full Name:</label>
             <input type="text" ng-model="model.per_fullname" class="form-control" id="name" />
@@ -21,6 +24,9 @@
             <input type="text" ng-model="model.per_organization" class="form-control" id="organization" />
         </div>
         <div class="form-group col-xs-12 col-lg-12">
+            <h3>Incident Details</h3>
+        </div>
+        <div class="form-group col-xs-12 col-lg-12">
             <label for="address">Address:</label>
             <input type="text" ng-model="model.req_address" class="form-control" id="address" />
         </div>
@@ -40,6 +46,9 @@
                 <option value="DAMAGE">Damage</option>
                 <option value="OTHER">Other</option>
             </select>
+        </div>
+        <div class="form-group col-xs-12 col-lg-12">
+            <h3>Affected People</h3>
         </div>
         <div class="form-group col-xs-12 col-lg-6">
             <label for="totalHeadCount">Total Headcount:</label>

@@ -9,7 +9,7 @@ function RequestHelpController($scope, $state) {
 
     $scope.textMap = {
         SINHALA: {
-            language: 'සින්හල',
+            language: 'සිංහල',
             request_help: 'උපකාර ඉල්ලුම්'
         },
         ENGLISH: {
