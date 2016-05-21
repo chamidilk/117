@@ -20,6 +20,9 @@ $app->get('/requests', function (Request $request, Response $response) {
     $qParams = $request->getQueryParams();
     $reqType = $qParams['req_type_REF'];
     $reqStatus = $qParams['reqstatus_REF'];
+    $reqArea = $qParams['req_area'];
+    $perNationalID = $qParams['nationalID'];
+    $perOrganization = $qParams['per_organization'];
     $startDate = $qParams['startDate'];
     $endDate = $qParams['endDate'];
     $limit = $qParams['limit'];
@@ -29,7 +32,7 @@ $app->get('/requests', function (Request $request, Response $response) {
     try {
 
         // default query
-        $reqSql = "SELECT Request.*, Person.nationalID, Person.per_mobile, Person.per_organization, Person.per_email, Person.per_user_level_REF FROM Request INNER JOIN Person ON Request.requestor_per_ID=Person.per_ID WHERE true";
+        $reqSql = "SELECT Request.*, Person.nationalID, Person.per_fullname, Person.per_mobile, Person.per_organization, Person.per_email, Person.per_user_level_REF FROM Request INNER JOIN Person ON Request.requestor_per_ID=Person.per_ID WHERE true";
 
         if(isset($reqType)) {
             $reqSql .= " AND Request.req_type_REF='$reqType'";
@@ -43,7 +46,15 @@ $app->get('/requests', function (Request $request, Response $response) {
         if(isset($endDate)) {
             $reqSql .= " AND Request.req_made_date <= '$endDate'";
         }
-
+        if(isset($reqArea)) {
+            $reqSql .= " AND Request.req_area='$reqArea'";
+        }
+        if(isset($perNationalID)) {
+            $reqSql .= " AND Person.nationalID='$perNationalID'";
+        }
+        if(isset($perOrganization)) {
+            $reqSql .= " AND Person.per_organization='$perOrganization'";
+        }
 
         if(isset($orderBy)) {
             $reqSql .= " ORDER BY Request.$orderBy " . strtoupper($orderingDirection);
