@@ -12,8 +12,17 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 
     return $response->withJson(array('name' => $name));
 });
-
+$app->post('/login', function (Request $request, Response $response) {
+    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
+    $db = getConnection();
+    if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
+        return $response->withJson(array('error' => 'Authorization invalid'), 403);
+    } else {
+        return $response->withJson(array('status' => 'success'));
+    }
+});
 $app->get('/statistics', function (Request $request, Response $response) {
+    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     $qParams = $request->getQueryParams();
 
     $db = getConnection();
@@ -32,11 +41,10 @@ $app->get('/statistics', function (Request $request, Response $response) {
                 'detail' => $pdoe->getMessage()), 500);
         }
     }
-
-    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     return $response->withJson($reqs);
 });
 $app->post('/requests/status', function(Request $request, Response $response) {
+    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     date_default_timezone_set('Asia/Colombo');
     $db = getConnection();
     $body = $request->getParsedBody();
@@ -50,19 +58,18 @@ $app->post('/requests/status', function(Request $request, Response $response) {
 
     try {
         $updateSql = "UPDATE Request SET reqstatus_REF=:reqstatus_REF WHERE req_ID=:req_ID";
-        if($reqLog->req_status_REF == 'closed') {
+        if($reqLog->req_status_REF == 'fulfilled') {
             $updateSql = "UPDATE Request SET reqstatus_REF=:reqstatus_REF,req_close_date=:req_close_date WHERE req_ID=:req_ID";
         }
         $updateStmt = $db->prepare($updateSql);
         $updateStmt->bindParam("reqstatus_REF", $reqLog->req_status_REF);
-        if($reqLog->req_status_REF == 'closed') {
+        if($reqLog->req_status_REF == 'fulfilled') {
             $updateStmt->bindParam("req_close_date", $reqLog->req_status_change_date);
         }
         $updateStmt->bindParam("req_ID", $req_ID);
 
         $updateStmt->execute();
         $reqLog->req_log_ID = insertObject($db,'Request_Status_Log' ,$reqLog);
-        $response = $response->withHeader("Access-Control-Allow-Origin", "*");
         return $response->withJson($reqLog);
     } catch(PDOException $pdoe) {
         return $response->withJson(array('error' => 'Error updating request status',
@@ -72,10 +79,11 @@ $app->post('/requests/status', function(Request $request, Response $response) {
 
 });
 $app->get('/requests', function (Request $request, Response $response) {
+    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     $db = getConnection();
-    /*if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
+    if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
         return $response->withJson(array('error' => 'Authorization invalid'), 403);
-    }*/
+    }
     $qParams = $request->getQueryParams();
     $reqType = $qParams['req_type_REF'];
     $reqStatus = $qParams['reqstatus_REF'];
@@ -130,7 +138,6 @@ $app->get('/requests', function (Request $request, Response $response) {
         $reqStmt->execute();
         $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
         //$reqs['sql'] = $reqSql;
-        $response = $response->withHeader("Access-Control-Allow-Origin", "*");
         return $response->withJson($reqs);
     } catch(PDOException $pdoe) {
         return $response->withJson(array('error' => 'Error fetching request data',
@@ -140,6 +147,7 @@ $app->get('/requests', function (Request $request, Response $response) {
 
 });
 $app->post('/requests', function (Request $request, Response $response) {
+    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     date_default_timezone_set('Asia/Colombo');
     $body = $request->getParsedBody();
     $db = getConnection();
@@ -200,7 +208,6 @@ $app->post('/requests', function (Request $request, Response $response) {
         return $response->withJson(array('error' => 'New request could not be added',
             'detail' => $pdoe->getMessage()), 500);
     }
-    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     return $response->withJson($resourceRequest, 200);
 });
 
