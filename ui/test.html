@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="styles/main.css" rel="stylesheet" type="text/css"/>        
+        <link href="bootstrap-3.3.6/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+        <link href="bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>        
+        <link href="styles/request-help.css" rel="stylesheet" type="text/css"/>
+
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+        <script src="scripts/external/jquery-2.2.4.min.js" type="text/javascript"></script>
+        <script src="bootstrap-3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="scripts/external/angular.min.js" type="text/javascript"></script>
+        <script src="scripts/external/angular-ui-router.min.js" type="text/javascript"></script>
+        <script src="partials/dashboard/DashboardController.js" type="text/javascript"></script>
+        <script src="partials/login-form/LoginController.js" type="text/javascript"></script>
+        <script src="scripts/external/ngAutocomplete.js" type="text/javascript"></script>
+        <script src="scripts/controllers/TestController.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            /**
+             * You must include the dependency on 'ngMaterial' 
+             */
+            var app = angular.module('177App', ['ui.router', 'ngAutocomplete'])
+                    .controller('TestController', TestController)
+                    .controller('DashboardController', DashboardController)
+                    .controller('LoginController', LoginController);
+
+            app.config(function ($stateProvider, $urlRouterProvider) {
+
+                $urlRouterProvider.otherwise("/login");
+
+                $stateProvider
+                        .state('languageSelector', {
+                            url: "/login",
+                            templateUrl: "partials/login-form/login-form.html"
+                        });
+
+                $stateProvider
+                        .state('requestForm', {
+                            url: "/dashboard",
+                            templateUrl: "partials/dashboard/dashboard.html"
+                        });
+            });
+
+        </script> 
+
+        <title>DMC - Request Help</title>
+    </head>
+    <body ng-app="177App" ng-controller="TestController">
+        <div class="container">
+            <div ui-view></div>
+        </div>
+
+    </body>
+</html>

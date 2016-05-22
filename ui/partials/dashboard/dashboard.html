@@ -1,0 +1,38 @@
+<div ng-controller="DashboardController">
+            <div class="jumbotron" style="margin-top: 15px;">
+                <div class="row">
+                    <img src="images/logos.png" width="50" class="col-lg-2" />
+                    <div class="col-lg-10">
+                        <h3>DMC - Control Centre</h3>
+                        <h4>Dashboard</h4>
+                    </div>
+                </div>                
+            </div>
+            <div ui-view></div>
+            <div class="panel request-list" infinite-scroll="loadNextPage()" infinite-scroll-distance="3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Request Type</th>
+                            <th>Opened Today</th>
+                            <th>Closed Today</th>
+                            <th>Rejected Today</th>
+                            <th>Total Opened</th>                            
+                            <th>Total Closed</th>
+                            <th>Total Rejected</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="request in requests">
+                            <td>{{request.request_type}}</td>
+                            <td>{{request.opened_today}}</td>
+                            <td>{{request.closed_today}}</td>
+                            <td>{{request.rejected_today}}</td>     
+                            <td>{{request.total_opened}}</td>
+                            <td>{{request.total_closed}}</td>
+                            <td>{{request.total_rejected}}</td>   
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+</div>
