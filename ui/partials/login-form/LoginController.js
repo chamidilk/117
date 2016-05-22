@@ -19,23 +19,24 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
 
 		var encodedString = btoa(str);
 		/*$rootScope.encodedCredentials = encodedString;*/
-		$cookies.put('encodedCredentials', encodedString)
-		$state.go('dashboard');
+		/*$cookies.put('encodedCredentials', encodedString)
+		$state.go('dashboard');*/
 
-		/*$http({
+		$http({
             method: 'POST',
-            url: 'http://one-one-seven.herokuapp.com/public/login',
+            url: 'http://220.247.222.29/one-one-seven/public/login',
             headers: {
     					'Authorization': 'Basic '+ encodedString
     				}
         }).then(function successCallback(response) {
             console.log(response);
+            $cookies.put('encodedCredentials', encodedString)
             $state.go('dashboard');
         }, function errorCallback(response) {
             console.error(response);
-        });*/
+        });
 
-		console.log('logginng in' + $rootScope.encodedCredentials)
+		console.log('logginng in' + $cookies.get('encodedCredentials'))
 
 
 	}
