@@ -7,11 +7,16 @@ require '../vendor/autoload.php';
 $app = new \Slim\App;
 
 // Middleware
-$app->add(function ($request, $response, $next) {
+/*$app->add(function ($request, $response, $next) {
     if($request->isOptions()) {
-        return $response->withHeader("Access-Control-Allow-Origin", "*");
+        $newResponse = $response->withHeader("Access-Control-Allow-Origin", "*");
+        return $newResponse->withHeader("Access-Control-Allow-Headers", "Authorization");
+    } else {
+        $next($request, $response);
+        $newResponse = $response->withHeader("Access-Control-Allow-Origin", "*");
+        return $newResponse;
     }
-});
+});*/
 
 
 $app->get('/hello/{name}', function (Request $request, Response $response) {
@@ -22,7 +27,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
     return $response->withJson(array('name' => $name));
 });
 $app->post('/login', function (Request $request, Response $response) {
-    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
+
     $db = getConnection();
     if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
         return $response->withJson(array('error' => 'Authorization invalid'), 403);
@@ -31,7 +36,6 @@ $app->post('/login', function (Request $request, Response $response) {
     }
 });
 $app->get('/statistics', function (Request $request, Response $response) {
-    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     $qParams = $request->getQueryParams();
 
     $db = getConnection();
@@ -53,7 +57,6 @@ $app->get('/statistics', function (Request $request, Response $response) {
     return $response->withJson($reqs);
 });
 $app->post('/requests/status', function(Request $request, Response $response) {
-    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     date_default_timezone_set('Asia/Colombo');
     $db = getConnection();
     $body = $request->getParsedBody();
@@ -62,17 +65,17 @@ $app->post('/requests/status', function(Request $request, Response $response) {
     $reqLog->req_ID = $body['req_ID'];
     $reqLog->req_status_per_ID = 2;
     $reqLog->req_status_comment = $body['req_status_comment'];
-    $reqLog->req_status_change_date = date('Y-m-d');
+    $reqLog->req_status_change_date = date('Y-m-d H:i:s');
     $reqLog->req_status_REF = strtolower($body['reqstatus_REF']);
 
     try {
         $updateSql = "UPDATE Request SET reqstatus_REF=:reqstatus_REF WHERE req_ID=:req_ID";
-        if($reqLog->req_status_REF == 'fulfilled') {
+        if($reqLog->req_status_REF == 'closed') {
             $updateSql = "UPDATE Request SET reqstatus_REF=:reqstatus_REF,req_close_date=:req_close_date WHERE req_ID=:req_ID";
         }
         $updateStmt = $db->prepare($updateSql);
         $updateStmt->bindParam("reqstatus_REF", $reqLog->req_status_REF);
-        if($reqLog->req_status_REF == 'fulfilled') {
+        if($reqLog->req_status_REF == 'closed') {
             $updateStmt->bindParam("req_close_date", $reqLog->req_status_change_date);
         }
         $updateStmt->bindParam("req_ID", $req_ID);
@@ -88,7 +91,6 @@ $app->post('/requests/status', function(Request $request, Response $response) {
 
 });
 $app->get('/requests', function (Request $request, Response $response) {
-    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     $db = getConnection();
     /*if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
         return $response->withJson(array('error' => 'Authorization invalid'), 403);
@@ -156,7 +158,6 @@ $app->get('/requests', function (Request $request, Response $response) {
 
 });
 $app->post('/requests', function (Request $request, Response $response) {
-    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     date_default_timezone_set('Asia/Colombo');
     $body = $request->getParsedBody();
     $db = getConnection();
@@ -192,7 +193,7 @@ $app->post('/requests', function (Request $request, Response $response) {
 
     $resourceRequest = new stdClass();
     $resourceRequest->req_ID = null;
-    $resourceRequest->req_made_date = date('Y-m-d');
+    $resourceRequest->req_made_date = date('Y-m-d H:i:s');
     $resourceRequest->req_close_date = '0000-00-00';
     $resourceRequest->req_type_REF = strtoupper($body['req_type_REF']);
     $resourceRequest->requestor_per_ID = $person->per_ID;
@@ -257,7 +258,7 @@ function checkAuth($authHeader, $db) {
         return false;
     }
     $authBase64 = explode(' ', $authHeader);
-    $authParts = explode(':', base64_decode($authBase64));
+    $authParts = explode(':', base64_decode($authBase64[1]));
     $username = $authParts[0];
     $password = md5($authParts[1]);
     $authSql = "SELECT * FROM Person WHERE per_email=:email AND per_password=:password";
