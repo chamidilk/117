@@ -71,6 +71,7 @@ $app->get('/requests', function (Request $request, Response $response) {
         $reqStmt->execute();
         $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
         //$reqs['sql'] = $reqSql;
+        $response = $response->withHeader("Access-Control-Allow-Origin", "*");
         return $response->withJson($reqs);
     } catch(PDOException $pdoe) {
         return $response->withJson(array('error' => 'Error fetching request data',
@@ -138,7 +139,7 @@ $app->post('/requests', function (Request $request, Response $response) {
         return $response->withJson(array('error' => 'New request could not be added',
             'detail' => $pdoe->getMessage()), 500);
     }
-
+    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     return $response->withJson($resourceRequest, 200);
 });
 
