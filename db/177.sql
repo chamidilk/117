@@ -49,8 +49,8 @@ CREATE TABLE `Person` (
 --
 -- Requst details table
 -- req_ID - primary key for requests
--- req_made_date - date request was made
--- req_close_date - date request was closed
+-- req_made_date - date request was made  'YYYY-MM-DD HH:MM:SS'
+-- req_close_date - date request was closed 'YYYY-MM-DD HH:MM:SS'
 -- req_type_REF - the request type that can be
 --      - evac
 --      - shelter
@@ -79,8 +79,8 @@ DROP TABLE IF EXISTS `Request`;
 
 CREATE TABLE `Request` (
   `req_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `req_made_date` date NOT NULL,
-  `req_close_date` date NOT NULL,
+  `req_made_date` datetime NOT NULL,
+  `req_close_date` datetime NOT NULL,
   `req_type_REF` varchar(20) NOT NULL,
   `requestor_per_ID` int(11) NOT NULL,
   `donor_per_ID` int(11) NOT NULL,
