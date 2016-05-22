@@ -7,12 +7,17 @@
             <label for="requestType">Request Type:</label>
             <select ng-model="model.req_type_REF" class="form-control" id="requestType" >
                 <option value="">- Select -</option>
-                <option value="FOOD">Food</option>
-                <option value="SHELTER">Shelter</option>
-                <option value="MEDICAL">Medical</option>
                 <option value="EVACUATION">Evacuation</option>
+                <option value="SEARCH_RESCUE">Search and Rescue</option>
                 <option value="MISSING_PERSON">Locate Missing Person</option>
-                <option value="DAMAGE">Damage</option>
+                <option value="FOOD">Food</option>
+                <option value="WATER">Water &amp; Sanitation</option>
+                <option value="SHELTER">Shelter Needed</option>
+                <option value="BEDDING">Bedding Only</option>
+                <option value="CLOTHES">Clothes Needed</option>
+                <option value="MEDICAL">Medical Support</option>
+                <option value="SCHOOL">School Items</option>
+                <option value="DAMAGE">Repair to Damages</option>
                 <option value="OTHER">Other</option>
             </select>
         </div>
@@ -32,7 +37,7 @@
             <input type="number" ng-model="model.req_for_adults" class="form-control" id="adultHeadCount" ng-blur="calculateTotalHeadCount()" />
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
-            <label for="adultHeadCount">Kids (6-18) | ළමුන් </label>
+            <label for="adultHeadCount">Kids (6-18) | ළමුන් (අවු. 6-18)</label>
             <input type="number" ng-model="model.req_for_kids" class="form-control" id="kidsHeadCount" ng-blur="calculateTotalHeadCount()"/>
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
