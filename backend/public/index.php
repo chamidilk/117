@@ -12,13 +12,76 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 
     return $response->withJson(array('name' => $name));
 });
+
+$app->get('/statistics', function (Request $request, Response $response) {
+    $qParams = $request->getQueryParams();
+
+    $db = getConnection();
+    if($qParams['type']=='requests') {
+        try {
+            $reqSql = "SELECT * FROM Request";
+            $reqStmt = $db->prepare($reqSql);
+            $reqStmt->execute();
+            $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
+            $evac_opened_today = 0;
+            $evac_closed_today = 0;
+            $evac_rejected_today = 0;
+
+        } catch(PDOException $pdoe) {
+            return $response->withJson(array('error' => 'Error fetching request data',
+                'detail' => $pdoe->getMessage()), 500);
+        }
+    }
+
+    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
+    return $response->withJson($reqs);
+});
+$app->post('/requests/status', function(Request $request, Response $response) {
+    date_default_timezone_set('Asia/Colombo');
+    $db = getConnection();
+    $body = $request->getParsedBody();
+    $reqLog = new stdClass();
+    $reqLog->req_log_ID = null;
+    $reqLog->req_ID = $body['req_ID'];
+    $reqLog->req_status_per_ID = 2;
+    $reqLog->req_status_comment = $body['req_status_comment'];
+    $reqLog->req_status_change_date = date('Y-m-d');
+    $reqLog->req_status_REF = strtolower($body['reqstatus_REF']);
+
+    try {
+        $updateSql = "UPDATE Request SET reqstatus_REF=:reqstatus_REF WHERE req_ID=:req_ID";
+        if($reqLog->req_status_REF == 'closed') {
+            $updateSql = "UPDATE Request SET reqstatus_REF=:reqstatus_REF,req_close_date=:req_close_date WHERE req_ID=:req_ID";
+        }
+        $updateStmt = $db->prepare($updateSql);
+        $updateStmt->bindParam("reqstatus_REF", $reqLog->req_status_REF);
+        if($reqLog->req_status_REF == 'closed') {
+            $updateStmt->bindParam("req_close_date", $reqLog->req_status_change_date);
+        }
+        $updateStmt->bindParam("req_ID", $req_ID);
+
+        $updateStmt->execute();
+        $reqLog->req_log_ID = insertObject($db,'Request_Status_Log' ,$reqLog);
+        $response = $response->withHeader("Access-Control-Allow-Origin", "*");
+        return $response->withJson($reqLog);
+    } catch(PDOException $pdoe) {
+        return $response->withJson(array('error' => 'Error updating request status',
+            'detail' => $pdoe->getMessage(),
+            'query' => $updateStmt->queryString), 500);
+    }
+
+});
 $app->get('/requests', function (Request $request, Response $response) {
     $db = getConnection();
     /*if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
         return $response->withJson(array('error' => 'Authorization invalid'), 403);
     }*/
     $qParams = $request->getQueryParams();
-    $reqType = $qParams['reqType'];
+    $reqType = $qParams['req_type_REF'];
+    $reqStatus = $qParams['reqstatus_REF'];
+    $reqArea = $qParams['req_area'];
+    $perNationalID = $qParams['nationalID'];
+    $perOrganization = $qParams['per_organization'];
     $startDate = $qParams['startDate'];
     $endDate = $qParams['endDate'];
     $limit = $qParams['limit'];
@@ -28,22 +91,28 @@ $app->get('/requests', function (Request $request, Response $response) {
     try {
 
         // default query
-        $reqSql = "SELECT Request.*, Person.* FROM Request INNER JOIN Person ON Request.requestor_per_ID=Person.per_ID";
+        $reqSql = "SELECT Request.*, Person.nationalID, Person.per_fullname, Person.per_mobile, Person.per_organization, Person.per_email, Person.per_user_level_REF, Person.per_comments FROM Request INNER JOIN Person ON Request.requestor_per_ID=Person.per_ID WHERE true";
 
-        if(isset($reqType) && isset($startDate) && isset($endDate)) {
-            $reqSql .= " WHERE Request.req_type_REF='$reqType' AND Request.req_made_date >= '$startDate' AND Request.req_made_date <= '$endDate'";
-        } else if (isset($reqType) && isset($startDate)) {
-            $reqSql .= " WHERE Request.req_type_REF='$reqType' AND Request.req_made_date >= '$startDate'";
-        } else if (isset($reqType) && isset($endDate)) {
-            $reqSql .= " WHERE Request.req_type_REF='$reqType' AND Request.req_made_date <= '$endDate'";
-        } else if(isset($startDate) && isset($endDate)) {
-            $reqSql .= " WHERE Request.req_made_date >= '$startDate' AND Request.req_made_date <= '$endDate'";
-        } else if(isset($reqType)) {
-            $reqSql .= " WHERE Request.req_type_REF='$reqType'";
-        } else if(isset($startDate)) {
-            $reqSql .= " WHERE Request.req_made_date >= '$startDate'";
-        } else if(isset($endDate)) {
-            $reqSql .= " WHERE Request.req_made_date <= '$endDate'";
+        if(isset($reqType)) {
+            $reqSql .= " AND Request.req_type_REF='$reqType'";
+        }
+        if(isset($reqStatus)) {
+            $reqSql .= " AND Request.reqstatus_REF='$reqStatus'";
+        }
+        if(isset($startDate)) {
+            $reqSql .= " AND Request.req_made_date >= '$startDate'";
+        }
+        if(isset($endDate)) {
+            $reqSql .= " AND Request.req_made_date <= '$endDate'";
+        }
+        if(isset($reqArea)) {
+            $reqSql .= " AND Request.req_area='$reqArea'";
+        }
+        if(isset($perNationalID)) {
+            $reqSql .= " AND Person.nationalID='$perNationalID'";
+        }
+        if(isset($perOrganization)) {
+            $reqSql .= " AND Person.per_organization='$perOrganization'";
         }
 
         if(isset($orderBy)) {
@@ -60,6 +129,8 @@ $app->get('/requests', function (Request $request, Response $response) {
         $reqStmt = $db->prepare($reqSql);
         $reqStmt->execute();
         $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
+        //$reqs['sql'] = $reqSql;
+        $response = $response->withHeader("Access-Control-Allow-Origin", "*");
         return $response->withJson($reqs);
     } catch(PDOException $pdoe) {
         return $response->withJson(array('error' => 'Error fetching request data',
@@ -80,7 +151,7 @@ $app->post('/requests', function (Request $request, Response $response) {
     $person->per_phone_other = isset($body['per_phone_other']) ? $body['per_phone_other'] : "";
     $person->per_organization = isset($body['per_organization']) ? $body['per_organization'] : "";
     $person->per_email = $body['per_email'];
-    $person->per_comments = "";
+    $person->per_comments = isset($body['per_comments']) ? $body['per_comments'] : "";
     $person->per_status_REF = 0;
 
     $personSql = "SELECT * FROM Person WHERE nationalID=:nationalID";
@@ -115,6 +186,8 @@ $app->post('/requests', function (Request $request, Response $response) {
     $resourceRequest->req_GPS = isset($body['req_GPS']) ? $body['req_GPS'] : "";
     $resourceRequest->req_for_people = isset($body['req_for_people']) ? $body['req_for_people'] : 0;
     $resourceRequest->req_for_adults = isset($body['req_for_adults']) ? $body['req_for_adults'] : 0;
+    $resourceRequest->req_for_male_adults = isset($body['req_for_male_adults']) ? $body['req_for_male_adults'] : 0;
+    $resourceRequest->req_for_female_adults = isset($body['req_for_female_adults']) ? $body['req_for_female_adults'] : 0;
     $resourceRequest->req_for_kids = isset($body['req_for_kids']) ? $body['req_for_kids'] : 0;
     $resourceRequest->req_for_infants = isset($body['req_for_infants']) ? $body['req_for_infants'] : 0;
     $resourceRequest->req_summary = isset($body['req_summary']) ? $body['req_summary'] : "";
@@ -127,7 +200,7 @@ $app->post('/requests', function (Request $request, Response $response) {
         return $response->withJson(array('error' => 'New request could not be added',
             'detail' => $pdoe->getMessage()), 500);
     }
-
+    $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     return $response->withJson($resourceRequest, 200);
 });
 
