@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="styles/main.css" rel="stylesheet" type="text/css"/>        
+        <link href="bootstrap-3.3.6/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+        <link href="bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="styles/dmc.css" rel="stylesheet" type="text/css"/>
+
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+        <script src="scripts/external/jquery-2.2.4.min.js" type="text/javascript"></script>
+        <script src="bootstrap-3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="scripts/external/angular.min.js" type="text/javascript"></script>
+        <script src="scripts/external/angular-ui-router.min.js" type="text/javascript"></script>
+        <script src="scripts/external/ng-infinite-scroll.min.js" type="text/javascript"></script>
+        <script src="scripts/external/ngAutocomplete.js" type="text/javascript"></script>
+        <script src="scripts/controllers/DMCController.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            /**
+             * You must include the dependency on 'ngMaterial' 
+             */
+            var app = angular.module('177App', ['ui.router', 'ngAutocomplete', 'infinite-scroll'])
+                    .controller('DMCController', DMCController);
+        </script>       
+        <title>DMC - Control Centre</title>
+    </head>
+    <body ng-app="177App" ng-controller="DMCController">
+        <div class="container">
+            <div class="jumbotron">
+                <div class="row">
+                    <img src="images/sl-government-logo.svg" width="50" class="col-lg-1" />
+                    <div class="col-lg-10">
+                        <h3>DMC - Control Centre</h3>
+                        <h4>Supply and Donation Managment</h4>
+                    </div>
+                </div>                
+            </div>
+            <div class="well">
+                <div class="row">
+                    <div class="form-group col-xs-12 col-lg-3">
+                        <label for="requestType">Supply Type:</label>
+                        <select ng-model="filters.req_type_REF" class="form-control" id="requestType" ng-change="loadRequests()">
+                            <option value="">- Select -</option>
+                            <option value="FOOD">Food</option>
+                            <option value="WATER">Water &amp; Sanitation</option>
+                            <option value="SHELTER">Shelter &amp; Accomodation</option>
+                            <option value="MEDICAL">Medical</option>
+                            <option value="CLOTHES">Clothes</option>
+                            <option value="BEDDING">Bedding</option>
+                            <option value="UTENSILS">Utensils</option>
+                            <option value="RESCUE">Rescue Equipment</option>
+                            <option value="VOLUNTEERS">Volunteers</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-12 col-lg-3">
+                        <label for="area">Area:</label>
+                        <input type="text" ng-model="filters.req_area" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions"/>
+                    </div>  
+                    <div class="form-group col-xs-12 col-lg-3">
+                        <label for="area">Organization:</label>
+                        <input type="text" ng-model="filters.per_organization" class="form-control" id="organization" />
+                    </div>  
+                    <div class="form-group col-xs-12 col-lg-3">
+                        <label for="nic">NIC:</label>
+                        <input type="text" ng-model="filters.nationalID" class="form-control" id="nic" />
+                    </div>
+                    <div class="form-group col-xs-12 col-lg-3">
+                        <label for="status">Status:</label>
+                        <select type="text" ng-model="filters.reqstatus_REF" class="form-control" id="status" ng-change="loadRequests()">
+                            <option value="OFFERED">Open</option>
+                            <option value="VERIFIED">Verified</option>
+                            <option value="RECEIVED">Deferred</option>
+                            <option value="DUPLICATE">Duplicate</option>
+                            <option value="REJECTED">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-2 col-lg-2">
+                        <label>&nbsp;</label>
+                        <button class="btn btn-warning" ng-click="loadRequests()">{{loading? 'Loading...': 'Filter'}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel request-list" infinite-scroll="loadNextPage()" infinite-scroll-distance="3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Supply Type</th>
+                            <th>Donar Area</th>
+                            <th>Donar Organization</th>                            
+                            <th>Offer Summary</th>
+                            <th>NIC of Donar</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="request in requests">
+                            <td>{{request.req_made_date}}</td>
+                            <td>{{request.req_type_REF}}</td>
+                            <td>{{request.req_area | limitTo:15}}</td>
+                            <td>{{request.per_organization}}</td>                            
+                            <td title="{{request.req_details}}">{{request.req_details | limitTo:20}}</td>
+                            <td title="{{request.per_fullname}} ({{request.per_mobile}})">{{request.nationalID}}</td>
+                            <td title="Org:{{request.req_status_org}} Per:{{request.req_status_person}} {{request.status_mobile}}">{{request.reqstatus_REF}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+                    /**
+                     * You must include the dependency on 'ngMaterial' 
+                     */
+                    var app = angular.module('177App', ['ui.router', 'ngAutocomplete'])
+                            .controller('DMCController', DMCController);
+
+        </script>
+    </body>
+</html>
