@@ -134,6 +134,7 @@ DROP TABLE IF EXISTS `Request_Status_Log`;
 
 CREATE TABLE `Request_Status_Log` (
   `req_log_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `req_ID` int(11) NOT NULL,
   `req_status_change_date` date NOT NULL,
   `req_status_REF` varchar(20) NOT NULL,
   `req_status_per_ID` int(11) NOT NULL,
