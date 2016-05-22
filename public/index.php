@@ -81,9 +81,9 @@ $app->post('/requests/status', function(Request $request, Response $response) {
 $app->get('/requests', function (Request $request, Response $response) {
     $response = $response->withHeader("Access-Control-Allow-Origin", "*");
     $db = getConnection();
-    if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
+    /*if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
         return $response->withJson(array('error' => 'Authorization invalid'), 403);
-    }
+    }*/
     $qParams = $request->getQueryParams();
     $reqType = $qParams['req_type_REF'];
     $reqStatus = $qParams['reqstatus_REF'];
