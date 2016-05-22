@@ -84,30 +84,26 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>Date</th>
                             <th>Type</th>
                             <th>Area</th>
                             <th>People</th>
-                            <th>Adults</th>
-                            <th>Kids</th>
-                            <th>Infants</th>                            
                             <th>Organization</th>                            
-                            <th>Comments</th>
+                            <th>Request Summary</th>
                             <th>NIC of Requestor</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="request in requests">
+                            <td>{{request.req_made_date}}</td>
                             <td>{{request.req_type_REF}}</td>
-                            <td>{{request.req_area}}</td>
-                            <td>{{request.req_for_people}}</td>
-                            <td>{{request.req_for_adults}}</td>
-                            <td>{{request.req_for_kids}}</td>
-                            <td>{{request.req_for_infants}}</td>
+                            <td>{{request.req_area | limitTo:15}}</td>
+                            <td title="Adults:{{request.req_for_adults}} Kids:{{request.req_for_kids}} Infants:{{request.req_for_infants}}">{{request.req_for_people}}</td>
                             <td>{{request.per_organization}}</td>                            
-                            <td title="{{request.per_comments}}">{{request.per_comments| limitTo:10}}</td>
+                            <td title="{{request.req_details}}">{{request.req_details | limitTo:20}}</td>
                             <td title="{{request.per_fullname}} ({{request.per_mobile}})">{{request.nationalID}}</td>
-                            <td>{{request.reqstatus_REF}}</td>
+                            <td title="Org:{{request.req_status_org}} Per:{{request.req_status_person}} {{request.status_mobile}}">{{request.reqstatus_REF}}</td>
                         </tr>
                     </tbody>
                 </table>
