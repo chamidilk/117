@@ -102,7 +102,12 @@ CREATE TABLE `Request` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Request_Area`
+-- The request area table provides the Gov divisional gierarchy for managing the requst
+-- reqloc_ID - PCODE or similar unique code
+-- reqloc_province - province name
+-- reqloc_district - district name
+-- reqloc_GN - Grama Nilidari name
+-- reqloc_GN_details - GN point person and contact details
 --
 
 DROP TABLE IF EXISTS `Request_Area`;
@@ -119,8 +124,11 @@ CREATE TABLE `Request_Area` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Request_Status_Log`
---
+-- This table captures the log of status changes to a request
+-- req_log_ID - unique id of this log entry
+-- req_status_change_date - date this change was made
+-- req_status_per_ID - login of person who made this status change
+-- req_status_comment - comment for status change including final fillfilment details when closed 
 -- req_status_REF - status of Request
 --      - open
 --      - partial
