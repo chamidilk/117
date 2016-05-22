@@ -3,11 +3,12 @@
  */
 
 
-function DMCController($scope, $http) {
+function DMCController($scope, $http, $uibModal) {
 
     $scope.requests = [];
     $scope.offset = 1;
     $scope.limit = 20;
+
 
     $scope.filters = {
         reqstatus_REF: 'OPEN'
@@ -24,6 +25,43 @@ function DMCController($scope, $http) {
 
     $scope.loadNextPage = function () {
 //        alert(1);
+    };
+
+
+  $scope.currentStatus = 'None';
+  $scope.currentID = 0;
+
+  $scope.animationsEnabled = true;
+
+  $scope.toggleAnimation = function () {
+    $scope.animationsEnabled = !$scope.animationsEnabled;
+  };
+
+    $scope.changeStatus = function (id, currentStatus) {
+
+        $scope.currentStatus = currentStatus;
+        $scope.currentID = id;
+        size = 'lg';
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalController',
+          size: size,
+          resolve: {
+            currentStatus: function () {
+              return $scope.currentStatus;
+            },
+            req_ID: function () {
+              return $scope.currentID;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (status) {
+          console.log('done')
+        }, function () {
+          console.log('error');
+        });
     };
 
     $scope.loadRequests = function () {
