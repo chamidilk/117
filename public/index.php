@@ -5,6 +5,15 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require '../vendor/autoload.php';
 
 $app = new \Slim\App;
+
+// Middleware
+$app->add(function ($request, $response, $next) {
+    if($request->isOptions()) {
+        return $response->withHeader("Access-Control-Allow-Origin", "*");
+    }
+});
+
+
 $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
 
