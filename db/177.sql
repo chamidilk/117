@@ -89,6 +89,8 @@ CREATE TABLE `Request` (
   `req_GPS` varchar(100) NOT NULL,
   `req_for_people` int(11) NOT NULL,
   `req_for_adults` int(11) NOT NULL,
+  `req_for_male_adults` int(11) NOT NULL,
+  `req_for_female_adults` int(11) NOT NULL,
   `req_for_kids` int(11) NOT NULL,
   `req_for_infants` int(11) NOT NULL,
   `req_summary` varchar(20) NOT NULL,
