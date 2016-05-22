@@ -1,7 +1,7 @@
 <div class="well" ng-controller="RequestFormController">
     <div class="row">
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>Request Details</h3>
+            <h3>Request Details | අවශ්‍යතා ඉල්ලීම  </h3>
         </div>
         <div class="form-group col-xs-12 col-lg-6">
             <label for="requestType">Request Type:</label>
@@ -11,68 +11,68 @@
                 <option value="SHELTER">Shelter</option>
                 <option value="MEDICAL">Medical</option>
                 <option value="EVACUATION">Evacuation</option>
-                <option value="MISSING_PERSON">Missing Person</option>
+                <option value="MISSING_PERSON">Locate Missing Person</option>
                 <option value="DAMAGE">Damage</option>
                 <option value="OTHER">Other</option>
             </select>
         </div>
        <div class="form-group col-xs-12 col-lg-12">
-            <label for="comment">Details of Request:</label>
+            <label for="comment">Details of Request | අවශ්‍යතා පිළිබඳ දත්ත:</label>
             <textarea type="text" ng-model="model.per_comments" class="form-control" id="comment"></textarea>
         </div>
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>Size of Group Request is for</h3>
+            <h3>Size of Group Request is for | අවශ්‍යතා සහිත පුද්ගලයින් සංඛ්‍යාව</h3>
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="totalHeadCount">Total Headcount:</label>
+            <label for="totalHeadCount">Total Headcount | මුළු සංඛ්‍යාව:</label>
             <input type="number" ng-model="model.req_for_people" class="form-control" id="totalHeadCount" />
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
-            <label for="adultHeadCount">Adults:</label>
+            <label for="adultHeadCount">Adults | වැඩිහිටියන් සංඛ්‍යාව:</label>
             <input type="number" ng-model="model.req_for_adults" class="form-control" id="adultHeadCount" ng-blur="calculateTotalHeadCount()" />
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
-            <label for="adultHeadCount">Kids:</label>
+            <label for="adultHeadCount">Kids (6-18) | ළමුන් </label>
             <input type="number" ng-model="model.req_for_kids" class="form-control" id="kidsHeadCount" ng-blur="calculateTotalHeadCount()"/>
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
-            <label for="infantHeadCount">Infants:</label>
+            <label for="infantHeadCount">Infants | ළමුන් (අවු. 5ට අඩු)</label>
             <input type="number" ng-model="model.req_for_infants" class="form-control" id="infantHeadCount" ng-blur="calculateTotalHeadCount()"/>
         </div>
  
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>Location of Group Request is for</h3>
+            <h3>Location of Group Request is for | අවශ්‍යතාව පිහිටි ස්ථානය</h3>
         </div>
        <div class="form-group col-xs-12 col-lg-6">
-            <label for="area">Area:</label>
+            <label for="area">Area | ප්‍රදේශය:</label>
             <input type="text" ng-model="model.req_area" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions" />
         </div>
         <div class="form-group col-xs-12 col-lg-12">
-            <label for="address">Address:</label>
+            <label for="address">Address | ලිපිනය:</label>
             <input type="text" ng-model="model.req_address" class="form-control" id="address" />
         </div>
   
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>Contact Details of Person Making Request</h3>
+            <h3>Contact Details of Person Making Request | අවශ්‍යතා ඇති පුද්ගලයින් ආශ්‍රීත තොරතුරු</h3>
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="name">Full Name:</label>
+            <label for="name">Full Name | නම:</label>
             <input type="text" ng-model="model.per_fullname" class="form-control" id="name" />
         </div>
         <div class="form-group col-xs-12 col-lg-3">
-            <label for="name">NIC:</label>
+            <label for="name">NIC | ජාතික අංකය:</label>
             <input type="text" ng-model="model.nationalID" class="form-control" id="nic" />
         </div>
         <div class="form-group col-xs-12 col-lg-3">
-            <label for="mobileNumber">Mobile Number:</label>
+            <label for="mobileNumber">Mobile Number | දුරකථන අංකය:</label>
             <input type="text" ng-model="model.per_mobile" class="form-control" id="mobileNumber" />
         </div>        
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="email">Email:</label>
+            <label for="email">Email | විද්‍යුත් ලිපිනය:</label>
             <input type="text" ng-model="model.per_email" class="form-control" id="email" />
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="organization">Organization:</label>
+            <label for="organization">Organization | ආයතනය:</label>
             <input type="text" ng-model="model.per_organization" class="form-control" id="organization" />
         </div>
      <div class="form-group col-xs-12">
