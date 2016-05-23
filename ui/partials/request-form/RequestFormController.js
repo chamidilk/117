@@ -11,19 +11,19 @@ function RequestFormController($scope, $http) {
     };
 
     $scope.categories = [
-        {"name" : "Evacuation", "id": "1", "value" : "EVAC"},
-        {"name" : "Locate Missing Person", "id": "2", "value" : "MISSING"},
-        {"name" : "Medical", "id": "3", "value" : "MEDICAL"},
-        {"name" : "Bedding Items", "id": "4", "value" : "BEDDING"},
-        {"name" : "Clothes", "id": "5", "value" : "CLOTHES"},
-        {"name" : "Food Items", "id": "6", "value" : "FOOD"},
-        {"name" : "Non-food Items", "id": "7", "value" : "EVAC"},
-        {"name" : "School Items", "id": "8", "value" : "SCHOOL"},
-        {"name" : "Search & Rescue Items", "id": "9", "value" : "SEARCH"},
-        {"name" : "Shelter", "id": "10", "value" : "SHELTER"},
-        {"name" : "Water & Sanitation", "id": "11", "value" : "WATER"},
-        {"name" : "Repair to Damages", "id": "12", "value" : "DAMAGE"},
-        {"name" : "Other", "id": "12", "value" : "OTHER"}];
+        {"name" : "Evacuation | ඉවත් වීම", "id": "1", "value" : "EVAC"},
+        {"name" : "Locate Missing Person | අතුරුදහන් වුවන් සෙවීම", "id": "2", "value" : "MISSING"},
+        {"name" : "Medical | වෛද්‍යාදාර", "id": "3", "value" : "MEDICAL"},
+        {"name" : "Bedding Items | නිදන ද්‍රව්‍ය", "id": "4", "value" : "BEDDING"},
+        {"name" : "Clothes | ඇඳුම්", "id": "5", "value" : "CLOTHES"},
+        {"name" : "Food Items| ආහාර", "id": "6", "value" : "FOOD"},
+        {"name" : "Non-food Items | ආහාර නොවන ද්‍රව්‍ය", "id": "7", "value" : "EVAC"},
+        {"name" : "School Items | පාසල් උපකරණ", "id": "8", "value" : "SCHOOL"},
+        {"name" : "Search & Rescue Items | සෙව්ම් හා මුදවාගැනිම්", "id": "9", "value" : "SEARCH"},
+        {"name" : "Shelter | තාවකාලින නිවාස", "id": "10", "value" : "SHELTER"},
+        {"name" : "Water & Sanitation | ජලය හා සනීපාරක්ෂාව", "id": "11", "value" : "WATER"},
+        {"name" : "Repair to Damages | ප්‍රතිසංස්කරණය", "id": "12", "value" : "DAMAGE"},
+        {"name" : "Other | වෙනත්", "id": "12", "value" : "OTHER"}];
 
 
     var mandatoryFields = {
