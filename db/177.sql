@@ -83,6 +83,7 @@ CREATE TABLE `Request` (
   `req_close_date` datetime NOT NULL,
   `req_type_REF` varchar(20) NOT NULL,
   `requestor_per_ID` int(11) NOT NULL,
+  `req_contact_other` varchar(400) NOT NULL,
   `donor_per_ID` int(11) NOT NULL,
   `reqarea_ID` int(11) NOT NULL,
   `req_address` varchar(200) NOT NULL,
