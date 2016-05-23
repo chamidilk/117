@@ -70,13 +70,14 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
 
         modalInstance.result.then(function (status) {
           console.log('done')
-          $scope.loadRequests();
         }, function () {
           console.log('error');
         });
     };
 
     $scope.loadRequests = function () {
+
+        console.log('loading...');
 
         var encodedCredentials = $cookies.get('encodedCredentials');
 
