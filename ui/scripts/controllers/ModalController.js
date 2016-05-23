@@ -26,7 +26,7 @@ function ModalController($scope, $http, $uibModalInstance, currentStatus, req_ID
     console.log(request);
     $http({
             method: 'POST',
-            url: 'http://220.247.222.29/one-one-seven/public/requests/status',
+            url: 'http://117.dmc.gov.lk/one-one-seven/public/requests/status',
             data: request
         }).then(function successCallback(response) {
             console.log(response);
