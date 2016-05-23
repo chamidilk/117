@@ -53,9 +53,9 @@ function DashboardController($scope, $http) {
         $scope.requests=[
         {"request_type": "Evacuation","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
          {"request_type": "Locate Missing Person","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Medical","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
+            {"request_type": "Medical","total_open": 270, "opened_today": 260, "closed_today": 290, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
             {"request_type": "Bedding Items","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Clothes","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
+            {"request_type": "Clothes","total_open": 270, "opened_today": 260, "closed_today": 270, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
             {"request_type": "Food Items","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
             {"request_type": "Non-Food Items","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
             {"request_type": "School Items","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},

@@ -27,65 +27,6 @@
     </head>
     <body ng-app="177App" ng-controller="DashboardController" style="background-color:#242424; color:#FFF">
         <div class="container col-md-12">
-<!--
-            <div class="jumbotron col-md-12">
-                <div class="row">
-                    <img src="images/logos.png" width="50" class="col-lg-2" />
-                    <div class="col-lg-10">
-                        <h3>DMC - Control Centre</h3>
-                        <h4>Dashboard</h4>
-                    </div>
-                </div>                
-            </div>
--->
-            <!--
-            <div class="well">
-                <div class="row">
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="requestType">Supply Type:</label>
-                        <select ng-model="filters.req_type_REF" class="form-control" id="requestType" ng-change="loadRequests()">
-                            <option value="">- Select -</option>
-                            <option value="FOOD">Food</option>
-                            <option value="WATER">Water &amp; Sanitation</option>
-                            <option value="SHELTER">Shelter &amp; Accomodation</option>
-                            <option value="MEDICAL">Medical</option>
-                            <option value="CLOTHES">Clothes</option>
-                            <option value="BEDDING">Bedding</option>
-                            <option value="UTENSILS">Utensils</option>
-                            <option value="RESCUE">Rescue Equipment</option>
-                            <option value="VOLUNTEERS">Volunteers</option>
-                            <option value="OTHER">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="area">Area:</label>
-                        <input type="text" ng-model="filters.req_area" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions"/>
-                    </div>  
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="area">Organization:</label>
-                        <input type="text" ng-model="filters.per_organization" class="form-control" id="organization" />
-                    </div>  
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="nic">NIC:</label>
-                        <input type="text" ng-model="filters.nationalID" class="form-control" id="nic" />
-                    </div>
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="status">Status:</label>
-                        <select type="text" ng-model="filters.reqstatus_REF" class="form-control" id="status" ng-change="loadRequests()">
-                            <option value="OFFERED">Open</option>
-                            <option value="VERIFIED">Verified</option>
-                            <option value="RECEIVED">Deferred</option>
-                            <option value="DUPLICATE">Duplicate</option>
-                            <option value="REJECTED">Rejected</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-xs-2 col-lg-2">
-                        <label>&nbsp;</label>
-                        <button class="btn btn-warning" ng-click="loadRequests()">{{loading? 'Loading...': 'Filter'}}</button>
-                    </div>
-                </div>
-            </div>-->
-
             <div class="" infinite-scroll="loadNextPage()" infinite-scroll-distance="3">
                 <table class="table col-md-12">
                     <thead>
@@ -105,7 +46,7 @@
                     </thead>
                     <tbody style="font-size:35px">
                         <tr ng-repeat="request in requests">
-                            <td class="text-center"><img src="images/green-arrow.png" width="35px"></td>
+                            <td class="text-center"><img src="images/green-arrow.png" ng-show= "{{request.opened_today <= request.closed_today}}" width="35px"><img src="images/red-arrow.png" ng-show= "{{request.opened_today > request.closed_today}}" width="35px"></td>
                             <td>{{request.request_type}}</td>
                             <td class="text-center">{{request.total_open}}</td>
                             <td class="text-center">{{request.opened_today}}</td>
