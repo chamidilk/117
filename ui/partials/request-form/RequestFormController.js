@@ -11,18 +11,19 @@ function RequestFormController($scope, $http) {
     };
 
     $scope.categories = [
-        {"name" : "Evacuation", "id": "1"},
-        {"name" : "Locate Missing Person", "id": "2"},
-        {"name" : "Medical", "id": "3"},
-        {"name" : "Bedding Items", "id": "4"},
-        {"name" : "Clothes", "id": "5"},
-        {"name" : "Food Items", "id": "6"},
-        {"name" : "Non-food Items", "id": "7"},
-        {"name" : "School Items", "id": "8"},
-        {"name" : "Search & Rescue Items", "id": "9"},
-        {"name" : "Shelter", "id": "10"},
-        {"name" : "Water & Sanitation", "id": "11"},
-        {"name" : "Repair to Damages", "id": "12"}];
+        {"name" : "Evacuation", "id": "1", "value" : "EVAC"},
+        {"name" : "Locate Missing Person", "id": "2", "value" : "MISSING"},
+        {"name" : "Medical", "id": "3", "value" : "MEDICAL"},
+        {"name" : "Bedding Items", "id": "4", "value" : "BEDDING"},
+        {"name" : "Clothes", "id": "5", "value" : "CLOTHES"},
+        {"name" : "Food Items", "id": "6", "value" : "FOOD"},
+        {"name" : "Non-food Items", "id": "7", "value" : "EVAC"},
+        {"name" : "School Items", "id": "8", "value" : "SCHOOL"},
+        {"name" : "Search & Rescue Items", "id": "9", "value" : "SEARCH"},
+        {"name" : "Shelter", "id": "10", "value" : "SHELTER"},
+        {"name" : "Water & Sanitation", "id": "11", "value" : "WATER"},
+        {"name" : "Repair to Damages", "id": "12", "value" : "DAMAGE"},
+        {"name" : "Other", "id": "12", "value" : "OTHER"}];
 
 
     var mandatoryFields = {
@@ -49,16 +50,18 @@ function RequestFormController($scope, $http) {
         var msg = "Please provide following information.\n";
 
         var invalid = false;
-
+        $scope.model.req_type_REF = $scope.selection.values;
         //change here
-        $scope.model.req_type_REF = "check123"
 
 
         angular.forEach(mandatoryFields, function (fieldName, key) {
             var value = $scope.model[key];
-            if (!value || !value.trim()) {
-                msg += ' - ' + fieldName + '\n';
-                invalid = true;
+            if (key !== 'req_type_REF') {
+
+                if (!value || !value.trim()) {
+                    msg += ' - ' + fieldName + '\n';
+                    invalid = true;
+                }
             }
         });
 
@@ -71,7 +74,7 @@ function RequestFormController($scope, $http) {
     };
 
     $scope.submitRequest = function () {
-        console.log($scope.selection);
+        console.log($scope.selection.values);
         var invalid = $scope.isInvalidForm();
         if (invalid) {
             alert(invalid);
