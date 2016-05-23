@@ -47,7 +47,8 @@
     </head>
     <body ng-app="177App" ng-controller="RequestHelpController">
         <div class="container">
-
+<<<<<<< HEAD
+            
             <div class="jumbotron" style="padding-top: 0px; padding-bottom: 0px;">
                 <div class="row">
                     <!-- <img src="images/sl-government-logo.svg" width="100" class="col-lg-2 pull-left" /> -->
@@ -60,17 +61,25 @@
                         <a>eoc@dmc.gov.lk</a> -->
                     </div>
                     <!-- <img src="images/dmc-logo.png" width="100" class="col-lg-2 pull-right" /> -->
-                </div>
+                </div>                
             </div>
+=======
+
+            
+>>>>>>> e3cae2d95b84910af44f61ea2ad89bb354bcac70
 
             
 
             <div class="jumbotron" style="padding-top: 18px; padding-bottom: 18px;">
                 <div class="row">
                     <!-- <img src="images/sl-government-logo.svg" width="100" class="col-lg-2 pull-left" /> -->
+<<<<<<< HEAD
+                    <img src="images/logos.png" class="col-md-4" width="100%"/>
+                    <div class="col-md-8 row pull-right" style="padding-left:40px">
+=======
                     <img src="images/logos.png" height="100%" class="col-md-4 row pull-left"/>
                     <div class="col-md-8 row pull-right">
-
+>>>>>>> e3cae2d95b84910af44f61ea2ad89bb354bcac70
                         <h1>&#9742;&nbsp;117</h1>
                         <h2>Disaster Management Center</h2>
                         <h4>Ministry of Disaster Management</h4>

@@ -19,10 +19,10 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
 
 		var encodedString = btoa(str);
 		/*$rootScope.encodedCredentials = encodedString;*/
-		/*$cookies.put('encodedCredentials', encodedString)
-		$state.go('dashboard');*/
+		$cookies.put('encodedCredentials', encodedString)
+		$state.go('control-center');
 
-		$http({
+/*		$http({
             method: 'POST',
             url: 'http://220.247.222.29/one-one-seven/public/login',
             headers: {
@@ -31,10 +31,10 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
         }).then(function successCallback(response) {
             console.log(response);
             $cookies.put('encodedCredentials', encodedString)
-            $state.go('dashboard');
+            $state.go('control-center');
         }, function errorCallback(response) {
             console.error(response);
-        });
+        });*/
 
 		console.log('logginng in' + $cookies.get('encodedCredentials'))
 

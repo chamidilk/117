@@ -2,11 +2,13 @@
  * 
  */
 
-function DashboardController($scope, $rootScope,$http, $state, $cookies) {
+function ControlCenterController($scope, $http, $uibModal, $cookies) {
+
 
     $scope.requests = [];
     $scope.offset = 1;
     $scope.limit = 20;
+
 
     $scope.filters = {
         reqstatus_REF: 'OPEN'
@@ -21,12 +23,6 @@ function DashboardController($scope, $rootScope,$http, $state, $cookies) {
 
         var encodedCredentials = $cookies.get('encodedCredentials');
 
-        //console.log('cookies' + $cookies.get('encodedCredentials'))
-        /*if($rootScope.encodedCredentials == "" || $rootScope.encodedCredentials == undefined || $rootScope.encodedCredentials == null){
-            $state.go('login');
-
-        }*/
-
         if(encodedCredentials == "" || encodedCredentials == undefined || encodedCredentials == null){
             $state.go('login');
 
@@ -39,11 +35,46 @@ function DashboardController($scope, $rootScope,$http, $state, $cookies) {
 //        alert(1);
     };
 
+
+  $scope.currentStatus = 'None';
+  $scope.currentID = 0;
+
+  $scope.animationsEnabled = true;
+
+  $scope.toggleAnimation = function () {
+    $scope.animationsEnabled = !$scope.animationsEnabled;
+  };
+
+    $scope.changeStatus = function (id, currentStatus) {
+
+        $scope.currentStatus = currentStatus;
+        $scope.currentID = id;
+        size = 'lg';
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalController',
+          size: size,
+          resolve: {
+            currentStatus: function () {
+              return $scope.currentStatus;
+            },
+            req_ID: function () {
+              return $scope.currentID;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (status) {
+          console.log('done')
+        }, function () {
+          console.log('error');
+        });
+    };
+
     $scope.loadRequests = function () {
         $scope.loading = true;
         $scope.requests = [];
-
-
 //        $scope.filters.limit = $scope.limit;
 //        $scope.filters.offset = $scope.offset;
 
@@ -53,24 +84,11 @@ function DashboardController($scope, $rootScope,$http, $state, $cookies) {
             if (!value || !value.trim()) {
                 delete $scope.filters[key];
             }
-        });/*
+        });
 
-                                    <td>{{request.request_type}}</td>
-                            <td>{{request.opened_today}}</td>
-                            <td>{{request.closed_today}}</td>
-                            <td>{{request.rejected today}}</td>     
-                            <td>{{request.total_opened}}</td>
-                            <td>{{request.total_closed}}</td>
-                            <td>{{request.total_rejected}}</td>   */
-
-        $scope.requests=[
-        {"request_type": "Evacuation","opened_today": 270, "closed_today": 260, "rejected_today": 240, "total_opened": 240, "total_closed": 240, "total_rejected": 34324 },
-         {"request_type": "Shelter","opened_today": 270, "closed_today": 260, "rejected_today": 240, "total_opened": 240, "total_closed": 240, "total_rejected": 34324 }
-        ]
-
-/*        $http({
+        $http({
             method: 'GET',
-            url: 'http://one-one-seven.herokuapp.com/public/requests',
+            url: 'http://220.247.222.29/one-one-seven/public/requests',
             params: $scope.filters
         }).then(function successCallback(response) {
             $scope.loading = false;
@@ -80,7 +98,7 @@ function DashboardController($scope, $rootScope,$http, $state, $cookies) {
         }, function errorCallback(response) {
             $scope.loading = false;
             console.error(response);
-        });*/
+        });
     };
 
     $scope.init();
