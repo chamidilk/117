@@ -25,6 +25,7 @@
         </script>       
         <title>DMC - Control Centre</title>
     </head>
+<<<<<<< HEAD
     <body ng-app="177App" ng-controller="DashboardController">
         <div class="container">
             
@@ -80,26 +81,39 @@
 
             <div class="panel request-list" infinite-scroll="loadNextPage()" infinite-scroll-distance="3">
                 <table class="table">
+
+    <body ng-app="177App" ng-controller="DashboardController" style="background-color:#242424; color:#FFF">
+        <div class="container col-md-12">
+            <div class="" infinite-scroll="loadNextPage()" infinite-scroll-distance="3">
+                <table class="table col-md-12">
+
                     <thead>
-                        <tr>
-                            <th>Request Type</th>
-                            <th>Opened Today</th>
-                            <th>Closed Today</th>
-                            <th>Rejected Today</th>
-                            <th>Total Opened</th>                            
-                            <th>Total Closed</th>
-                            <th>Total Rejected</th>
+                        <tr> 
+                            <th class="col-md-1"></th>
+                            <th class="col-md-3"><h3>Type of <br /> Request</h3></th>
+                            <th class="col-md-1 text-center"><h3>Total <br />Open</h3></th>
+                            <th class="col-md-1 text-center"><h3>Open <br />Today</h3></th>
+                            <th class="col-md-1 text-center"><h3>Closed <br />Today</h3></th>
+                            <th class="col-md-1 text-center"><h3>People Supported Today</h3></th>
+                            <th class="col-md-1 text-center"><h3>Average Resolution <br />Time</h3></th>
+                            <th class="col-md-1 text-center"><h3>Current Resolution <br />Time</h3></th>
+                            <th class="col-md-1 text-center"><h3>Closed %</h3></th>
+                            <th class="col-md-1 text-center"><h3># days to close</h3></th>
+                            
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="font-size:35px">
                         <tr ng-repeat="request in requests">
+                            <td class="text-center"><img src="images/green-arrow.png" ng-show= "{{request.opened_today <= request.closed_today}}" width="35px"><img src="images/red-arrow.png" ng-show= "{{request.opened_today > request.closed_today}}" width="35px"></td>
                             <td>{{request.request_type}}</td>
-                            <td>{{request.opened_today}}</td>
-                            <td>{{request.closed_today}}</td>
-                            <td>{{request.rejected_today}}</td>     
-                            <td>{{request.total_opened}}</td>
-                            <td>{{request.total_closed}}</td>
-                            <td>{{request.total_rejected}}</td>   
+                            <td class="text-center">{{request.total_open}}</td>
+                            <td class="text-center">{{request.opened_today}}</td>
+                            <td class="text-center">{{request.closed_today}}</td>     
+                            <td class="text-center">{{request.people_supported}}</td>     
+                            <td class="text-center" style="color:#72CF59">{{request.avg_res}}</td>
+                            <td class="text-center" style="color:#FB3B49">{{request.current_res}}</td>
+                            <td class="text-center" style="color:#FB3B49">{{request.closed_per}}</td>   
+                            <td class="text-center" style="color:#72CF59">{{request.closed_days}}</td>   
                         </tr>
                     </tbody>
                 </table>
