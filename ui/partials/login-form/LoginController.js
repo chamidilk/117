@@ -24,7 +24,7 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
 
 		/*$http({
             method: 'POST',
-            url: 'http://220.247.222.29/one-one-seven/public/login',
+            url: 'http://117.dmc.gov.lk/one-one-seven/public/login',
             headers: {
     					'Authorization': 'Basic '+ encodedString
     				}
