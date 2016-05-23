@@ -29,7 +29,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
 $app->post('/login', function (Request $request, Response $response) {
 
     $db = getConnection();
-    if(!checkAuth($request->getHeaderLine('Authorization'), $db)) {
+    if(checkAuth($request->getHeaderLine('X-Authorization'), $db) != true) {
         return $response->withJson(array('error' => 'Authorization invalid'), 403);
     } else {
         return $response->withJson(array('status' => 'success'));
@@ -169,6 +169,8 @@ $app->post('/requests', function (Request $request, Response $response) {
     $person->per_phone_other = isset($body['per_phone_other']) ? $body['per_phone_other'] : "";
     $person->per_organization = isset($body['per_organization']) ? $body['per_organization'] : "";
     $person->per_email = $body['per_email'];
+    $person->per_password = "";
+    $person->per_user_level_REF = 0;
     $person->per_comments = isset($body['per_comments']) ? $body['per_comments'] : "";
     $person->per_status_REF = 0;
 
@@ -190,34 +192,40 @@ $app->post('/requests', function (Request $request, Response $response) {
         $person->per_ID = $storedPerson[0]['per_ID'];
     }
 
+    // Handle request type
+    $reqTypes = $body['req_type_REF'];
+    foreach($reqTypes as $reqType => $val) {
+        if($val == true) {
+            $resourceRequest = new stdClass();
+            $resourceRequest->req_ID = null;
+            $resourceRequest->req_made_date = date('Y-m-d H:i:s');
+            $resourceRequest->req_close_date = '0000-00-00';
+            $resourceRequest->req_type_REF = strtoupper($reqType);
+            $resourceRequest->requestor_per_ID = $person->per_ID;
+            $resourceRequest->donor_per_ID = 0;
+            $resourceRequest->reqarea_ID = isset($body['reqarea_ID']) ? $body['reqarea_ID'] : 0;
+            $resourceRequest->req_area = $body['req_area'];
+            $resourceRequest->req_address = $body['req_address'];
+            $resourceRequest->req_GPS = isset($body['req_GPS']) ? $body['req_GPS'] : "";
+            $resourceRequest->req_for_people = isset($body['req_for_people']) ? $body['req_for_people'] : 0;
+            $resourceRequest->req_for_adults = isset($body['req_for_adults']) ? $body['req_for_adults'] : 0;
+            $resourceRequest->req_for_male_adults = isset($body['req_for_male_adults']) ? $body['req_for_male_adults'] : 0;
+            $resourceRequest->req_for_female_adults = isset($body['req_for_female_adults']) ? $body['req_for_female_adults'] : 0;
+            $resourceRequest->req_for_kids = isset($body['req_for_kids']) ? $body['req_for_kids'] : 0;
+            $resourceRequest->req_for_infants = isset($body['req_for_infants']) ? $body['req_for_infants'] : 0;
+            $resourceRequest->req_summary = isset($body['req_summary']) ? $body['req_summary'] : "";
+            $resourceRequest->req_details = isset($body['req_details']) ? $body['req_details'] : "";
+            $resourceRequest->reqstatus_REF = 'open';
 
-    $resourceRequest = new stdClass();
-    $resourceRequest->req_ID = null;
-    $resourceRequest->req_made_date = date('Y-m-d H:i:s');
-    $resourceRequest->req_close_date = '0000-00-00';
-    $resourceRequest->req_type_REF = strtoupper($body['req_type_REF']);
-    $resourceRequest->requestor_per_ID = $person->per_ID;
-    $resourceRequest->donor_per_ID = 0;
-    $resourceRequest->reqarea_ID = isset($body['reqarea_ID']) ? $body['reqarea_ID'] : 0;
-    $resourceRequest->req_area = $body['req_area'];
-    $resourceRequest->req_address = $body['req_address'];
-    $resourceRequest->req_GPS = isset($body['req_GPS']) ? $body['req_GPS'] : "";
-    $resourceRequest->req_for_people = isset($body['req_for_people']) ? $body['req_for_people'] : 0;
-    $resourceRequest->req_for_adults = isset($body['req_for_adults']) ? $body['req_for_adults'] : 0;
-    $resourceRequest->req_for_male_adults = isset($body['req_for_male_adults']) ? $body['req_for_male_adults'] : 0;
-    $resourceRequest->req_for_female_adults = isset($body['req_for_female_adults']) ? $body['req_for_female_adults'] : 0;
-    $resourceRequest->req_for_kids = isset($body['req_for_kids']) ? $body['req_for_kids'] : 0;
-    $resourceRequest->req_for_infants = isset($body['req_for_infants']) ? $body['req_for_infants'] : 0;
-    $resourceRequest->req_summary = isset($body['req_summary']) ? $body['req_summary'] : "";
-    $resourceRequest->req_details = isset($body['req_details']) ? $body['req_details'] : "";
-    $resourceRequest->reqstatus_REF = 'open';
-
-    try {
-        $resourceRequest->req_ID = insertObject($db,'Request', $resourceRequest);
-    } catch(PDOException $pdoe) {
-        return $response->withJson(array('error' => 'New request could not be added',
-            'detail' => $pdoe->getMessage()), 500);
+            try {
+                $resourceRequest->req_ID = insertObject($db,'Request', $resourceRequest);
+            } catch(PDOException $pdoe) {
+                return $response->withJson(array('error' => 'New request could not be added',
+                    'detail' => $pdoe->getMessage()), 500);
+            }
+        }
     }
+    $resourceRequest->req_type_REF = $reqTypes;
     return $response->withJson($resourceRequest, 200);
 });
 
@@ -225,10 +233,13 @@ $app->run();
 
 function getConnection() {
     // mysql://b8b5ceedc559fd:d58b20ed@us-cdbr-iron-east-04.cleardb.net/heroku_2ceffc3dc0a99d5?reconnect=true
+    /*
+     * user: root pw: Oru906aWa+Ta47
+     */
     try {
-        $db_username = "b8b5ceedc559fd";
-        $db_password = "d58b20ed";
-        $conn = new PDO('mysql:host=us-cdbr-iron-east-04.cleardb.net;dbname=heroku_2ceffc3dc0a99d5', $db_username, $db_password);
+        $db_username = "root";
+        $db_password = "Oru906aWa+Ta47";
+        $conn = new PDO('mysql:host=localhost;dbname=117Support', $db_username, $db_password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     } catch(PDOException $e) {
@@ -272,4 +283,11 @@ function checkAuth($authHeader, $db) {
     } else {
         return false;
     }
+}
+
+function write_log($db, $message) {
+    $log = new stdClass();
+    $log->id = null;
+    $log->message = $message;
+    insertObject($db,'logs',$log);
 }
