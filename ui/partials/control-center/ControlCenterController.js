@@ -2,12 +2,13 @@
  * 
  */
 
-function ControlCenterController($scope, $http, $uibModal, $cookies) {
+function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
 
 
     $scope.requests = [];
     $scope.offset = 1;
     $scope.limit = 20;
+    $scope.requestTypes = [ "EVAC", "MISSING" , "MEDICAL" , "BEDDING" , "CLOTHES" , "FOOD" , "NONFOOD" , "SCHOOL" , "SEARCH" , "SHELTER" , "WATER" , "DAMAGE" , "OTHER"];
 
 
     $scope.filters = {
@@ -67,6 +68,7 @@ function ControlCenterController($scope, $http, $uibModal, $cookies) {
 
         modalInstance.result.then(function (status) {
           console.log('done')
+          $scope.loadRequests();
         }, function () {
           console.log('error');
         });

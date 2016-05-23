@@ -19,10 +19,10 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
 
 		var encodedString = btoa(str);
 		/*$rootScope.encodedCredentials = encodedString;*/
-		$cookies.put('encodedCredentials', encodedString)
-		$state.go('control-center');
+		/*$cookies.put('encodedCredentials', encodedString)
+		$state.go('control-center');*/
 
-		/*$http({
+		$http({
             method: 'POST',
             url: 'http://117.dmc.gov.lk/one-one-seven/public/login',
             headers: {
@@ -34,7 +34,7 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
             $state.go('control-center');
         }, function errorCallback(response) {
             console.error(response);
-        });*/
+        });
 
 
 	}
