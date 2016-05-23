@@ -10,7 +10,7 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
     $scope.limit = 20;
     $scope.requestTypes = [ "EVAC", "MISSING" , "MEDICAL" , "BEDDING" , "CLOTHES" , "FOOD" , "NONFOOD" , "SCHOOL" , "SEARCH" , "SHELTER" , "WATER" , "DAMAGE" , "OTHER"];
     
-    $scope.statusTypes = [ "OPEN", "PARTIAL" , "FULFILLED" , "DEFERRED" , "DUPLICATE" , "REJECTED"];
+    $scope.statusTypes = [ "OPEN", "PARTIAL" , "CLOSED" , "DEFERRED" , "DUPLICATE" , "REJECTED"];
 
 
     $scope.filters = {
@@ -77,6 +77,9 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
     };
 
     $scope.loadRequests = function () {
+
+        var encodedCredentials = $cookies.get('encodedCredentials');
+
         $scope.loading = true;
         $scope.requests = [];
 //        $scope.filters.limit = $scope.limit;
@@ -93,6 +96,9 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
         $http({
             method: 'GET',
             url: 'http://117.dmc.gov.lk/one-one-seven/public/requests',
+            headers: {
+              'X-Authorization': 'Basic '+ encodedCredentials
+            },
             params: $scope.filters
         }).then(function successCallback(response) {
             $scope.loading = false;

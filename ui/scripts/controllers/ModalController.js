@@ -3,14 +3,22 @@
  */
 
 
-function ModalController($scope, $http, $uibModalInstance, currentStatus, req_ID) {
-  $scope.statuses = ["OPEN", "PARTIAL" , "FULFILLED" , "DEFERRED" , "DUPLICATE" , "REJECTED"];
+function ModalController($scope, $http, $uibModalInstance, $cookies, currentStatus, req_ID) {
+  $scope.statuses = ["OPEN", "PARTIAL" , "CLOSED" , "DEFERRED" , "DUPLICATE" , "REJECTED"];
 
   $scope.selectedStatus = currentStatus.toUpperCase();
 
   $scope.ok = function () {
 
-    console.log('current status' + currentStatus)
+    var encodedCredentials = $cookies.get('encodedCredentials');
+
+    /*console.log('ec' + encodedCredentials);
+    console.log('current status' + currentStatus);*/
+
+    if(encodedCredentials == "" || encodedCredentials == undefined || encodedCredentials == null){
+            $state.go('login');
+
+    }
 
     if($scope.selectedStatus == undefined){
         return;
@@ -30,6 +38,9 @@ function ModalController($scope, $http, $uibModalInstance, currentStatus, req_ID
     $http({
             method: 'POST',
             url: 'http://117.dmc.gov.lk/one-one-seven/public/requests/status',
+            headers: {
+              'X-Authorization': 'Basic '+ encodedCredentials
+            },
             data: request
         }).then(function successCallback(response) {
             console.log(response);
