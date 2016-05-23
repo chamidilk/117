@@ -67,6 +67,7 @@ function ControlCenterController($scope, $http, $uibModal, $cookies) {
 
         modalInstance.result.then(function (status) {
           console.log('done')
+          loadRequests();
         }, function () {
           console.log('error');
         });
