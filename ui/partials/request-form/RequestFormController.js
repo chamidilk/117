@@ -4,7 +4,26 @@
 
 function RequestFormController($scope, $http) {
 
+
     $scope.model = {};
+
+    $scope.selection = {
+    };
+
+    $scope.categories = [
+        {"name" : "Evacuation", "id": "1"},
+        {"name" : "Locate Missing Person", "id": "2"},
+        {"name" : "Medical", "id": "3"},
+        {"name" : "Bedding Items", "id": "4"},
+        {"name" : "Clothes", "id": "5"},
+        {"name" : "Food Items", "id": "6"},
+        {"name" : "Non-food Items", "id": "7"},
+        {"name" : "School Items", "id": "8"},
+        {"name" : "Search & Rescue Items", "id": "9"},
+        {"name" : "Shelter", "id": "10"},
+        {"name" : "Water & Sanitation", "id": "11"},
+        {"name" : "Repair to Damages", "id": "12"}];
+
 
     var mandatoryFields = {
         'per_fullname': 'Full Name',
@@ -31,6 +50,10 @@ function RequestFormController($scope, $http) {
 
         var invalid = false;
 
+        //change here
+        $scope.model.req_type_REF = "check123"
+
+
         angular.forEach(mandatoryFields, function (fieldName, key) {
             var value = $scope.model[key];
             if (!value || !value.trim()) {
@@ -48,12 +71,14 @@ function RequestFormController($scope, $http) {
     };
 
     $scope.submitRequest = function () {
+        console.log($scope.selection);
         var invalid = $scope.isInvalidForm();
         if (invalid) {
             alert(invalid);
         } else {
             $scope.busy = true;
             $scope.calculateTotalHeadCount();
+            console.log($scope.model)
             $http({
                 method: 'POST',
                 url: 'http://one-one-seven.herokuapp.com/public/requests',
