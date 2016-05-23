@@ -8,13 +8,13 @@
                  <div class="row">
                     <label for="title" class="col-sm-1">Comment:</label>
                     <div class="col-sm-10">
-                        <input type="text" data-ng-model="comment" class="form-control" id="title" placeholder="Type your comment here" required title="Enter your comment"  style="margin-bottom: 15px;"/>
+                        <textarea type="text" data-ng-model="comment" class="form-control" id="title" placeholder="Type your comment here" required title="Enter your comment"  style="margin-bottom: 15px;" rows="5"/>
                     </div>
                  </div>
 
                  <div class="row">
                     <label for="title" class="col-sm-1">Status:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10  col-lg-2 col-md-2">
                         <select class= "form-control" ng-model="selectedStatus"> 
                             <option ng-repeat="s in statuses">{{s}}</option>
                         </select>
