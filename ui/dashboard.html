@@ -25,106 +25,37 @@
         </script>       
         <title>DMC - Control Centre</title>
     </head>
-    <body ng-app="177App" ng-controller="DashboardController">
-        <div class="container">
-            
-            <div class="jumbotron" style="padding-top: 0px; padding-bottom: 0px;">
-                <div class="row">
-                    <!-- <img src="images/sl-government-logo.svg" width="100" class="col-lg-2 pull-left" /> -->
-                    <img src="images/uc.png" class="col-md-6 pull-left" width="100%" />
-                    <div class="col-md-6 pull-right" style="padding-left:70px; padding-bottom:20px; padding-top:20px">
-                        <!-- <h1>&#9742;&nbsp;117</h1> -->
-                        <h2>Web Page Under Construction!</h2>
-                        <h4>For Authorised Use Only.</h4>
-                       <!--  <h6>For safer communities and sustainable development in Sri Lanka</h6>
-                        <a>eoc@dmc.gov.lk</a> -->
-                    </div>
-                    <!-- <img src="images/dmc-logo.png" width="100" class="col-lg-2 pull-right" /> -->
-                </div>                
-            </div>
-
-            
-            <div class="jumbotron" style="padding-top: 18px; padding-bottom: 18px;">
-                <div class="row">
-                    <img src="images/logos.png" class="col-md-4" height="150px" style="align:center" />
-                    <!-- <img src="images/sl-government-logo.svg" width="50" class="col-lg-1" /> -->
-                    <div class="col-md-8" style="padding-left:40px">
-                        <h3>DMC - Control Centre</h3>
-                        <h4>Dashboard</h4>
-                    </div>
-                    <!-- <img src="images/dmc-logo.png" width="100" class="col-lg-1" /> -->
-                </div>                
-            </div>
-            <!--
-            <div class="well">
-                <div class="row">
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="requestType">Supply Type:</label>
-                        <select ng-model="filters.req_type_REF" class="form-control" id="requestType" ng-change="loadRequests()">
-                            <option value="">- Select -</option>
-                            <option value="FOOD">Food</option>
-                            <option value="WATER">Water &amp; Sanitation</option>
-                            <option value="SHELTER">Shelter &amp; Accomodation</option>
-                            <option value="MEDICAL">Medical</option>
-                            <option value="CLOTHES">Clothes</option>
-                            <option value="BEDDING">Bedding</option>
-                            <option value="UTENSILS">Utensils</option>
-                            <option value="RESCUE">Rescue Equipment</option>
-                            <option value="VOLUNTEERS">Volunteers</option>
-                            <option value="OTHER">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="area">Area:</label>
-                        <input type="text" ng-model="filters.req_area" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions"/>
-                    </div>  
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="area">Organization:</label>
-                        <input type="text" ng-model="filters.per_organization" class="form-control" id="organization" />
-                    </div>  
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="nic">NIC:</label>
-                        <input type="text" ng-model="filters.nationalID" class="form-control" id="nic" />
-                    </div>
-                    <div class="form-group col-xs-12 col-lg-3">
-                        <label for="status">Status:</label>
-                        <select type="text" ng-model="filters.reqstatus_REF" class="form-control" id="status" ng-change="loadRequests()">
-                            <option value="OFFERED">Open</option>
-                            <option value="VERIFIED">Verified</option>
-                            <option value="RECEIVED">Deferred</option>
-                            <option value="DUPLICATE">Duplicate</option>
-                            <option value="REJECTED">Rejected</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-xs-2 col-lg-2">
-                        <label>&nbsp;</label>
-                        <button class="btn btn-warning" ng-click="loadRequests()">{{loading? 'Loading...': 'Filter'}}</button>
-                    </div>
-                </div>
-            </div>-->
-
-            <div class="panel request-list" infinite-scroll="loadNextPage()" infinite-scroll-distance="3">
-                <table class="table">
+    <body ng-app="177App" ng-controller="DashboardController" style="background-color:#242424; color:#FFF">
+        <div class="container col-md-12">
+            <div class="" infinite-scroll="loadNextPage()" infinite-scroll-distance="3">
+                <table class="table col-md-12">
                     <thead>
-                        <tr>
-                            <th>Request Type</th>
-                            <th>Opened Today</th>
-                            <th>Closed Today</th>
-                            <th>Rejected Today</th>
-                            <th>Total Opened</th>                            
-                            <th>Total Closed</th>
-                            <th>Total Rejected</th>
+                        <tr> 
+                            <th class="col-md-1"></th>
+                            <th class="col-md-3"><h3>Type of <br /> Request</h3></th>
+                            <th class="col-md-1 text-center"><h3>Total <br />Open</h3></th>
+                            <th class="col-md-1 text-center"><h3>Open <br />Today</h3></th>
+                            <th class="col-md-1 text-center"><h3>Closed <br />Today</h3></th>
+                            <th class="col-md-1 text-center"><h3>People Supported Today</h3></th>
+                            <th class="col-md-1 text-center"><h3>Average Resolution <br />Time</h3></th>
+                            <th class="col-md-1 text-center"><h3>Current Resolution <br />Time</h3></th>
+                            <th class="col-md-1 text-center"><h3>Closed %</h3></th>
+                            <th class="col-md-1 text-center"><h3># days to close</h3></th>
+                            
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="font-size:35px">
                         <tr ng-repeat="request in requests">
+                            <td class="text-center"><img src="images/green-arrow.png" ng-show= "{{request.opened_today <= request.closed_today}}" width="35px"><img src="images/red-arrow.png" ng-show= "{{request.opened_today > request.closed_today}}" width="35px"></td>
                             <td>{{request.request_type}}</td>
-                            <td>{{request.opened_today}}</td>
-                            <td>{{request.closed_today}}</td>
-                            <td>{{request.rejected_today}}</td>     
-                            <td>{{request.total_opened}}</td>
-                            <td>{{request.total_closed}}</td>
-                            <td>{{request.total_rejected}}</td>   
+                            <td class="text-center">{{request.total_open}}</td>
+                            <td class="text-center">{{request.opened_today}}</td>
+                            <td class="text-center">{{request.closed_today}}</td>     
+                            <td class="text-center">{{request.people_supported}}</td>     
+                            <td class="text-center" style="color:#72CF59">{{request.avg_res}}</td>
+                            <td class="text-center" style="color:#FB3B49">{{request.current_res}}</td>
+                            <td class="text-center" style="color:#FB3B49">{{request.closed_per}}</td>   
+                            <td class="text-center" style="color:#72CF59">{{request.closed_days}}</td>   
                         </tr>
                     </tbody>
                 </table>

@@ -88,7 +88,7 @@ function ControlCenterController($scope, $http, $uibModal, $cookies) {
 
         $http({
             method: 'GET',
-            url: 'http://220.247.222.29/one-one-seven/public/requests',
+            url: 'http://117.dmc.gov.lk/one-one-seven/public/requests',
             params: $scope.filters
         }).then(function successCallback(response) {
             $scope.loading = false;

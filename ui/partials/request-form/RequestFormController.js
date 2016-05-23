@@ -84,7 +84,7 @@ function RequestFormController($scope, $http) {
             console.log($scope.model)
             $http({
                 method: 'POST',
-                url: 'http://220.247.222.29/one-one-seven/public/requests',
+                url: 'http://117.dmc.gov.lk/one-one-seven/public/requests',
                 data: $scope.model
             }).then(function successCallback(response) {
                 $scope.busy = false;
