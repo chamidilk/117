@@ -17,7 +17,7 @@ function RequestFormController($scope, $http) {
         {"name" : "Bedding Items | නිදන ද්‍රව්‍ය", "id": "4", "value" : "BEDDING"},
         {"name" : "Clothes | ඇඳුම්", "id": "5", "value" : "CLOTHES"},
         {"name" : "Food Items| ආහාර", "id": "6", "value" : "FOOD"},
-        {"name" : "Non-food Items | ආහාර නොවන ද්‍රව්‍ය", "id": "7", "value" : "EVAC"},
+        {"name" : "Non-food Items | ආහාර නොවන ද්‍රව්‍ය", "id": "7", "value" : "NONFOOD"},
         {"name" : "School Items | පාසල් උපකරණ", "id": "8", "value" : "SCHOOL"},
         {"name" : "Search & Rescue Items | සෙව්ම් හා මුදවාගැනිම්", "id": "9", "value" : "SEARCH"},
         {"name" : "Shelter | තාවකාලින නිවාස", "id": "10", "value" : "SHELTER"},
