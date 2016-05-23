@@ -19,13 +19,13 @@
         <script src="partials/control-center/ControlCenterController.js" type="text/javascript"></script>
         <script src="partials/login-form/LoginController.js" type="text/javascript"></script>
         <script src="scripts/external/ngAutocomplete.js" type="text/javascript"></script>
-        <script src="scripts/controllers/DMCControlCenterController.js" type="text/javascript"></script>
+        <script src="scripts/controllers/DMCController.js" type="text/javascript"></script>
         <script type="text/javascript">
             /**
              * You must include the dependency on 'ngMaterial' 
              */
             var app = angular.module('177App', ['ui.router', 'ngAutocomplete', 'ngCookies', 'ui.bootstrap'])
-                    .controller('DMCControlCenterController', DMCControlCenterController)
+                    .controller('DMCController', DMCController)
                     .controller('ControlCenterController', ControlCenterController)
                     .controller('LoginController', LoginController)
                     .controller('ModalController', ModalController);
@@ -58,7 +58,7 @@
 
         <title>DMC Control Center</title>
     </head>
-    <body ng-app="177App" ng-controller="DMCControlCenterController">
+    <body ng-app="177App" ng-controller="DMCController">
         <div class="container">
             <div ui-view></div>
         </div>

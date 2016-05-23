@@ -3,9 +3,9 @@
  */
 
 
-function DMCController($scope, $http, $uibModal) {
+function DMCController($scope, $http) {
 
-    $scope.requests = [];
+    /*$scope.requests = [];
     $scope.offset = 1;
     $scope.limit = 20;
 
@@ -93,6 +93,6 @@ function DMCController($scope, $http, $uibModal) {
         });
     };
 
-    $scope.init();
+    $scope.init();*/
 
 }

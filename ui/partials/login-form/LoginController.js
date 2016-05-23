@@ -15,7 +15,7 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
 
 		var str = $scope.username + ':' + $scope.password;
 
-		console.log(str)
+		//console.log(str)
 
 		var encodedString = btoa(str);
 		/*$rootScope.encodedCredentials = encodedString;*/
@@ -35,8 +35,6 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
         }, function errorCallback(response) {
             console.error(response);
         });*/
-
-		console.log('logginng in' + $cookies.get('encodedCredentials'))
 
 
 	}
