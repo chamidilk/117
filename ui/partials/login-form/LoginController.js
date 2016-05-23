@@ -26,7 +26,7 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
             method: 'POST',
             url: 'http://117.dmc.gov.lk/one-one-seven/public/login',
             headers: {
-    					'Authorization': 'Basic '+ encodedString
+    					'X-Authorization': 'Basic '+ encodedString
     				}
         }).then(function successCallback(response) {
             console.log(response);
