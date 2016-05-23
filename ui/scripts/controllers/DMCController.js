@@ -80,7 +80,7 @@ function DMCController($scope, $http, $uibModal) {
 
         $http({
             method: 'GET',
-            url: 'http://one-one-seven.herokuapp.com/public/requests',
+            url: 'http://220.247.222.29/one-one-seven/public/requests',
             params: $scope.filters
         }).then(function successCallback(response) {
             $scope.loading = false;
