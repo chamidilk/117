@@ -6,9 +6,11 @@
 function ModalController($scope, $http, $uibModalInstance, currentStatus, req_ID) {
   $scope.statuses = ["OPEN", "PARTIAL" , "FULFILLED" , "DEFERRED" , "DUPLICATE" , "REJECTED"];
 
-
+  $scope.selectedStatus = currentStatus.toUpperCase();
 
   $scope.ok = function () {
+
+    console.log('current status' + currentStatus)
 
     if($scope.selectedStatus == undefined){
         return;
@@ -23,7 +25,8 @@ function ModalController($scope, $http, $uibModalInstance, currentStatus, req_ID
         "req_status_comment": $scope.comment,
         "reqstatus_REF": $scope.selectedStatus
     }
-    console.log(request);
+
+    //console.log(request);
     $http({
             method: 'POST',
             url: 'http://117.dmc.gov.lk/one-one-seven/public/requests/status',
