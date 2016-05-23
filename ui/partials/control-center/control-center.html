@@ -61,14 +61,6 @@
                         <select ng-model="filters.req_type_REF" class="form-control" id="requestType" ng-change="loadRequests()">
                                 <option value="">- Select -</option>
                                 <option ng-repeat="r in requestTypes" value="{{r}}">{{r}}</option>
-<!--                             <option value="">- Select -</option>
-                            <option value="FOOD">Food</option>
-                            <option value="SHELTER">Shelter</option>
-                            <option value="MEDICAL">Medical</option>
-                            <option value="EVACUATION">Evacuation</option>
-                            <option value="MISSING_PERSON">Missing Person</option>
-                            <option value="DAMAGE">Damage</option>
-                            <option value="OTHER">Other</option> -->
                         </select>
                     </div>
                     <div class="form-group col-xs-12 col-lg-3">
@@ -86,12 +78,8 @@
                     <div class="form-group col-xs-12 col-lg-3">
                         <label for="status">Status:</label>
                         <select type="text" ng-model="filters.reqstatus_REF" class="form-control" id="status" ng-change="loadRequests()">
-                            <option value="OPEN">Open</option>
-                            <option value="PARTIAL">Partial</option>
-                            <option value="FULFILLED">Fulfilled</option>
-                            <option value="DEFERRED">Deferred</option>
-                            <option value="DUPLICATE">Duplicate</option>
-                            <option value="REJECTED">Rejected</option>
+                            <option value="">- Select -</option>
+                             <option ng-repeat="s in statusTypes" value="{{s}}">{{s}}</option>
                         </select>
                     </div>
                     <div class="form-group col-xs-2 col-lg-2">
