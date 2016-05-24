@@ -11,7 +11,7 @@ function RequestFormController($scope, $http) {
     };
 
     $scope.categories = [
-        {"name" : "Evacuation | ඉවත් කිරීම්", "id": "1", "value" : "EVAC"},
+        {"name" : "Evacuation | බේරාගැනීම", "id": "1", "value" : "EVAC"},
         {"name" : "Locate Missing Person | අතුරුදහන් වුවන් සෙවීම", "id": "2", "value" : "MISSING"},
         {"name" : "Medical | වෛද්‍යාදාර", "id": "3", "value" : "MEDICAL"},
         {"name" : "Bedding Items | නිදන ද්‍රව්‍ය", "id": "4", "value" : "BEDDING"},
@@ -20,7 +20,7 @@ function RequestFormController($scope, $http) {
         {"name" : "Non-food Items | ආහාර නොවන ද්‍රව්‍ය", "id": "7", "value" : "NONFOOD"},
         {"name" : "School Items | පාසල් උපකරණ", "id": "8", "value" : "SCHOOL"},
         {"name" : "Search & Rescue Items | සෙව්ම් හා මුදවාගැනිම්", "id": "9", "value" : "SEARCH"},
-        {"name" : "Shelter | තාවකාලින නිවාස", "id": "10", "value" : "SHELTER"},
+        {"name" : "Shelter | තාවකාලික නවාතැන්", "id": "10", "value" : "SHELTER"},
         {"name" : "Water | ජලය", "id": "11", "value" : "WATER"},
         {"name" : "Sanitation | සනීපාරක්ෂාව", "id": "12", "value" : "SANITATION"},
         {"name" : "Repair to Damages | ප්‍රතිසංස්කරණය", "id": "13", "value" : "DAMAGE"},
