@@ -41,7 +41,7 @@ function RequestFormController($scope, $http) {
         {"name" : "Air Raids", "id": "11", "value" : "AIR_RAIDS"},
         {"name" : "Civil Or Internal Strife", "id": "12", "value" : "CIVIL"},
         {"name" : "Chemical Accident", "id": "13", "value" : "CHEMICAL"},
-        {"name" : "Radiological Emmergency", "id": "14", "value" : "RADIOLOGICAL"},
+        {"name" : "Radiological Emergency", "id": "14", "value" : "RADIOLOGICAL"},
         {"name" : "Oil Spills Including Inland & Marine", "id": "15", "value" : "OIL_SPILLS"},
         {"name" : "Nuclear Disaster", "id": "16", "value" : "NUCLEAR"},
         {"name" : "Urban & Forest Fire", "id": "17", "value" : "FOREST_FIRE"},
