@@ -75,6 +75,31 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
         });
     };
 
+    $scope.openDetails = function(request){
+
+      console.log('right');
+      $scope.requestSelected = request;
+      size = 'lg';
+      var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'myDetailsModalContent.html',
+          controller: 'DetailsModalController',
+          size: size,
+          resolve: {
+            requestSelected: function () {
+              return $scope.requestSelected;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (status) {
+          console.log('done')
+        }, function () {
+          console.log('error');
+        });
+
+    }
+
     $scope.loadRequests = function () {
 
         console.log('loading...');
