@@ -33,17 +33,33 @@
         </div> 
 -->
         
+        
+        <div class="form-group col-xs-12 col-lg-12">
+            <div class="row">
+            <label for="requestType" style="padding-left: 15px;">Disaster Type:   <font color="red">*</font></label>
+        </div>
+            <span>
+                <div  class="col-md-6" style="padding-left: 0px;">
+                    <select ng-model="model.req_disaster_type">
+                        <option ng-repeat="disasterCategory in disasterCategories" value="{{disasterCategory.value}}" >
+                            {{disasterCategory.name}}
+                        </option>
+                    </select>
+                </div>
+            </span>
+        </div> 
+        
         <div class="form-group col-xs-12 col-lg-12">
             <label for="comment">Details of Request | අවශ්‍යතා පිළිබඳ විස්ත‍ර:   <font color="red">*</font></label>
             <textarea type="text" ng-model="model.req_details" class="form-control" id="comment" rows="10"></textarea>
         </div>
         <div class="form-group col-xs-12 col-lg-12">
             <div class="row">
-            <label for="requestType">Request Type:   <font color="red">*</font></label>
+            <label for="requestType" style="padding-left: 15px;">Request Type:   <font color="red">*</font></label>
         </div>
             <span ng-repeat="category in categories">
                 <div  class="col-md-6">
-                    <label class="checkbox" for="{{category.id}}">
+                    <label class="checkbox" for="{{category.id}}" style="padding-left: 10px;">
                         <input type="checkbox" ng-model="selection.values[category.value]" name="group" id="{{category.id}}" />
                             {{category.name}}
                     </label>
@@ -87,7 +103,7 @@
             <h3>Contact Details of Person Making Request | අයදුම්කරුවා පිලිබඳ විස්තර</h3>
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="name">Full Name of Person Making Request | අයදුම්කරුවාගේ නම:</label>
+            <label for="name">Full Name of Person Making Request | අයදුම්කරුවාගේ නම:   <font color="red">*</font></label>
             <input type="text" ng-model="model.per_fullname" class="form-control" id="name" />
         </div>
         <div class="form-group col-xs-12 col-lg-6">
