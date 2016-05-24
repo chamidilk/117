@@ -168,7 +168,7 @@ $app->post('/requests', function (Request $request, Response $response) {
     $db = getConnection();
     $person = new stdClass();
     $person->per_ID = null;
-    $person->nationalID = strtoupper($body['nationalID']);
+    $person->nationalID = isset($body['nationalID']) ? strtoupper($body['nationalID']) : "";
     $person->per_fullname = $body['per_fullname'];
     $person->per_mobile = $body['per_mobile'];
     $person->per_phone_other = isset($body['per_phone_other']) ? $body['per_phone_other'] : "";
