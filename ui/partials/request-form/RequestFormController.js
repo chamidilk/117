@@ -11,7 +11,7 @@ function RequestFormController($scope, $http) {
     };
 
     $scope.categories = [
-        {"name" : "Evacuation | ඉවත් වීම", "id": "1", "value" : "EVAC"},
+        {"name" : "Evacuation | ඉවත් කිරීම්", "id": "1", "value" : "EVAC"},
         {"name" : "Locate Missing Person | අතුරුදහන් වුවන් සෙවීම", "id": "2", "value" : "MISSING"},
         {"name" : "Medical | වෛද්‍යාදාර", "id": "3", "value" : "MEDICAL"},
         {"name" : "Bedding Items | නිදන ද්‍රව්‍ය", "id": "4", "value" : "BEDDING"},
