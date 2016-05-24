@@ -83,12 +83,12 @@
                         <input type="text" ng-model="filters.req_area" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions"/>
                     </div>  
                     <div class="form-group col-xs-12 col-lg-2">
-                        <label for="area">Org:</label>
-                        <input type="text" ng-model="filters.per_organization" class="form-control" id="organization" />
+                        <label for="name">Name</label>
+                        <input type="text" ng-model="filters.per_fullname" class="form-control" id="name" />
                     </div>  
                     <div class="form-group col-xs-12 col-lg-2">
-                        <label for="nic">NIC:</label>
-                        <input type="text" ng-model="filters.nationalID" class="form-control" id="nic" />
+                        <label for="mobileNumber">Mobile Number</label>
+                        <input type="text" ng-model="filters.per_mobile" class="form-control" id="mobileNumber" />
                     </div>
                     <div class="form-group col-xs-12 col-lg-2">
                         <label for="status">Status:</label>
@@ -111,9 +111,9 @@
                             <th>Type</th>
                             <th>Area</th>
                             <th>People</th>
-                            <th>Organization</th>                            
+                            <th>Name</th>                            
                             <th>Request Summary</th>
-                            <th>NIC of Requestor</th>
+                            <th>Mobile Number</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -124,9 +124,9 @@
                             <td>{{request.req_type_REF}}</td>
                             <td>{{request.req_area | limitTo:15}}</td>
                             <td title="Adults:{{request.req_for_adults}} Kids:{{request.req_for_kids}} Infants:{{request.req_for_infants}}">{{request.req_for_people}}</td>
-                            <td>{{request.per_organization}}</td>                            
-                            <td title="{{request.req_details}}">{{request.req_details | limitTo:20}}</td>
-                            <td title="{{request.per_fullname}} ({{request.per_mobile}})">{{request.nationalID}}</td>
+                            <td>{{request.per_fullname}}</td>                            
+                            <td title="{{request.req_details}}">{{request.req_details | limitTo:30}}</td>
+                            <td title="{{request.per_nationalID}}">{{request.per_mobile}}</td>
                             <td title="Org:{{request.req_status_org}} Per:{{request.req_status_person}} {{request.status_mobile}}">
                             {{request.reqstatus_REF}}</td>
                             <td><button class="btn btn-warning ng-binding" ng-click="changeStatus(request.req_ID,request.reqstatus_REF)">Change</button></td>
