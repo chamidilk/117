@@ -34,12 +34,12 @@
 -->
         
         <div class="form-group col-xs-12 col-lg-12">
-            <label for="comment">Details of Request | අවශ්‍යතා පිළිබඳ විස්ත‍ර:</label>
+            <label for="comment">Details of Request | අවශ්‍යතා පිළිබඳ විස්ත‍ර:   <font color="red">*</font></label>
             <textarea type="text" ng-model="model.req_details" class="form-control" id="comment" rows="10"></textarea>
         </div>
         <div class="form-group col-xs-12 col-lg-12">
             <div class="row">
-            <label for="requestType">Request Type:</label>
+            <label for="requestType">Request Type:   <font color="red">*</font></label>
         </div>
             <span ng-repeat="category in categories">
                 <div  class="col-md-6">
@@ -79,7 +79,7 @@
             <input type="text" ng-model="model.req_area" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions" />
         </div>
         <div class="form-group col-xs-12 col-lg-12">
-            <label for="address">Address | ලිපිනය:</label>
+            <label for="address">Address | ලිපිනය:   <font color="red">*</font></label>
             <input type="text" ng-model="model.req_address" class="form-control" id="address" />
         </div>
   
@@ -99,7 +99,7 @@
             <input type="text" ng-model="model.nationalID" class="form-control" id="nic" />
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="mobileNumber">Main Mobile Number | <br />දුරකථන අංකය:</label>
+            <label for="mobileNumber">Main Mobile Number | <br />දුරකථන අංකය:   <font color="red">*</font></label>
             <input type="text" ng-model="model.per_mobile" class="form-control" id="mobileNumber" />
         </div>        
         <div class="form-group col-xs-12 col-lg-12">

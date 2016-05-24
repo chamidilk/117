@@ -52,11 +52,10 @@ function RequestFormController($scope, $http) {
 
     var mandatoryFields = {
         'per_fullname': 'Full Name',
-        'nationalID': 'National Identity Card Number',
         'per_mobile': 'Mobile Number',
         'req_address': 'Address of the Incident',
-        'req_area': 'City Name',
-        'req_type_REF': 'Request Type'
+        'req_type_REF': 'Request Type',
+        'req_details': 'Details of Request'
     };
 
     $scope.townSelectorOptions = {
