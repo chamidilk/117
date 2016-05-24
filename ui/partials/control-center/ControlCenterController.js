@@ -10,7 +10,7 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
     $scope.limit = 20;
     $scope.requestTypes = [ "EVAC", "MISSING" , "MEDICAL" , "BEDDING" , "CLOTHES" , "FOOD" , "NONFOOD" , "SCHOOL" , "SEARCH" , "SHELTER" , "WATER" , "SANITATION" , "DAMAGE" , "OTHER"];
     
-    $scope.statusTypes = [ "OPEN", "PARTIAL" , "CLOSED" , "DEFERRED" , "DUPLICATE" , "REJECTED"];
+    $scope.statusTypes = [ "OPEN", "PARTIAL" , "CLOSED" , "ALLOCATED" , "DUPLICATE" , "REJECTED"];
 
 
     $scope.filters = {

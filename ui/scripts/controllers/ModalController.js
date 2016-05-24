@@ -4,7 +4,7 @@
 
 
 function ModalController($scope, $http, $uibModalInstance, $cookies, currentStatus, req_ID) {
-  $scope.statuses = ["OPEN", "PARTIAL" , "CLOSED" , "DEFERRED" , "DUPLICATE" , "REJECTED"];
+  $scope.statuses = ["OPEN", "PARTIAL" , "CLOSED" , "ALLOCATED" , "DUPLICATE" , "REJECTED"];
 
   $scope.selectedStatus = currentStatus.toUpperCase();
 

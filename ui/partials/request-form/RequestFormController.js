@@ -112,6 +112,7 @@ function RequestFormController($scope, $http) {
             }).then(function successCallback(response) {
                 $scope.busy = false;
                 $scope.model = {};
+                $scope.selection = {};
                 alert('Your request has been successfully submitted. We will contact you shortly. Thank you.');
                 console.log(response);
             }, function errorCallback(response) {
