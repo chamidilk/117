@@ -25,6 +25,29 @@ function RequestFormController($scope, $http) {
         {"name" : "Sanitation | සනීපාරක්ෂාව", "id": "12", "value" : "SANITATION"},
         {"name" : "Repair to Damages | ප්‍රතිසංස්කරණය", "id": "13", "value" : "DAMAGE"},
         {"name" : "Other | වෙනත්", "id": "14", "value" : "OTHER"}];
+    
+    
+    $scope.disasterCategories = [
+        {"name" : "Flood", "id": "1", "value" : "FLOOD"},
+        {"name" : "Drought", "id": "2", "value" : "DROUGHT"},
+        {"name" : "Industrial Hazard", "id": "3", "value" : "INDUSTRIAL_HAZARD"},
+        {"name" : "Tsunami", "id": "4", "value" : "TSUNAMI"},
+        {"name" : "Earthquake", "id": "5", "value" : "EARTHQUAKE"},
+        {"name" : "Air Hazard", "id": "6", "value" : "AIR_HAZARD"},
+        {"name" : "Maritime Hazard", "id": "7", "value" : "MARITIME_HAZARD"},
+        {"name" : "Fire", "id": "8", "value" : "FIRE"},
+        {"name" : "Epidemic", "id": "9", "value" : "EPIDEMIC"},
+        {"name" : "Explosion", "id": "10", "value" : "EXPLOSION"},
+        {"name" : "Air Raids", "id": "11", "value" : "AIR_RAIDS"},
+        {"name" : "Civil Or Internal Strife", "id": "12", "value" : "CIVIL"},
+        {"name" : "Chemical Accident", "id": "13", "value" : "CHEMICAL"},
+        {"name" : "Radiological Emmergency", "id": "14", "value" : "RADIOLOGICAL"},
+        {"name" : "Oil Spills Including Inland & Marine", "id": "15", "value" : "OIL_SPILLS"},
+        {"name" : "Nuclear Disaster", "id": "16", "value" : "NUCLEAR"},
+        {"name" : "Urban & Forest Fire", "id": "17", "value" : "FOREST_FIRE"},
+        {"name" : "Coastal Erosion", "id": "18", "value" : "EROSION"},
+        {"name" : "Tornados, Lightening Strikes & Severe Thunder Storms", "id": "19", "value" : "LIGHTENING"},
+        {"name" : "Other | වෙනත්", "id": "20", "value" : "OTHER"}];
 
 
     var mandatoryFields = {
