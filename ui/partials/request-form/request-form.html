@@ -39,9 +39,9 @@
             <label for="requestType" style="padding-left: 15px;">Disaster Type:   <font color="red">*</font></label>
         </div>
             <span>
-                <div  class="col-md-6" style="padding-left: 0px;">
-                    <select ng-model="model.req_disaster_type">
-                        <option ng-repeat="disasterCategory in disasterCategories" value="{{disasterCategory.value}}" >
+                <div class="col-md-6 col-xs-12 col-lg-6" style="padding-left: 0px;">
+                    <select ng-model="model.req_disaster_type" class="form-control">
+                        <option ng-repeat="disasterCategory in disasterCategories" value="{{disasterCategory.value}}">
                             {{disasterCategory.name}}
                         </option>
                     </select>
