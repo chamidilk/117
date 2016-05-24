@@ -8,7 +8,7 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
     $scope.requests = [];
     $scope.offset = 1;
     $scope.limit = 20;
-    $scope.requestTypes = [ "EVAC", "MISSING" , "MEDICAL" , "BEDDING" , "CLOTHES" , "FOOD" , "NONFOOD" , "SCHOOL" , "SEARCH" , "SHELTER" , "WATER" , "DAMAGE" , "OTHER"];
+    $scope.requestTypes = [ "EVAC", "MISSING" , "MEDICAL" , "BEDDING" , "CLOTHES" , "FOOD" , "NONFOOD" , "SCHOOL" , "SEARCH" , "SHELTER" , "WATER" , "SANITATION" , "DAMAGE" , "OTHER"];
     
     $scope.statusTypes = [ "OPEN", "PARTIAL" , "CLOSED" , "DEFERRED" , "DUPLICATE" , "REJECTED"];
 

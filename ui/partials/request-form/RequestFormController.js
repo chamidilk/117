@@ -21,9 +21,10 @@ function RequestFormController($scope, $http) {
         {"name" : "School Items | පාසල් උපකරණ", "id": "8", "value" : "SCHOOL"},
         {"name" : "Search & Rescue Items | සෙව්ම් හා මුදවාගැනිම්", "id": "9", "value" : "SEARCH"},
         {"name" : "Shelter | තාවකාලින නිවාස", "id": "10", "value" : "SHELTER"},
-        {"name" : "Water & Sanitation | ජලය හා සනීපාරක්ෂාව", "id": "11", "value" : "WATER"},
-        {"name" : "Repair to Damages | ප්‍රතිසංස්කරණය", "id": "12", "value" : "DAMAGE"},
-        {"name" : "Other | වෙනත්", "id": "12", "value" : "OTHER"}];
+        {"name" : "Water | ජලය", "id": "11", "value" : "WATER"},
+        {"name" : "Sanitation | සනීපාරක්ෂාව", "id": "12", "value" : "SANITATION"},
+        {"name" : "Repair to Damages | ප්‍රතිසංස්කරණය", "id": "13", "value" : "DAMAGE"},
+        {"name" : "Other | වෙනත්", "id": "14", "value" : "OTHER"}];
 
 
     var mandatoryFields = {
