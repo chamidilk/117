@@ -79,6 +79,7 @@ DROP TABLE IF EXISTS `Request`;
 
 CREATE TABLE `Request` (
   `req_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `req_disaster_type` varchar(50) NOT NULL,
   `req_made_date` datetime NOT NULL,
   `req_close_date` datetime NOT NULL,
   `req_type_REF` varchar(20) NOT NULL,
@@ -86,6 +87,7 @@ CREATE TABLE `Request` (
   `req_contact_other` varchar(400) NOT NULL,
   `donor_per_ID` int(11) NOT NULL,
   `reqarea_ID` int(11) NOT NULL,
+  `req_area` varchar(200) NOT NULL,
   `req_address` varchar(200) NOT NULL,
   `req_GPS` varchar(100) NOT NULL,
   `req_for_people` int(11) NOT NULL,
@@ -144,7 +146,7 @@ DROP TABLE IF EXISTS `Request_Status_Log`;
 CREATE TABLE `Request_Status_Log` (
   `req_log_ID` int(11) NOT NULL AUTO_INCREMENT,
   `req_ID` int(11) NOT NULL,
-  `req_status_change_date` date NOT NULL,
+  `req_status_change_date` datetime NOT NULL,
   `req_status_REF` varchar(20) NOT NULL,
   `req_status_per_ID` int(11) NOT NULL,
   `req_status_comment` varchar(400) NOT NULL,

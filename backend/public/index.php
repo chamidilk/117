@@ -203,6 +203,7 @@ $app->post('/requests', function (Request $request, Response $response) {
         if($val == true) {
             $resourceRequest = new stdClass();
             $resourceRequest->req_ID = null;
+            $resourceRequest->req_disaster_type = strtoupper($body['req_disaster_type']);
             $resourceRequest->req_made_date = date('Y-m-d H:i:s');
             $resourceRequest->req_close_date = '0000-00-00';
             $resourceRequest->req_type_REF = strtoupper($reqType);
