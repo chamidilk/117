@@ -47,7 +47,7 @@ function RequestFormController($scope, $http) {
         {"name" : "Urban & Forest Fire", "id": "17", "value" : "FOREST_FIRE"},
         {"name" : "Coastal Erosion", "id": "18", "value" : "EROSION"},
         {"name" : "Tornados, Lightening Strikes & Severe Thunder Storms", "id": "19", "value" : "LIGHTENING"},
-        {"name" : "Other | වෙනත්", "id": "20", "value" : "OTHER"}];
+        {"name" : "Other", "id": "20", "value" : "OTHER"}];
 
 
     var mandatoryFields = {
