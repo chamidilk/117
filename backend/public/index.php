@@ -93,6 +93,10 @@ $app->post('/requests/status', function(Request $request, Response $response) {
     }
 
 });
+$app->get('/requests/{requestId}/status', function(Request $request, Response $response) {
+    $req_ID = $request->getAttribute('requestId');
+
+});
 $app->get('/requests', function (Request $request, Response $response) {
     $db = getConnection();
     if(!checkAuth($request->getHeaderLine('Authorization'))) {
@@ -187,9 +191,9 @@ $app->post('/requests', function (Request $request, Response $response) {
     $person->per_comments = isset($body['per_comments']) ? $body['per_comments'] : "";
     $person->per_status_REF = 0;
 
-    $personSql = "SELECT * FROM Person WHERE nationalID=:nationalID";
+    $personSql = "SELECT * FROM Person WHERE per_mobile=:per_mobile";
     $personStmt = $db->prepare($personSql);
-    $personStmt->bindParam("nationalID", $person->nationalID );
+    $personStmt->bindParam("per_mobile", $person->per_mobile);
     $personStmt->execute();
     $storedPerson = $personStmt->fetchAll(PDO::FETCH_ASSOC);
     if(!isset($storedPerson[0])) {
