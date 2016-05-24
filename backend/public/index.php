@@ -104,6 +104,8 @@ $app->get('/requests', function (Request $request, Response $response) {
     $reqArea = $qParams['req_area'];
     $perNationalID = $qParams['nationalID'];
     $perOrganization = $qParams['per_organization'];
+    $perMobile = $qParams['per_mobile'];
+    $perFullname = $qParams['per_fullname'];
     $startDate = $qParams['startDate'];
     $endDate = $qParams['endDate'];
     $limit = $qParams['limit'];
@@ -135,6 +137,12 @@ $app->get('/requests', function (Request $request, Response $response) {
         }
         if(isset($perOrganization)) {
             $reqSql .= " AND Person.per_organization='$perOrganization'";
+        }
+        if(isset($perFullname)) {
+            $reqSql .= " AND Person.per_fullname='$perFullname'";
+        }
+        if(isset($perMobile)) {
+            $reqSql .= " AND Person.per_mobile='$perMobile'";
         }
 
         if(isset($orderBy)) {
