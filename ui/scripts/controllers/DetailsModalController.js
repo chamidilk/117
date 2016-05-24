@@ -4,8 +4,12 @@
 
 
 function DetailsModalController($scope, $http, $uibModalInstance, $cookies, requestSelected) {
+    
+    $scope.requestSelected = requestSelected;
 
   $scope.ok = function () {
+      
+//      console.log($scope.requestSelected);
 
     var encodedCredentials = $cookies.get('encodedCredentials');
 
@@ -13,7 +17,7 @@ function DetailsModalController($scope, $http, $uibModalInstance, $cookies, requ
             $state.go('login');
 
     }
-
+      
     $uibModalInstance.close(status);
 
   };

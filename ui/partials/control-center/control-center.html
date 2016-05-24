@@ -32,23 +32,142 @@
                 <h3 class="modal-title">Request Details</h3>
             </div>
              <div class="modal-body">
+                 
                  <div class="row">
-                    <label for="title" class="col-sm-1">Comment:</label>
+                    <label for="title" class="col-sm-2">Request ID:</label>
                     <div class="col-sm-10">
-                        <textarea type="text" data-ng-model="comment" class="form-control" id="title" placeholder="Type your comment here" required title="Enter your comment"  style="margin-bottom: 15px;" rows="5"/>
+                        {{requestSelected.req_ID}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Disaster Type:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.req_disaster_type}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Details of Request:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.req_details}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Request Type:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.req_type_REF}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Total Headcount:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.req_for_people}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Adults:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.req_for_adults}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Kids (6-18):</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.req_for_kids}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Infants:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.req_for_infants}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Area:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.req_area}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Address:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.req_address}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Full Name:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.per_fullname}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Organization:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.per_organization}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">NIC:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.nationalID}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Mobile Number:</label>
+                    <div class="col-sm-10">
+                        {{requestSelected.per_mobile}}
                     </div>
                  </div>
 
                  <div class="row">
-                    <label for="title" class="col-sm-1">Status:</label>
+                    <label for="title" class="col-sm-2">Other Contact Details:</label>
                     <div class="col-sm-10  col-lg-2 col-md-2">
-                        adsadsa
+                        {{requestSelected.req_contact_other}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Opened Date:</label>
+                    <div class="col-sm-10  col-lg-2 col-md-2">
+                        {{requestSelected.req_made_date}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Closed Date:</label>
+                    <div class="col-sm-10  col-lg-2 col-md-2">
+                        {{requestSelected.req_close_date}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Status:</label>
+                    <div class="col-sm-10  col-lg-2 col-md-2">
+                        {{requestSelected.reqstatus_REF}}
+                    </div>
+                 </div>
+                 
+                 <div class="row">
+                    <label for="title" class="col-sm-2">Comments:</label>
+                    <div class="col-sm-10  col-lg-2 col-md-2">
+                        {{requestSelected.per_comments}}
                     </div>
                  </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
             </div>
         </script>
 
