@@ -94,7 +94,24 @@ $app->post('/requests/status', function(Request $request, Response $response) {
 
 });
 $app->get('/requests/{requestId}/status', function(Request $request, Response $response) {
+    if(!checkAuth($request->getHeaderLine('Authorization'))) {
+        return $response->withJson(array('error' => 'Authorization invalid'), 403);
+    }
+    date_default_timezone_set('Asia/Colombo');
+    $db = getConnection();
     $req_ID = $request->getAttribute('requestId');
+    try {
+        $reqLogSql = "SELECT * FROM Request_Status_Log WHERE req_ID=:req_ID";
+        $reqLogStmt = $db->prepare($reqLogSql);
+        $reqLogStmt->bindParam("req_ID", $req_ID);
+        $reqLogStmt->execute();
+        $reqLogs = $reqLogStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $response->withJson($reqLogs);
+    } catch(PDOException $pdoe) {
+        return $response->withJson(array('error' => 'Error updating request status',
+            'detail' => $pdoe->getMessage(),
+            'query' => $reqLogSql), 500);
+    }
 
 });
 $app->get('/requests', function (Request $request, Response $response) {
