@@ -240,6 +240,11 @@
                         <label for="endDate">End Date:</label>
                         <input id="datetimepicker2" style="width: 100%;" class="form-control" />
                     </div>
+
+                    <div class="form-group col-xs-12 col-md-2">
+                        <button class="btn btn-default"
+                        ng-csv="requests" csv-header="getHeader()" filename="requests.csv" field-separator="," decimal-separator=".">Export to CSV with header</button>
+                    </div>
                     
                     
             

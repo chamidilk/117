@@ -14,6 +14,8 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
     
     $scope.statusTypes = [ "OPEN", "PARTIAL" , "CLOSED" , "ALLOCATED" , "DUPLICATE" , "REJECTED"];
 
+    $scope.getHeader = function () {return ["A", "B"]};
+
 
     $scope.filters = {
         reqstatus_REF: 'OPEN'
