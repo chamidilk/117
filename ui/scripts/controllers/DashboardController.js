@@ -3,11 +3,16 @@
  */
 
 
-function DashboardController($scope, $http) {
+function DashboardController($scope, $http, $interval) {
 
     $scope.requests = [];
     $scope.offset = 1;
     $scope.limit = 20;
+
+    $interval(function(){
+       console.log('reloading...');
+        $scope.loadRequests();
+    },60000);        
 
     $scope.filters = {
         reqstatus_REF: 'OPEN'
@@ -31,8 +36,6 @@ function DashboardController($scope, $http) {
         $scope.requests = [];
 
 
-//        $scope.filters.limit = $scope.limit;
-//        $scope.filters.offset = $scope.offset;
 
         var clone = angular.copy($scope.filters);
 
@@ -40,31 +43,9 @@ function DashboardController($scope, $http) {
             if (!value || !value.trim()) {
                 delete $scope.filters[key];
             }
-        });/*
+        });
 
-                                    <td>{{request.request_type}}</td>
-                            <td>{{request.opened_today}}</td>
-                            <td>{{request.closed_today}}</td>
-                            <td>{{request.rejected today}}</td>     
-                            <td>{{request.total_opened}}</td>
-                            <td>{{request.total_closed}}</td>
-                            <td>{{request.total_rejected}}</td>   */
 
-/*        $scope.requests=[
-        {"request_type": "Evacuation","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-         {"request_type": "Locate Missing Person","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Medical","total_open": 270, "opened_today": 260, "closed_today": 290, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Bedding Items","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Clothes","total_open": 270, "opened_today": 260, "closed_today": 270, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Food Items","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Non-Food Items","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "School Items","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Search & Rescue Items","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Shelter","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Water & Sanitation","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
-            {"request_type": "Repair to Damages","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2}
-        ]
-*/
       $http({
             method: 'GET',
             url: 'http://117.dmc.gov.lk/one-one-seven/public/statistics?type=requests',
