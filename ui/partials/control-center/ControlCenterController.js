@@ -14,7 +14,20 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
     
     $scope.statusTypes = [ "OPEN", "PARTIAL" , "CLOSED" , "ALLOCATED" , "DUPLICATE" , "REJECTED"];
 
-    $scope.getHeader = function () {return ["A", "B"]};
+    $scope.getHeader = function () {
+
+      var dictionary = $scope.requests[0];
+
+      var keys = [];
+      for (var key in dictionary) {
+        if (dictionary.hasOwnProperty(key)) {
+            keys.push(key);
+        }
+      }
+
+      return keys;
+
+    };
 
 
     $scope.filters = {
