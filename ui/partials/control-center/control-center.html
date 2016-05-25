@@ -232,8 +232,8 @@
                     </div>
                     
                     <div class="form-group col-xs-12 col-md-2">
-                        <label for="organization">Start Date:</label>
-                        <div date-picker="start" class="form-control" id="startDate" />
+                        <label for="startDate">Start Date:</label>
+                        <input id="datetimepicker" style="width: 100%;" class="form-control" />
                     </div>
                     
                     <div class="form-group col-xs-12 col-md-2">
@@ -256,7 +256,16 @@
                     });
                 });
             </script>
-                    </div>
+                    
+                    <script>
+                $(document).ready(function () {
+                    // create DateTimePicker from input HTML element
+                    $("#datetimepicker2").kendoDateTimePicker({
+                        value:new Date()
+                    });
+                });
+            </script>
+                    
                     
                     
                     
