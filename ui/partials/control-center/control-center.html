@@ -233,16 +233,17 @@
                     
                     <div class="form-group col-xs-12 col-md-2">
                         <label for="startDate">Start Date:</label>
-                        <input id="datetimepicker" style="width: 100%;" class="form-control" />
+                        <input id="start" style="width: 100%;" class="form-control" />
                     </div>
                     
                     <div class="form-group col-xs-12 col-md-2">
                         <label for="endDate">End Date:</label>
-                        <input id="datetimepicker2" style="width: 100%;" class="form-control" />
+                        <input id="end" style="width: 100%;" class="form-control" />
                     </div>
                     
                     
             
+<!--
             <script>
                 $(document).ready(function () {
                     // create DateTimePicker from input HTML element
@@ -258,6 +259,63 @@
                     $("#datetimepicker2").kendoDateTimePicker({
                         value:new Date()
                     });
+                });
+            </script>
+-->
+                    
+                    
+                    <script>
+                $(document).ready(function() {
+                    function startChange() {
+                        var startDate = start.value(),
+                        endDate = end.value();
+
+                        if (startDate) {
+                            startDate = new Date(startDate);
+                            startDate.setDate(startDate.getDate());
+                            end.min(startDate);
+                        } else if (endDate) {
+                            start.max(new Date(endDate));
+                        } else {
+                            endDate = new Date();
+                            start.max(endDate);
+                            end.min(endDate);
+                        }
+                    }
+
+                    function endChange() {
+                        var endDate = end.value(),
+                        startDate = start.value();
+
+                        if (endDate) {
+                            endDate = new Date(endDate);
+                            endDate.setDate(endDate.getDate());
+                            start.max(endDate);
+                        } else if (startDate) {
+                            end.min(new Date(startDate));
+                        } else {
+                            endDate = new Date();
+                            start.max(endDate);
+                            end.min(endDate);
+                        }
+                    }
+
+                    var today = kendo.date.today();
+
+                    var start = $("#start").kendoDateTimePicker({
+                        value: today,
+                        change: startChange,
+                        parseFormats: ["dd/MM/yyyy"]
+                    }).data("kendoDateTimePicker");
+
+                    var end = $("#end").kendoDateTimePicker({
+                        value: today,
+                        change: endChange,
+                        parseFormats: ["dd/MM/yyyy"]
+                    }).data("kendoDateTimePicker");
+
+                    start.max(end.value());
+                    end.min(start.value());
                 });
             </script>
                     
