@@ -37,9 +37,6 @@ $app->post('/login', function (Request $request, Response $response) {
 });
 $app->get('/statistics', function (Request $request, Response $response) {
     $qParams = $request->getQueryParams();
-    if(!checkAuth($request->getHeaderLine('X-Authorization'))) {
-        return $response->withJson(array('error' => 'Authorization invalid'), 403);
-    }
 
     $db = getConnection();
 
@@ -49,12 +46,13 @@ $app->get('/statistics', function (Request $request, Response $response) {
             $reqStmt = $db->prepare($reqSql);
             $reqStmt->execute();
             $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach($reqs as $req) {
+            foreach($reqs as $index => $req) {
                 foreach($req as $reqKey => $reqValue) {
-                    if(is_null($reqValue)) {
+                    if($reqValue == "") {
                         $req[$reqKey] = 0;
                     }
                 }
+                $reqs[$index] = $req;
             }
             return $response->withJson($reqs);
 
