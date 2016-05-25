@@ -129,6 +129,7 @@ $app->get('/requests', function (Request $request, Response $response) {
     }
     $qParams = $request->getQueryParams();
     $reqType = $qParams['req_type_REF'];
+    $reqDisasterType = $qParams['req_disaster_type'];
     $reqStatus = $qParams['reqstatus_REF'];
     $reqArea = $qParams['req_area'];
     $perNationalID = $qParams['nationalID'];
@@ -161,14 +162,17 @@ $app->get('/requests', function (Request $request, Response $response) {
         if(isset($reqArea)) {
             $reqSql .= " AND Request.req_area='$reqArea'";
         }
+        if(isset($reqDisasterType)) {
+            $reqSql .= " AND Request.req_disaster_type='$reqDisasterType'";
+        }
         if(isset($perNationalID)) {
             $reqSql .= " AND Person.nationalID='$perNationalID'";
         }
         if(isset($perOrganization)) {
-            $reqSql .= " AND Person.per_organization='$perOrganization'";
+            $reqSql .= " AND Person.per_organization='$perOrganization' OR Person.per_organization LIKE '%$perOrganization' OR Person.per_organization LIKE '%$perOrganization%' OR Person.per_organization LIKE '$perOrganization%'";
         }
         if(isset($perFullname)) {
-            $reqSql .= " AND Person.per_fullname='$perFullname'";
+            $reqSql .= " AND Person.per_fullname='$perFullname' OR Person.per_fullname LIKE '%$perFullname' OR Person.per_fullname LIKE '$perFullname%' OR Person.per_fullname LIKE '%$perFullname%'";
         }
         if(isset($perMobile)) {
             $reqSql .= " AND Person.per_mobile='$perMobile'";
