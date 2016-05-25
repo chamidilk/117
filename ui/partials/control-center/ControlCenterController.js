@@ -10,6 +10,8 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
     $scope.limit = 20;
     $scope.requestTypes = [ "EVAC", "MISSING" , "MEDICAL" , "BEDDING" , "CLOTHES" , "FOOD" , "NONFOOD" , "SCHOOL" , "SEARCH" , "SHELTER" , "WATER" , "SANITATION" , "DAMAGE" , "OTHER"];
     
+    $scope.disasterTypes = [ "LANDSLIDE", "FLOOD" , "CYCLONE" , "DROUGHT" , "INDUSTRIAL_HAZARD" , "TSUNAMI" , "EARTHQUAKE" , "AIR_HAZARD" , "MARITIME_HAZARD" , "FIRE" , "EPIDEMIC" , "EXPLOSION" , "AIR_RAIDS" , "CIVIL" , "CHEMICAL" , "RADIOLOGICAL" , "OIL_SPILLS" , "NUCLEAR" , "FOREST_FIRE" , "EROSION" , "LIGHTENING" , "OTHER" ];
+    
     $scope.statusTypes = [ "OPEN", "PARTIAL" , "CLOSED" , "ALLOCATED" , "DUPLICATE" , "REJECTED"];
 
 
