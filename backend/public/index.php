@@ -37,27 +37,35 @@ $app->post('/login', function (Request $request, Response $response) {
 });
 $app->get('/statistics', function (Request $request, Response $response) {
     $qParams = $request->getQueryParams();
+    if(!checkAuth($request->getHeaderLine('X-Authorization'))) {
+        return $response->withJson(array('error' => 'Authorization invalid'), 403);
+    }
 
     $db = getConnection();
+
     if($qParams['type']=='requests') {
         try {
-            $reqSql = "SELECT * FROM Request";
+            $reqSql = "SELECT * FROM vw_dashboard";
             $reqStmt = $db->prepare($reqSql);
             $reqStmt->execute();
             $reqs = $reqStmt->fetchAll(PDO::FETCH_ASSOC);
-            $evac_opened_today = 0;
-            $evac_closed_today = 0;
-            $evac_rejected_today = 0;
+            foreach($reqs as $req) {
+                foreach($req as $reqKey => $reqValue) {
+                    if(is_null($reqValue)) {
+                        $req[$reqKey] = 0;
+                    }
+                }
+            }
+            return $response->withJson($reqs);
 
         } catch(PDOException $pdoe) {
             return $response->withJson(array('error' => 'Error fetching request data',
                 'detail' => $pdoe->getMessage()), 500);
         }
     }
-    return $response->withJson($reqs);
 });
 $app->post('/requests/status', function(Request $request, Response $response) {
-    if(!checkAuth($request->getHeaderLine('Authorization'))) {
+    if(!checkAuth($request->getHeaderLine('X-Authorization'))) {
         return $response->withJson(array('error' => 'Authorization invalid'), 403);
     }
     date_default_timezone_set('Asia/Colombo');
@@ -94,7 +102,7 @@ $app->post('/requests/status', function(Request $request, Response $response) {
 
 });
 $app->get('/requests/{requestId}/status', function(Request $request, Response $response) {
-    if(!checkAuth($request->getHeaderLine('Authorization'))) {
+    if(!checkAuth($request->getHeaderLine('X-Authorization'))) {
         return $response->withJson(array('error' => 'Authorization invalid'), 403);
     }
     date_default_timezone_set('Asia/Colombo');
@@ -116,7 +124,7 @@ $app->get('/requests/{requestId}/status', function(Request $request, Response $r
 });
 $app->get('/requests', function (Request $request, Response $response) {
     $db = getConnection();
-    if(!checkAuth($request->getHeaderLine('Authorization'))) {
+    if(!checkAuth($request->getHeaderLine('X-Authorization'))) {
         return $response->withJson(array('error' => 'Authorization invalid'), 403);
     }
     $qParams = $request->getQueryParams();
