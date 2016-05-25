@@ -50,7 +50,7 @@ function DashboardController($scope, $http) {
                             <td>{{request.total_closed}}</td>
                             <td>{{request.total_rejected}}</td>   */
 
-        $scope.requests=[
+/*        $scope.requests=[
         {"request_type": "Evacuation","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
          {"request_type": "Locate Missing Person","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
             {"request_type": "Medical","total_open": 270, "opened_today": 260, "closed_today": 290, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
@@ -64,10 +64,10 @@ function DashboardController($scope, $http) {
             {"request_type": "Water & Sanitation","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2},
             {"request_type": "Repair to Damages","total_open": 270, "opened_today": 260, "closed_today": 240, "people_supported":100, "avg_res": "1 hour", "current_res": "1 hour", "closed_per": "50%", "closed_days":2}
         ]
-
-/*        $http({
+*/
+      $http({
             method: 'GET',
-            url: 'http://one-one-seven.herokuapp.com/public/requests',
+            url: 'http://117.dmc.gov.lk/one-one-seven/public/statistics?type=requests',
             params: $scope.filters
         }).then(function successCallback(response) {
             $scope.loading = false;
@@ -77,7 +77,7 @@ function DashboardController($scope, $http) {
         }, function errorCallback(response) {
             $scope.loading = false;
             console.error(response);
-        });*/
+        });
     };
 
     $scope.init();

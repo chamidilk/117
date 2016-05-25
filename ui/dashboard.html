@@ -103,16 +103,16 @@
                     </thead>
                     <tbody style="font-size:35px">
                         <tr ng-repeat="request in requests">
-                            <td class="text-center"><img src="images/green-arrow.png" ng-show= "{{request.opened_today <= request.closed_today}}" width="35px"><img src="images/red-arrow.png" ng-show= "{{request.opened_today > request.closed_today}}" width="35px"></td>
-                            <td>{{request.request_type}}</td>
-                            <td class="text-center">{{request.total_open}}</td>
-                            <td class="text-center">{{request.opened_today}}</td>
-                            <td class="text-center">{{request.closed_today}}</td>     
-                            <td class="text-center">{{request.people_supported}}</td>     
+                            <td class="text-center"><img src="images/green-arrow.png" ng-show= "{{request.openedToday <= request.closedToday}}" width="35px"><img src="images/red-arrow.png" ng-show= "{{request.openedToday > request.closedToday}}" width="35px"></td>
+                            <td>{{request.req_type_ref}}</td>
+                            <td class="text-center">{{request.totalOpen}}</td>
+                            <td class="text-center">{{request.openedToday}}</td>
+                            <td class="text-center">{{request.closedToday}}</td>     
+                            <td class="text-center">{{request.peopleSupportedToday}}</td>     
                             <td class="text-center" style="color:#72CF59">{{request.avg_res}}</td>
-                            <td class="text-center" style="color:#FB3B49">{{request.current_res}}</td>
-                            <td class="text-center" style="color:#FB3B49">{{request.closed_per}}</td>   
-                            <td class="text-center" style="color:#72CF59">{{request.closed_days}}</td>   
+                            <td class="text-center" style="color:#FB3B49">{{request.avgResolutionTime}}</td>
+                            <td class="text-center" style="color:#FB3B49">{{request.avgResolutionTimeToday}}</td>   
+                            <td class="text-center" style="color:#72CF59">{{request.daysToClose}}</td>   
                         </tr>
                     </tbody>
                 </table>
