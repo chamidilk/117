@@ -1,7 +1,7 @@
 <div class="well" ng-controller="RequestFormController">
     <div class="row">
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>Request Details | උපකාර ඉල්ලීම  </h3>
+            <h3>{{language == languages[0]? "Request Details | උපකාර ඉල්ලීම": language == languages[1]? "Request Details | tamil": "Request Details"}}:</h3>
         </div>
         
 <!--
@@ -36,7 +36,7 @@
         
         <div class="form-group col-xs-12 col-lg-12">
             <div class="row">
-            <label for="requestType" style="padding-left: 15px;">Disaster Type | ආපදා වර්ගය:   <font color="red">*</font></label>
+            <label for="requestType" style="padding-left: 15px;">{{language == languages[0]? "Disaster Type | ආපදා වර්ගය": language == languages[1]? "Disaster Type | tamil": "Disaster Type"}}:<font color="red">*</font></label>
         </div>
             <span>
                 <div class="col-md-6 col-xs-12 col-lg-6" style="padding-left: 0px;">
@@ -50,12 +50,12 @@
         </div> 
         
         <div class="form-group col-xs-12 col-lg-12">
-            <label for="comment">Details of Request | අවශ්‍යතා පිළිබඳ විස්ත‍ර:   <font color="red">*</font></label>
+            <label for="comment">{{language == languages[0]? "Details of Request | අවශ්‍යතා පිළිබඳ විස්ත‍ර": language == languages[1]? "Details of Request | tamil": "Details of Request"}}:<font color="red">*</font></label>
             <textarea type="text" ng-model="model.req_details" class="form-control" id="comment" rows="10"></textarea>
         </div>
         <div class="form-group col-xs-12 col-lg-12">
             <div class="row">
-            <label for="requestType" style="padding-left: 15px;">Request Type | අවශ්‍යතා වර්ගය:   <font color="red">*</font></label>
+            <label for="requestType" style="padding-left: 15px;">{{language == languages[0]? "Request Type | අවශ්‍යතා වර්ගය": language == languages[1]? "Request Type | tamil": "Request Type"}}:<font color="red">*</font></label>
         </div>
             <span ng-repeat="category in categories">
                 <div  class="col-md-6">
@@ -68,58 +68,58 @@
         </div> 
        
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>Size of Group Request is for | අවශ්‍යතා සහිත පුද්ගලයින් සංඛ්‍යාව</h3>
+            <h3>{{language == languages[0]? "Size of Group Request is for | අවශ්‍යතා සහිත පුද්ගලයින් සංඛ්‍යාව": language == languages[1]? "Size of Group Request is for | tamil": "Size of Group Request is for"}}:</h3>
         </div>
         <div class="form-group col-xs-12 col-lg-2">
-            <label for="totalHeadCount">Total Headcount | මුළු සංඛ්‍යාව:</label>
+            <label for="totalHeadCount">{{language == languages[0]? "Total Headcount | මුළු සංඛ්‍යාව": language == languages[1]? "Total Headcount | tamil": "Total Headcount"}}:</label>
             <input type="number" ng-model="model.req_for_people" class="form-control" id="totalHeadCount" />
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
-            <label for="adultHeadCount">Adults | වැඩිහිටියන් සංඛ්‍යාව:</label>
+            <label for="adultHeadCount">{{language == languages[0]? "Adults | වැඩිහිටියන් සංඛ්‍යාව": language == languages[1]? "Adults | tamil": "Adults"}}:</label>
             <input type="number" ng-model="model.req_for_adults" class="form-control" id="adultHeadCount" ng-blur="calculateTotalHeadCount()" />
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
-            <label for="adultHeadCount">Kids (6-18) | ළමුන් (අවු. 6-18)</label>
+            <label for="adultHeadCount">{{language == languages[0]? "Kids (6-18) | ළමුන් (අවු. 6-18)": language == languages[1]? "Kids (6-18) | tamil": "Kids (6-18)"}}:</label>
             <input type="number" ng-model="model.req_for_kids" class="form-control" id="kidsHeadCount" ng-blur="calculateTotalHeadCount()"/>
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
-            <label for="infantHeadCount">Infants | ළමුන් (අවු. 5ට අඩු)</label>
+            <label for="infantHeadCount">{{language == languages[0]? "Infants | ළමුන් (අවු. 5ට අඩු)": language == languages[1]? "Infants | tamil": "Infants"}}:</label>
             <input type="number" ng-model="model.req_for_infants" class="form-control" id="infantHeadCount" ng-blur="calculateTotalHeadCount()"/>
         </div>
  
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>Location of Group Request is for | අවශ්‍යතා ඇති පිරිස සිටින ස්ථානය</h3>
+            <h3>{{language == languages[0]? "Location of Group Request is for | අවශ්‍යතා ඇති පිරිස සිටින ස්ථානය": language == languages[1]? "Location of Group Request is for | tamil": "Location of Group Request is for"}}:</h3>
         </div>
        <div class="form-group col-xs-12 col-lg-6">
-            <label for="area">Area | ප්‍රදේශය:</label>
+            <label for="area">{{language == languages[0]? "Area | ප්‍රදේශය": language == languages[1]? "Area | tamil": "Area"}}:</label>
             <input type="text" ng-model="model.req_area" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions" />
         </div>
         <div class="form-group col-xs-12 col-lg-12">
-            <label for="address">Address | ලිපිනය:   <font color="red">*</font></label>
+            <label for="address">{{language == languages[0]? "Address | ලිපිනය": language == languages[1]? "Address | tamil": "Address"}}:<font color="red">*</font></label>
             <input type="text" ng-model="model.req_address" class="form-control" id="address" />
         </div>
   
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>Contact Details of Person Making Request | අයදුම්කරුවා පිලිබඳ විස්තර</h3>
+            <h3>{{language == languages[0]? "Contact Details of Person Making Request | අයදුම්කරුවා පිලිබඳ විස්තර": language == languages[1]? "Contact Details of Person Making Request | tamil": "Contact Details of Person Making Request"}}:</h3>
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="name">Full Name of Person Making Request | අයදුම්කරුවාගේ නම:   <font color="red">*</font></label>
+            <label for="name">{{language == languages[0]? "Full Name of Person Making Request | අයදුම්කරුවාගේ නම": language == languages[1]? "Full Name of Person Making Request | tamil": "Full Name of Person Making Request"}}:<font color="red">*</font></label>
             <input type="text" ng-model="model.per_fullname" class="form-control" id="name" />
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="organization">Organization | ආයතනය:</label>
+            <label for="organization">{{language == languages[0]? "Organization | ආයතනය": language == languages[1]? "Organization | tamil": "Organization"}}:</label>
             <input type="text" ng-model="model.per_organization" class="form-control" id="organization" />
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="name">National Identity Card, Driving License or Passport No. | ජාතික හැඳුනුම්පත් අංකය, රියදුරු බලපත්‍ර අංකය හෝ විදේශ ගමන් බලපත්‍ර අංකය:</label>
+            <label for="name">{{language == languages[0]? "National Identity Card, Driving License or Passport No. | ජාතික හැඳුනුම්පත් අංකය, රියදුරු බලපත්‍ර අංකය හෝ විදේශ ගමන් බලපත්‍ර අංකය": language == languages[1]? "National Identity Card, Driving License or Passport No. | tamil": "National Identity Card, Driving License or Passport No."}}:</label>
             <input type="text" ng-model="model.nationalID" class="form-control" id="nic" />
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="mobileNumber">Main Mobile Number | <br />දුරකථන අංකය:   <font color="red">*</font></label>
+            <label for="mobileNumber">Main Mobile Number {{language == languages[2]? ":": " | "}}<font color="red">{{language == languages[2]? "*": ""}}</font><br/>{{language == languages[0]? "දුරකථන අංකය": language == languages[1]? "tamil": ""}}{{language == languages[2]? "": ":"}} <font color="red">{{language == languages[2]? "": "*"}}</font></label>
             <input type="text" ng-model="model.per_mobile" class="form-control" id="mobileNumber" />
         </div>        
         <div class="form-group col-xs-12 col-lg-12">
-            <label for="email">Other Contact Details and Contact Persons | වෙනත් ඇමතුම් විස්තර:</label>
+            <label for="email">{{language == languages[0]? "Other Contact Details and Contact Persons | වෙනත් ඇමතුම් විස්තර": language == languages[1]? "Other Contact Details and Contact Persons | tamil": "Other Contact Details and Contact Persons"}}:</label>
             <textarea type="text" ng-model="model.req_contact_other" class="form-control" id="email" rows="5"/>
         </div>
 
