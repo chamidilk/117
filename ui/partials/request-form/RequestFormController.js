@@ -2,15 +2,52 @@
  * 
  */
 
-function RequestFormController($scope, $http) {
+function RequestFormController($scope, $http, $stateParams) {
 
+
+    //Languages: 'SINHALA', 'TAMIL', 'ENGLISH'
+    $scope.languages = ['SINHALA', 'TAMIL', 'ENGLISH'];
+    console.log($stateParams.language);
 
     $scope.model = {};
 
     $scope.selection = {
     };
 
-    $scope.categories = [
+
+    $scope.categories_ENGLISH = [
+        {"name" : "Evacuation", "id": "1", "value" : "EVAC"},
+        {"name" : "Locate Missing Person", "id": "2", "value" : "MISSING"},
+        {"name" : "Medical", "id": "3", "value" : "MEDICAL"},
+        {"name" : "Bedding Items", "id": "4", "value" : "BEDDING"},
+        {"name" : "Clothes", "id": "5", "value" : "CLOTHES"},
+        {"name" : "Food Items", "id": "6", "value" : "FOOD"},
+        {"name" : "Non-food Items", "id": "7", "value" : "NONFOOD"},
+        {"name" : "School Items", "id": "8", "value" : "SCHOOL"},
+        {"name" : "Search & Rescue Items", "id": "9", "value" : "SEARCH"},
+        {"name" : "Shelter", "id": "10", "value" : "SHELTER"},
+        {"name" : "Water", "id": "11", "value" : "WATER"},
+        {"name" : "Sanitation", "id": "12", "value" : "SANITATION"},
+        {"name" : "Repair to Damages", "id": "13", "value" : "DAMAGE"},
+        {"name" : "Other", "id": "14", "value" : "OTHER"}];
+
+    $scope.categories_TAMIL = [
+        {"name" : "Evacuation | tamil", "id": "1", "value" : "EVAC"},
+        {"name" : "Locate Missing Person | tamil", "id": "2", "value" : "MISSING"},
+        {"name" : "Medical | වෛද්‍යාදාර", "id": "3", "value" : "MEDICAL"},
+        {"name" : "Bedding Items | නිදන ද්‍රව්‍ය", "id": "4", "value" : "BEDDING"},
+        {"name" : "Clothes | ඇඳුම්", "id": "5", "value" : "CLOTHES"},
+        {"name" : "Food Items| ආහාර", "id": "6", "value" : "FOOD"},
+        {"name" : "Non-food Items | ආහාර නොවන ද්‍රව්‍ය", "id": "7", "value" : "NONFOOD"},
+        {"name" : "School Items | පාසල් උපකරණ", "id": "8", "value" : "SCHOOL"},
+        {"name" : "Search & Rescue Items | සෙව්ම් හා මුදවාගැනිම්", "id": "9", "value" : "SEARCH"},
+        {"name" : "Shelter | තාවකාලික නවාතැන්", "id": "10", "value" : "SHELTER"},
+        {"name" : "Water | ජලය", "id": "11", "value" : "WATER"},
+        {"name" : "Sanitation | සනීපාරක්ෂාව", "id": "12", "value" : "SANITATION"},
+        {"name" : "Repair to Damages | ප්‍රතිසංස්කරණය", "id": "13", "value" : "DAMAGE"},
+        {"name" : "Other | වෙනත්", "id": "14", "value" : "OTHER"}];
+
+    $scope.categories_SINHALA = [
         {"name" : "Evacuation | බේරාගැනීම", "id": "1", "value" : "EVAC"},
         {"name" : "Locate Missing Person | අතුරුදහන් වුවන් සෙවීම", "id": "2", "value" : "MISSING"},
         {"name" : "Medical | වෛද්‍යාදාර", "id": "3", "value" : "MEDICAL"},
@@ -25,9 +62,60 @@ function RequestFormController($scope, $http) {
         {"name" : "Sanitation | සනීපාරක්ෂාව", "id": "12", "value" : "SANITATION"},
         {"name" : "Repair to Damages | ප්‍රතිසංස්කරණය", "id": "13", "value" : "DAMAGE"},
         {"name" : "Other | වෙනත්", "id": "14", "value" : "OTHER"}];
+
+    $scope.categories = $stateParams.language == $scope.languages[0]? $scope.categories_SINHALA: $stateParams.language == $scope.languages[1]? $scope.categories_TAMIL: $scope.categories_ENGLISH;
+
+
+    $scope.disasterCategories_ENGLISH = [
+        {"name" : "Landslide", "id": "21", "value" : "LANDSLIDE"},
+        {"name" : "Flood", "id": "22", "value" : "FLOOD"},
+        {"name" : "Cyclone", "id": "1", "value" : "CYCLONE"},
+        {"name" : "Drought", "id": "2", "value" : "DROUGHT"},
+        {"name" : "Industrial Hazard", "id": "3", "value" : "INDUSTRIAL_HAZARD"},
+        {"name" : "Tsunami", "id": "4", "value" : "TSUNAMI"},
+        {"name" : "Earthquake", "id": "5", "value" : "EARTHQUAKE"},
+        {"name" : "Air Hazard", "id": "6", "value" : "AIR_HAZARD"},
+        {"name" : "Maritime Hazard", "id": "7", "value" : "MARITIME_HAZARD"},
+        {"name" : "Fire", "id": "8", "value" : "FIRE"},
+        {"name" : "Epidemic", "id": "9", "value" : "EPIDEMIC"},
+        {"name" : "Explosion", "id": "10", "value" : "EXPLOSION"},
+        {"name" : "Air Raids", "id": "11", "value" : "AIR_RAIDS"},
+        {"name" : "Civil Or Internal Strife", "id": "12", "value" : "CIVIL"},
+        {"name" : "Chemical Accident", "id": "13", "value" : "CHEMICAL"},
+        {"name" : "Radiological Emergency", "id": "14", "value" : "RADIOLOGICAL"},
+        {"name" : "Oil Spills Including Inland & Marine", "id": "15", "value" : "OIL_SPILLS"},
+        {"name" : "Nuclear Disaster", "id": "16", "value" : "NUCLEAR"},
+        {"name" : "Urban & Forest Fire", "id": "17", "value" : "FOREST_FIRE"},
+        {"name" : "Coastal Erosion", "id": "18", "value" : "EROSION"},
+        {"name" : "Tornados, Lightening Strikes & Severe Thunder Storms", "id": "19", "value" : "LIGHTENING"},
+        {"name" : "Other", "id": "20", "value" : "OTHER"}];
+
+    $scope.disasterCategories_TAMIL = [
+        {"name" : "Landslide | tamil", "id": "21", "value" : "LANDSLIDE"},
+        {"name" : "Flood | tamil", "id": "22", "value" : "FLOOD"},
+        {"name" : "Cyclone | tamil", "id": "1", "value" : "CYCLONE"},
+        {"name" : "Drought | නියඟය", "id": "2", "value" : "DROUGHT"},
+        {"name" : "Industrial Hazard | කාර්මික උපද්‍රව", "id": "3", "value" : "INDUSTRIAL_HAZARD"},
+        {"name" : "Tsunami | සුනාමිය", "id": "4", "value" : "TSUNAMI"},
+        {"name" : "Earthquake | භුමි කම්පාව", "id": "5", "value" : "EARTHQUAKE"},
+        {"name" : "Air Hazard | ගුවන් උපද්‍රව", "id": "6", "value" : "AIR_HAZARD"},
+        {"name" : "Maritime Hazard | සමුද්‍රීය උපද්‍රව", "id": "7", "value" : "MARITIME_HAZARD"},
+        {"name" : "Fire | ගිනි", "id": "8", "value" : "FIRE"},
+        {"name" : "Epidemic | වසංගත", "id": "9", "value" : "EPIDEMIC"},
+        {"name" : "Explosion | පිපිරීම", "id": "10", "value" : "EXPLOSION"},
+        {"name" : "Air Raids | ගුවන් ප්‍රහාර", "id": "11", "value" : "AIR_RAIDS"},
+        {"name" : "Civil Or Internal Strife | සිවිල් හෝ අභ්‍යන්තර ගැටුම්", "id": "12", "value" : "CIVIL"},
+        {"name" : "Chemical Accident | රසායනික අනතුරු", "id": "13", "value" : "CHEMICAL"},
+        {"name" : "Radiological Emergency | විකිරනශීලත්වයෙන් හටගත් හදිසි අවස්ථාවක්", "id": "14", "value" : "RADIOLOGICAL"},
+        {"name" : "Oil Spills Including Inland & Marine | තෙල් පිටාර ගැලීමක්", "id": "15", "value" : "OIL_SPILLS"},
+        {"name" : "Nuclear Disaster | න්‍යෂ්ටික ආපදා", "id": "16", "value" : "NUCLEAR"},
+        {"name" : "Urban & Forest Fire | නාගරික හා වනාන්තර ගිනිගැනීමක්", "id": "17", "value" : "FOREST_FIRE"},
+        {"name" : "Coastal Erosion | වෙරල ඛාදනය වීමක්", "id": "18", "value" : "EROSION"},
+        {"name" : "Tornados, Lightening Strikes & Severe Thunder Storms | ටෝනාඩෝ චණ්ඩ මාරුතයක්", "id": "19", "value" : "LIGHTENING"},
+        {"name" : "Other | වෙනත්", "id": "20", "value" : "OTHER"}];
     
     
-    $scope.disasterCategories = [
+    $scope.disasterCategories_SINHALA = [
         {"name" : "Landslide | නාය යාම", "id": "21", "value" : "LANDSLIDE"},
         {"name" : "Flood | ගංවතුර", "id": "22", "value" : "FLOOD"},
         {"name" : "Cyclone | සුළි සුළඟ", "id": "1", "value" : "CYCLONE"},
@@ -51,6 +139,7 @@ function RequestFormController($scope, $http) {
         {"name" : "Tornados, Lightening Strikes & Severe Thunder Storms | ටෝනාඩෝ චණ්ඩ මාරුතයක්", "id": "19", "value" : "LIGHTENING"},
         {"name" : "Other | වෙනත්", "id": "20", "value" : "OTHER"}];
 
+    $scope.disasterCategories = $stateParams.language == $scope.languages[0]? $scope.disasterCategories_SINHALA: $stateParams.language == $scope.languages[1]? $scope.disasterCategories_TAMIL: $scope.disasterCategories_ENGLISH;
 
     var mandatoryFields = {
         'per_fullname': 'Full Name',
