@@ -29,6 +29,7 @@ function RequestFormController($scope, $http, $stateParams) {
         {"name" : "Water", "id": "11", "value" : "WATER"},
         {"name" : "Sanitation", "id": "12", "value" : "SANITATION"},
         {"name" : "Power/Electricity", "id": "13", "value" : "POWER"},
+        {"name" : "Repair to Damages", "id": "15", "value" : "DAMAGE"},
         {"name" : "Other", "id": "14", "value" : "OTHER"}];
 
     $scope.categories_TAMIL = [
@@ -45,6 +46,7 @@ function RequestFormController($scope, $http, $stateParams) {
         {"name" : "Water | நீர்", "id": "11", "value" : "WATER"},
         {"name" : "Sanitation | சுகாதார வசதிகள்", "id": "12", "value" : "SANITATION"},
         {"name" : "Power/Electricity | பவர் / மின்சாரம்", "id": "13", "value" : "POWER"},
+        {"name" : "Repair to Damages | சேதங்களைத் திருத்துதல்", "id": "15", "value" : "DAMAGE"},
         {"name" : "Other | வேறு", "id": "14", "value" : "OTHER"}];
 
     $scope.categories_SINHALA = [
@@ -61,6 +63,7 @@ function RequestFormController($scope, $http, $stateParams) {
         {"name" : "Water | ජලය", "id": "11", "value" : "WATER"},
         {"name" : "Sanitation | සනීපාරක්ෂාව", "id": "12", "value" : "SANITATION"},
         {"name" : "Power/Electricity | බලය / විදුලිබල", "id": "13", "value" : "POWER"},
+        {"name" : "Repair to Damages | හානි අලුත්වැඩියා", "id": "15", "value" : "DAMAGE"},
         {"name" : "Other | වෙනත්", "id": "14", "value" : "OTHER"}];
 
     $scope.categories = $stateParams.language == $scope.languages[0]? $scope.categories_SINHALA: $stateParams.language == $scope.languages[1]? $scope.categories_TAMIL: $scope.categories_ENGLISH;
