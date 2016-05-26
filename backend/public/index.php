@@ -51,7 +51,10 @@ $app->get('/statistics', function (Request $request, Response $response) {
                     if($reqValue == "") {
                         $req[$reqKey] = 0;
                     }
-                    if($req)
+                    if($reqKey == "avgResolutionTime" || $reqKey == "avgResolutionTimeToday" ||
+                        $reqKey == "closedPercentage" || $reqKey == "daysToClose") {
+                        $req[$reqKey] = number_format($req[$reqKey], 2);
+                    }
                 }
                 $reqs[$index] = $req;
             }

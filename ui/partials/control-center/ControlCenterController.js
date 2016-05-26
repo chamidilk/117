@@ -137,7 +137,7 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
                 delete $scope.filters[key];
             }
         });
-        if($scope.filters.startDate) {
+        /*if($scope.filters.startDate) {
             var date = new Date($scope.filters.startDate);
             $scope.filters.startDate = date.getFullYear() + "-" + date.getMonth() + "-" +
                 date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -146,7 +146,7 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
             var date = new Date($scope.filters.endDate);
             $scope.filters.endDate = date.getFullYear() + "-" + date.getMonth() + "-" +
                 date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-        }
+        }*/
         $http({
             method: 'GET',
             url: 'http://117.dmc.gov.lk/one-one-seven/public/requests',
