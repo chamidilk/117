@@ -3,6 +3,8 @@
  */
 
 function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
+    
+     var myAppModule = angular.module('MyApp', ['ui.bootstrap.datetimepicker']);
 
 
     $scope.requests = [];
