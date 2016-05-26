@@ -104,7 +104,7 @@
                     <tbody style="font-size:35px">
                         <tr ng-repeat="request in requests">
                             <td class="text-center"><img src="images/green-arrow.png" ng-show= "{{request.openedToday <= request.closedToday}}" width="35px"><img src="images/red-arrow.png" ng-show= "{{request.openedToday > request.closedToday}}" width="35px"></td>
-                            <td>{{request.req_type_ref}}</td>
+                            <td>{{request.req_type_REF}}</td>
                             <td class="text-center">{{request.totalOpen}}</td>
                             <td class="text-center">{{request.openedToday}}</td>
                             <td class="text-center">{{request.closedToday}}</td>     
