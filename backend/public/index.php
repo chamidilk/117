@@ -51,6 +51,7 @@ $app->get('/statistics', function (Request $request, Response $response) {
                     if($reqValue == "") {
                         $req[$reqKey] = 0;
                     }
+                    if($req)
                 }
                 $reqs[$index] = $req;
             }
