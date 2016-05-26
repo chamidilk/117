@@ -1,7 +1,7 @@
 <div class="well" ng-controller="RequestFormController">
     <div class="row">
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>{{language == languages[0]? "Request Details | උපකාර ඉල්ලීම": language == languages[1]? "Request Details | உதவி கோரிக்கை விவரங்கள்": "Request Details"}}:</h3>
+            <h3>{{language == languages[0]? "Request Details | උපකාර ඉල්ලීම": language == languages[1]? "Request Details | வேண்டுகோள் விபரங்கள்": "Request Details"}}:</h3>
         </div>
         <div class="form-group col-xs-12 col-lg-12">
             <div class="row">
@@ -19,12 +19,12 @@
         </div> 
         
         <div class="form-group col-xs-12 col-lg-12">
-            <label for="comment">{{language == languages[0]? "Details of Request | අවශ්‍යතා පිළිබඳ විස්ත‍ර": language == languages[1]? "Details of Request | கோரிக்கையின் விவரங்கள்": "Details of Request"}}:<font color="red">*</font></label>
+            <label for="comment">{{language == languages[0]? "Details of Request | අවශ්‍යතා පිළිබඳ විස්ත‍ර": language == languages[1]? "Details of Request | வேண்டுகோள் பற்றிய விபரங்கள்": "Details of Request"}}:<font color="red">*</font></label>
             <textarea type="text" ng-model="model.req_details" class="form-control" id="comment" rows="10"></textarea>
         </div>
         <div class="form-group col-xs-12 col-lg-12">
             <div class="row">
-            <label for="requestType" style="padding-left: 15px;">{{language == languages[0]? "Request Type | අවශ්‍යතා වර්ගය": language == languages[1]? "Request Type | கோரிக்கை வகை": "Request Type"}}:<font color="red">*</font></label>
+            <label for="requestType" style="padding-left: 15px;">{{language == languages[0]? "Request Type | අවශ්‍යතා වර්ගය": language == languages[1]? "Request Type | வேண்டுகோள் வகைை": "Request Type"}}:<font color="red">*</font></label>
         </div>
             <span ng-repeat="category in categories">
                 <div  class="col-md-6">
@@ -37,14 +37,14 @@
         </div> 
        
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>{{language == languages[0]? "Size of Group Request is for | අවශ්‍යතා සහිත පුද්ගලයින් සංඛ්‍යාව": language == languages[1]? "Size of Group Request is for | குழு வேண்டுகோள் அளவு": "Size of Group Request is for"}}:</h3>
+            <h3>{{language == languages[0]? "Size of Group Request is for | අවශ්‍යතා සහිත පුද්ගලයින් සංඛ්‍යාව": language == languages[1]? "Size of Group Request is for | குழு கோரிக்கையின் அளவு": "Size of Group Request is for"}}:</h3>
         </div>
         <div class="form-group col-xs-12 col-lg-2">
-            <label for="totalHeadCount">{{language == languages[0]? "Total Headcount | මුළු සංඛ්‍යාව": language == languages[1]? "Total Headcount | மொத்த தலை எண்ணிக்கை ": "Total Headcount"}}:</label>
+            <label for="totalHeadCount">{{language == languages[0]? "Total Headcount | මුළු සංඛ්‍යාව": language == languages[1]? "Total Headcount | மொத்த நபர் எண்ணிக்கை ": "Total Headcount"}}:</label>
             <input type="number" ng-model="model.req_for_people" class="form-control" id="totalHeadCount" />
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
-            <label for="adultHeadCount">{{language == languages[0]? "Adults | වැඩිහිටියන් සංඛ්‍යාව": language == languages[1]? "Adults | பெரியவர்கள்": "Adults"}}:</label>
+            <label for="adultHeadCount">{{language == languages[0]? "Adults | වැඩිහිටියන් සංඛ්‍යාව": language == languages[1]? "Adults | வயதுவந்தவர்கள்": "Adults"}}:</label>
             <input type="number" ng-model="model.req_for_adults" class="form-control" id="adultHeadCount" ng-blur="calculateTotalHeadCount()" />
         </div>
         <div class="form-group col-xs-12 col-md-2 col-lg-2">
@@ -57,7 +57,7 @@
         </div>
  
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>{{language == languages[0]? "Location of Group Request is for | අවශ්‍යතා ඇති පිරිස සිටින ස්ථානය": language == languages[1]? "Location of Group Request is for | குழு கோரிக்கை இடம்": "Location of Group Request is for"}}:</h3>
+            <h3>{{language == languages[0]? "Location of Group Request is for | අවශ්‍යතා ඇති පිරිස සිටින ස්ථානය": language == languages[1]? "Location of Group Request is for | குழு கோரிக்கையின் இடம்": "Location of Group Request is for"}}:</h3>
         </div>
        <div class="form-group col-xs-12 col-lg-6">
             <label for="area">{{language == languages[0]? "Area | ප්‍රදේශය": language == languages[1]? "Area | பகுதி": "Area"}}:</label>
@@ -69,7 +69,7 @@
         </div>
   
         <div class="form-group col-xs-12 col-lg-12">
-            <h3>{{language == languages[0]? "Contact Details of Person Making Request | අයදුම්කරුවා පිලිබඳ විස්තර": language == languages[1]? "Contact Details of Person Making Request | கோரிக்கை நபரின் தொடர்பு விபரங்கள்": "Contact Details of Person Making Request"}}:</h3>
+            <h3>{{language == languages[0]? "Contact Details of Person Making Request | අයදුම්කරුවා පිලිබඳ විස්තර": language == languages[1]? "Contact Details of Person Making Request | கோரும் நபரின் தொடர்பாடல் விபரங்கள்": "Contact Details of Person Making Request"}}:</h3>
         </div>
         <div class="form-group col-xs-12 col-lg-6">
             <label for="name">{{language == languages[0]? "Full Name of Person Making Request | අයදුම්කරුවාගේ නම": language == languages[1]? "Full Name of Person Making Request | கோரிக்கை நபரின் முழு பெயர்": "Full Name of Person Making Request"}}:<font color="red">*</font></label>
@@ -80,15 +80,15 @@
             <input type="text" ng-model="model.per_organization" class="form-control" id="organization" />
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="name">{{language == languages[0]? "National Identity Card, Driving License or Passport No. | ජාතික හැඳුනුම්පත් අංකය, රියදුරු බලපත්‍ර අංකය හෝ විදේශ ගමන් බලපත්‍ර අංකය": language == languages[1]? "National Identity Card, Driving License or Passport No. | தேசிய அடையாள அட்டை, ஓட்டுனர் உரிமம் அல்லது பாஸ்போர்ட் எண்": "National Identity Card, Driving License or Passport No."}}:</label>
+            <label for="name">{{language == languages[0]? "National Identity Card, Driving License or Passport No. | ජාතික හැඳුනුම්පත් අංකය, රියදුරු බලපත්‍ර අංකය හෝ විදේශ ගමන් බලපත්‍ර අංකය": language == languages[1]? "National Identity Card, Driving License or Passport No. | தேசிய அடையாள அட்டை, ஓட்டுனர் உரிமம் அல்லது கடவுச்சீட்டு எண்": "National Identity Card, Driving License or Passport No."}}:</label>
             <input type="text" ng-model="model.nationalID" class="form-control" id="nic" />
         </div>
         <div class="form-group col-xs-12 col-lg-6">
-            <label for="mobileNumber">Main Mobile Number {{language == languages[2]? ":": " | "}}<font color="red">{{language == languages[2]? "*": ""}}</font><br/>{{language == languages[0]? "දුරකථන අංකය": language == languages[1]? "மொபைல் எண்": ""}}{{language == languages[2]? "": ":"}} <font color="red">{{language == languages[2]? "": "*"}}</font></label>
+            <label for="mobileNumber">Main Mobile Number {{language == languages[2]? ":": " | "}}<font color="red">{{language == languages[2]? "*": ""}}</font><br/>{{language == languages[0]? "දුරකථන අංකය": language == languages[1]? "பிரதான கையடக்கத்தொலைபேசி எண்": ""}}{{language == languages[2]? "": ":"}} <font color="red">{{language == languages[2]? "": "*"}}</font></label>
             <input type="text" ng-model="model.per_mobile" class="form-control" id="mobileNumber" />
         </div>        
         <div class="form-group col-xs-12 col-lg-12">
-            <label for="email">{{language == languages[0]? "Other Contact Details and Contact Persons | වෙනත් ඇමතුම් විස්තර": language == languages[1]? "Other Contact Details and Contact Persons | பிற விபரங்கள் மற்றும் தொடர்பு நபர்கள்": "Other Contact Details and Contact Persons"}}:</label>
+            <label for="email">{{language == languages[0]? "Other Contact Details and Contact Persons | වෙනත් ඇමතුම් විස්තර": language == languages[1]? "Other Contact Details and Contact Persons | பிற விபரங்கள் மற்றும் தொடர்புகொள்ளத்தக்க நபர்கள்": "Other Contact Details and Contact Persons"}}:</label>
             <textarea type="text" ng-model="model.req_contact_other" class="form-control" id="email" rows="5"/>
         </div>
 
