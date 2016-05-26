@@ -22,13 +22,13 @@ function RequestFormController($scope, $http, $stateParams) {
         {"name" : "Bedding Items", "id": "4", "value" : "BEDDING"},
         {"name" : "Clothes", "id": "5", "value" : "CLOTHES"},
         {"name" : "Food Items", "id": "6", "value" : "FOOD"},
-        {"name" : "Non-food Items", "id": "7", "value" : "NONFOOD"},
+        {"name" : "Warning", "id": "7", "value" : "WARNING"},
         {"name" : "School Items", "id": "8", "value" : "SCHOOL"},
         {"name" : "Search & Rescue Items", "id": "9", "value" : "SEARCH"},
         {"name" : "Shelter", "id": "10", "value" : "SHELTER"},
         {"name" : "Water", "id": "11", "value" : "WATER"},
         {"name" : "Sanitation", "id": "12", "value" : "SANITATION"},
-        {"name" : "Repair to Damages", "id": "13", "value" : "DAMAGE"},
+        {"name" : "Power/Electricity", "id": "13", "value" : "POWER"},
         {"name" : "Other", "id": "14", "value" : "OTHER"}];
 
     $scope.categories_TAMIL = [
@@ -38,13 +38,13 @@ function RequestFormController($scope, $http, $stateParams) {
         {"name" : "Bedding Items | படுக்கைப் பொருட்கள்", "id": "4", "value" : "BEDDING"},
         {"name" : "Clothes | ஆடைகள்", "id": "5", "value" : "CLOTHES"},
         {"name" : "Food Items| உணவு பொருட்கள்", "id": "6", "value" : "FOOD"},
-        {"name" : "Non-food Items | உணவு அல்லாத பொருட்கள்", "id": "7", "value" : "NONFOOD"},
+        {"name" : "Warning | எச்சரிக்கை", "id": "7", "value" : "WARNING"},
         {"name" : "School Items | பாடசாலை உபகரணங்கள்", "id": "8", "value" : "SCHOOL"},
         {"name" : "Search & Rescue Items | தேடுதல் மற்றும் மீட்பு பொருட்கள்", "id": "9", "value" : "SEARCH"},
         {"name" : "Shelter | அடைக்கலம்", "id": "10", "value" : "SHELTER"},
         {"name" : "Water | நீர்", "id": "11", "value" : "WATER"},
         {"name" : "Sanitation | சுகாதார வசதிகள்", "id": "12", "value" : "SANITATION"},
-        {"name" : "Repair to Damages | சேதங்கள் சரிசெய்தல்", "id": "13", "value" : "DAMAGE"},
+        {"name" : "Power/Electricity | பவர் / மின்சாரம்", "id": "13", "value" : "POWER"},
         {"name" : "Other | வேறு", "id": "14", "value" : "OTHER"}];
 
     $scope.categories_SINHALA = [
@@ -54,13 +54,13 @@ function RequestFormController($scope, $http, $stateParams) {
         {"name" : "Bedding Items | නිදන ද්‍රව්‍ය", "id": "4", "value" : "BEDDING"},
         {"name" : "Clothes | ඇඳුම්", "id": "5", "value" : "CLOTHES"},
         {"name" : "Food Items| ආහාර", "id": "6", "value" : "FOOD"},
-        {"name" : "Non-food Items | ආහාර නොවන ද්‍රව්‍ය", "id": "7", "value" : "NONFOOD"},
+        {"name" : "Warning | අනතුරු ඇඟවීම්", "id": "7", "value" : "WARNING"},
         {"name" : "School Items | පාසල් උපකරණ", "id": "8", "value" : "SCHOOL"},
         {"name" : "Search & Rescue Items | සෙව්ම් හා මුදවාගැනිම්", "id": "9", "value" : "SEARCH"},
         {"name" : "Shelter | තාවකාලික නවාතැන්", "id": "10", "value" : "SHELTER"},
         {"name" : "Water | ජලය", "id": "11", "value" : "WATER"},
         {"name" : "Sanitation | සනීපාරක්ෂාව", "id": "12", "value" : "SANITATION"},
-        {"name" : "Repair to Damages | ප්‍රතිසංස්කරණය", "id": "13", "value" : "DAMAGE"},
+        {"name" : "Power/Electricity | බලය / විදුලිබල", "id": "13", "value" : "POWER"},
         {"name" : "Other | වෙනත්", "id": "14", "value" : "OTHER"}];
 
     $scope.categories = $stateParams.language == $scope.languages[0]? $scope.categories_SINHALA: $stateParams.language == $scope.languages[1]? $scope.categories_TAMIL: $scope.categories_ENGLISH;
