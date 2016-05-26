@@ -137,16 +137,16 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
                 delete $scope.filters[key];
             }
         });
-        /*if($scope.filters.startDate) {
+        if($scope.filters.startDate) {
             var date = new Date($scope.filters.startDate);
-            $scope.filters.startDate = date.getFullYear() + "-" + date.getMonth() + "-" +
-                date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+            $scope.filters.startDate = date.getFullYear() + "-" + pad2(date.getMonth() + 1) + "-" +
+                pad2(date.getDate()) + " " + pad2(date.getHours()) + ":" + pad2(date.getMinutes()) + ":" + pad2(date.getSeconds());
         }
         if($scope.filters.endDate) {
             var date = new Date($scope.filters.endDate);
-            $scope.filters.endDate = date.getFullYear() + "-" + date.getMonth() + "-" +
-                date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-        }*/
+            $scope.filters.endDate = date.getFullYear() + "-" + pad2(date.getMonth() + 1) + "-" +
+                pad2(date.getDate()) + " " + pad2(date.getHours()) + ":" + pad2(date.getMinutes()) + ":" + pad2(date.getSeconds());
+        }
         $http({
             method: 'GET',
             url: 'http://117.dmc.gov.lk/one-one-seven/public/requests',
@@ -164,7 +164,9 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
             console.error(response);
         });
     };
-
+    function pad2(n) {  // always returns a string
+        return (n < 10 ? '0' : '') + n;
+    }
     $scope.init();
 
 }

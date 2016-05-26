@@ -131,6 +131,7 @@ $app->get('/requests', function (Request $request, Response $response) {
     }
     $qParams = $request->getQueryParams();
     $reqType = $qParams['req_type_REF'];
+    $reqID = $qParams['req_ID'];
     $reqDisasterType = $qParams['req_disaster_type'];
     $reqStatus = $qParams['reqstatus_REF'];
     $reqArea = $qParams['req_area'];
@@ -151,6 +152,9 @@ $app->get('/requests', function (Request $request, Response $response) {
 
         if(isset($reqType)) {
             $reqSql .= " AND Request.req_type_REF='$reqType'";
+        }
+        if(isset($reqID)) {
+            $reqSql .= " AND Request.req_ID='$reqID'";
         }
         if(isset($reqStatus)) {
             $reqSql .= " AND Request.reqstatus_REF='$reqStatus'";
@@ -200,8 +204,7 @@ $app->get('/requests', function (Request $request, Response $response) {
         return $response->withJson($reqs);
     } catch(PDOException $pdoe) {
         return $response->withJson(array('error' => 'Error fetching request data',
-            'detail' => $pdoe->getMessage(),
-            'query' => $reqSql), 500);
+            'detail' => $pdoe->getMessage()), 500);
     }
 
 });
