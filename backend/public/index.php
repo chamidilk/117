@@ -39,6 +39,15 @@ $app->get('/statistics', function (Request $request, Response $response) {
     $qParams = $request->getQueryParams();
 
     $db = getConnection();
+    $totals = array();
+    $totals['totalOpen'] = 0;
+    $totals['openedToday'] = 0;
+    $totals['closedToday'] = 0;
+    $totals['peopleSupportedToday'] = 0;
+    $totals['avgResolutionTime'] = 0.00;
+    $totals['avgResolutionTimeToday'] = 0.00;
+    $totals['closedPercentage'] = 0.00;
+    $totals['daysToClose'] = 0;
 
     if($qParams['type']=='requests') {
         try {
@@ -55,9 +64,24 @@ $app->get('/statistics', function (Request $request, Response $response) {
                         $reqKey == "closedPercentage" || $reqKey == "daysToClose") {
                         $req[$reqKey] = number_format($req[$reqKey], 2);
                     }
+
                 }
+                $totals['totalOpen'] += (int)$req['totalOpen'];
+                $totals['openedToday'] += (int)$req['openedToday'];
+                $totals['closedToday'] += (int)$req['closedToday'];
+                $totals['peopleSupportedToday'] += (int)$req['peopleSupportedToday'];
+                $totals['avgResolutionTime'] += (float)$req['avgResolutionTime'];
+                $totals['avgResolutionTimeToday'] += (float)$req['avgResolutionTimeToday'];
+                $totals['closedPercentage'] += (float)$req['closedPercentage'];
+                $totals['daysToClose'] += (float)$req['daysToClose'];
                 $reqs[$index] = $req;
             }
+            $totals['avgResolutionTime'] = $totals['avgResolutionTime'] / count($reqs);
+            $totals['avgResolutionTimeToday'] = $totals['avgResolutionTimeToday'] / count($reqs);
+            $totals['closedPercentage'] = $totals['closedPercentage'] / count($reqs);
+            $totals['daysToClose'] = $totals['daysToClose'] / count($reqs);
+            $totals['req_type_REF'] = 'TOTAL';
+            array_unshift($reqs, $totals);
             return $response->withJson($reqs);
 
         } catch(PDOException $pdoe) {
