@@ -3,7 +3,7 @@
  */
 
 
-function RequestHelpController($scope, $state, $cookies) {
+function RequestHelpController($scope, $state) {
 
     $scope.languages = ['SINHALA', 'TAMIL', 'ENGLISH'];
 
@@ -27,7 +27,6 @@ function RequestHelpController($scope, $state, $cookies) {
 
     $scope.setLanguage = function (language) {
         $scope.language = language;
-        $cookies.put('lang', $scope.language);
         $state.go('requestForm', { "language": $scope.language});
     };
 

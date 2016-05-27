@@ -2,23 +2,11 @@
  * 
  */
 
-function RequestFormController($scope, $http, $stateParams, $cookies, $state) {
+function RequestFormController($scope, $http, $stateParams) {
 
 
     //Languages: 'SINHALA', 'TAMIL', 'ENGLISH'
     $scope.languages = ['SINHALA', 'TAMIL', 'ENGLISH'];
-
-    $scope.lang = $cookies.get('lang');
-
-    if($scope.lang == "" || $scope.lang == undefined || $scope.lang == null){
-        $state.go('languageSelector');
-    }
-
-    // reset stateparams
-    $stateParams.language = $scope.lang;
-    $scope.language  = $scope.lang;
-
-
     console.log($stateParams.language);
 
     $scope.model = {};
