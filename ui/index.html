@@ -13,6 +13,7 @@
    <script src="bootstrap-3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
    <script src="scripts/external/angular.min.js" type="text/javascript"></script>
    <script src="scripts/external/angular-ui-router.min.js" type="text/javascript"></script>
+   <script src="scripts/external/angular-cookies.js" type="text/javascript"></script>
    <script src="scripts/controllers/RequestHelpController.js" type="text/javascript"></script>
    <script src="partials/request-form/RequestFormController.js" type="text/javascript"></script>
    <script src="scripts/external/ngAutocomplete.js" type="text/javascript"></script>
@@ -20,7 +21,7 @@
       /**
        * You must include the dependency on 'ngMaterial'
        */
-      var app = angular.module('177App', ['ui.router', 'ngAutocomplete'])
+      var app = angular.module('177App', ['ui.router', 'ngAutocomplete', 'ngCookies'])
               .controller('RequestFormController', RequestFormController)
               .controller('RequestHelpController', RequestHelpController);
 
