@@ -76,10 +76,10 @@ $app->get('/statistics', function (Request $request, Response $response) {
                 $totals['daysToClose'] += (float)$req['daysToClose'];
                 $reqs[$index] = $req;
             }
-            $totals['avgResolutionTime'] = $totals['avgResolutionTime'] / count($reqs);
-            $totals['avgResolutionTimeToday'] = $totals['avgResolutionTimeToday'] / count($reqs);
-            $totals['closedPercentage'] = $totals['closedPercentage'] / count($reqs);
-            $totals['daysToClose'] = $totals['daysToClose'] / count($reqs);
+            $totals['avgResolutionTime'] = number_format($totals['avgResolutionTime'] / count($reqs), 2);
+            $totals['avgResolutionTimeToday'] = number_format($totals['avgResolutionTimeToday'] / count($reqs), 2);
+            $totals['closedPercentage'] = number_format($totals['closedPercentage'] / count($reqs), 2);
+            $totals['daysToClose'] = number_format($totals['daysToClose'] / count($reqs), 2);
             $totals['req_type_REF'] = 'TOTAL';
             array_unshift($reqs, $totals);
             return $response->withJson($reqs);
