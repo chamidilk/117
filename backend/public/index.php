@@ -291,7 +291,7 @@ $app->post('/requests', function (Request $request, Response $response) {
             $resourceRequest->req_for_kids = isset($body['req_for_kids']) ? $body['req_for_kids'] : 0;
             $resourceRequest->req_for_infants = isset($body['req_for_infants']) ? $body['req_for_infants'] : 0;
             $resourceRequest->req_summary = isset($body['req_summary']) ? $body['req_summary'] : "";
-            $resourceRequest->req_details = $body['req_details'];
+            $resourceRequest->req_details = str_replace("\n", " - ", $body['req_details']);
             $resourceRequest->reqstatus_REF = 'OPEN';
 
             try {
@@ -304,6 +304,39 @@ $app->post('/requests', function (Request $request, Response $response) {
     }
     $resourceRequest->req_type_REF = $reqTypes;
     return $response->withJson($resourceRequest, 200);
+});
+$app->get('/locations', function (Request $request, Response $response) {
+    $db = getConnection();
+    /*if (!checkAuth($request->getHeaderLine('X-Authorization'))) {
+        return $response->withJson(array('error' => 'Authorization invalid'), 403);
+    }*/
+    $qParams = $request->getQueryParams();
+    $filter = $qParams['filter'];
+    $district = $qParams['district'];
+    $ds = $qParams['ds'];
+    try {
+        if($filter == "district") {
+            $reqLoqSql = "SELECT reqloc_DS AS DS FROM Request_Area WHERE reqloc_district=:district GROUP BY reqloc_DS";
+            $reqLoqStmt = $db->prepare($reqLoqSql);
+            $reqLoqStmt->bindParam("district", $district);
+            $reqLoqStmt->execute();
+            $dsDivisionsObj = new stdClass();
+            $dsDivisionsObj->dsDivisions = $reqLoqStmt->fetchAll(PDO::FETCH_ASSOC);
+            return $response->withJson($dsDivisionsObj);
+        } else if($filter == "ds") {
+            $reqLoqSql = "SELECT reqloc_GN AS GN FROM Request_Area WHERE reqloc_DS=:ds";
+            $reqLoqStmt = $db->prepare($reqLoqSql);
+            $reqLoqStmt->bindParam("ds", $ds);
+            $reqLoqStmt->execute();
+            $gnObject = new stdClass();
+            $gnObject->gn = $reqLoqStmt->fetchAll(PDO::FETCH_ASSOC);
+            return $response->withJson($gnObject);
+        }
+    } catch (PDOException $pdoe) {
+        return $response->withJson(array('error' => 'Could not fetch location details',
+            'detail' => $pdoe->getMessage()), 500);
+    }
+
 });
 
 $app->run();
@@ -364,5 +397,5 @@ function write_log($db, $message) {
     $log = new stdClass();
     $log->id = null;
     $log->message = $message;
-    insertObject($db,'logs',$log);
+    insertObject($db,'Log',$log);
 }
