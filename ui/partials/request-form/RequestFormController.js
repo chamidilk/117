@@ -142,6 +142,11 @@ function RequestFormController($scope, $http, $stateParams) {
         {"name" : "Tornados, Lightening Strikes & Severe Thunder Storms | ටෝනාඩෝ චණ්ඩ මාරුතයක්", "id": "19", "value" : "LIGHTENING"},
         {"name" : "Other | වෙනත්", "id": "20", "value" : "OTHER"}];
 
+    $scope.districts_SINHALA = [
+        {"name" : "Colombo", "id" : "1", "value" : "Colombo"},
+        {"name" : "Ampara", "id" : "2", "value" : "Ampara"}
+    ];
+
     $scope.disasterCategories = $stateParams.language == $scope.languages[0]? $scope.disasterCategories_SINHALA: $stateParams.language == $scope.languages[1]? $scope.disasterCategories_TAMIL: $scope.disasterCategories_ENGLISH;
 
     var mandatoryFields = {
@@ -189,7 +194,32 @@ function RequestFormController($scope, $http, $stateParams) {
         }
 
     };
-
+    $scope.loadLoc = function(type) {
+        $scope.locationFilters = {filter : type};
+        switch(type) {
+            case 'district':
+                $scope.locationFilters.district = $scope.model.req_area.district;
+                break;
+            case 'ds':
+                $scope.locationFilters.ds = $scope.model.req_area.ds;
+                break;
+        }
+        $scope.busy = true;
+        $http({
+            method: 'GET',
+            url: 'http://117.dmc.gov.lk/one-one-seven/public/locations',
+            params: $scope.locationFilters
+        }).then(function successCallback(response) {
+            var dsDivisions = [];
+            for(var i = 0; i < response.data.dsDivisions.length; i++) {
+                var dsDivision = response.data.dsDivisions[i];
+                dsDivisions.push({name: dsDivision.DS, id: i, value: dsDivision.DS });
+            }
+            $scope.dsDivisions = dsDivisions;
+        }, function errorCallback(response) {
+           console.error(response);
+        });
+    };
     $scope.submitRequest = function () {
         console.log($scope.selection.values);
         var invalid = $scope.isInvalidForm();

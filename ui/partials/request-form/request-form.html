@@ -5,12 +5,12 @@
         </div>
         <div class="form-group col-xs-12 col-lg-12">
             <div class="row">
-            <label for="requestType" style="padding-left: 15px;">{{language == languages[0]? "Disaster Type | ආපදා වර්ගය": language == languages[1]? "Disaster Type | அனர்த்த வகை": "Disaster Type"}}:<font color="red">*</font></label>
+            <label for="disasterType" style="padding-left: 15px;">{{language == languages[0]? "Disaster Type | ආපදා වර්ගය": language == languages[1]? "Disaster Type | அனர்த்த வகை": "Disaster Type"}}:<font color="red">*</font></label>
         </div>
             <span>
                 <div class="col-md-6 col-xs-12 col-lg-6" style="padding-left: 0px;">
                     <select ng-model="model.req_disaster_type" class="form-control">
-                        <option ng-repeat="disasterCategory in disasterCategories" value="{{disasterCategory.value}}">
+                        <option id="disasterType" ng-repeat="disasterCategory in disasterCategories" value="{{disasterCategory.value}}">
                             {{disasterCategory.name}}
                         </option>
                     </select>
@@ -61,7 +61,21 @@
         </div>
        <div class="form-group col-xs-12 col-lg-6">
             <label for="area">{{language == languages[0]? "Area | ප්‍රදේශය": language == languages[1]? "Area | பகுதி": "Area"}}:</label>
-            <input type="text" ng-model="model.req_area" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions" />
+            <input type="text" ng-model="model.req_area.location" class="form-control" id="area" ng-autocomplete  options="townSelectorOptions" />
+        </div>
+        <div class="form-group col-xs-12 col-lg-6">
+            <label for="district">{{language == languages[0]? "District | ප්‍රදේශය": language == languages[1]? "District | பகுதி": "District"}}:</label>
+            <select ng-model="model.req_area.district" class="form-control" id="district" ng-change="loadLoc('district')">
+                <option value="">- Select -</option>
+                <option ng-repeat="d in districts_SINHALA" value="{{d.value}}">{{d.name}}</option>
+            </select>
+        </div>
+        <div class="form-group col-xs-12 col-lg-6">
+            <label for="ds">{{language == languages[0]? "DS Division | ප්‍රදේශය": language == languages[1]? "DS Division | பகுதி": "DS Division"}}:</label>
+            <select ng-model="model.req_area.ds" class="form-control" id="ds" ng-change="loadLoc('ds')">
+                <option value="">- Select -</option>
+                <option ng-repeat="ds in dsDivisions" value="{{ds.value}}">{{ds.name}}</option>
+            </select>
         </div>
         <div class="form-group col-xs-12 col-lg-12">
             <label for="address">{{language == languages[0]? "Address | ලිපිනය": language == languages[1]? "Address | முகவரி": "Address"}}:<font color="red">*</font></label>
