@@ -3,7 +3,7 @@
  */
 
 
-function ModalController($scope, $http, $uibModalInstance, $cookies, currentStatus, req_ID) {
+function ModalController($scope, $http, $uibModalInstance, $cookies, currentStatus, req_ID, apiHost) {
   $scope.statuses = ["OPEN", "PARTIAL" , "CLOSED" , "ALLOCATED" , "DUPLICATE" , "REJECTED"];
 
   $scope.selectedStatus = currentStatus.toUpperCase();
@@ -37,7 +37,7 @@ function ModalController($scope, $http, $uibModalInstance, $cookies, currentStat
     //console.log(request);
     $http({
             method: 'POST',
-            url: 'http://117.dmc.gov.lk/one-one-seven/public/requests/status',
+            url: apiHost + '/requests/status',
             headers: {
               'X-Authorization': 'Basic '+ encodedCredentials
             },

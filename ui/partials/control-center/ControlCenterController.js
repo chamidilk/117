@@ -2,8 +2,8 @@
  * 
  */
 
-function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
-    
+function ControlCenterController($scope, $http, $state, $uibModal, $cookies, apiHost) {
+
      var myAppModule = angular.module('MyApp', ['ui.bootstrap.datetimepicker']);
 
 
@@ -117,7 +117,7 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
           console.log('error');
         });
 
-    }
+    };
 
     $scope.loadRequests = function () {
 
@@ -149,7 +149,7 @@ function ControlCenterController($scope, $http, $state, $uibModal, $cookies) {
         }
         $http({
             method: 'GET',
-            url: 'http://117.dmc.gov.lk/one-one-seven/public/requests',
+            url: apiHost + '/requests',
             headers: {
               'X-Authorization': 'Basic '+ encodedCredentials
             },

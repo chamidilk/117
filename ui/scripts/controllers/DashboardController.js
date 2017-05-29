@@ -3,7 +3,7 @@
  */
 
 
-function DashboardController($scope, $http, $interval) {
+function DashboardController($scope, $http, $interval, apiHost) {
 
     $scope.requests = [];
     $scope.offset = 1;
@@ -48,7 +48,7 @@ function DashboardController($scope, $http, $interval) {
 
       $http({
             method: 'GET',
-            url: 'http://117.dmc.gov.lk/one-one-seven/public/statistics?type=requests',
+            url: apiHost + '/statistics?type=requests',
             params: $scope.filters
         }).then(function successCallback(response) {
             $scope.loading = false;

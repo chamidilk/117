@@ -3,7 +3,7 @@
  */
 
 
-function DetailsModalController($scope, $http, $uibModalInstance, $cookies, requestSelected) {
+function DetailsModalController($scope, $http, $uibModalInstance, $cookies, requestSelected, apiHost) {
     
   $scope.requestSelected = requestSelected;
   $scope.comments = [];
@@ -19,7 +19,7 @@ function DetailsModalController($scope, $http, $uibModalInstance, $cookies, requ
 
     $http({
             method: 'GET',
-            url: 'http://117.dmc.gov.lk/one-one-seven/public/requests/' + $scope.requestSelected.req_ID + '/status',
+            url: apiHost + '/requests/' + $scope.requestSelected.req_ID + '/status',
             headers: {
               'X-Authorization': 'Basic '+ encodedCredentials
             },

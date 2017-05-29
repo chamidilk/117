@@ -21,8 +21,9 @@
        * You must include the dependency on 'ngMaterial'
        */
       var app = angular.module('177App', ['ui.router', 'ngAutocomplete'])
-              .controller('RequestFormController', RequestFormController)
-              .controller('RequestHelpController', RequestHelpController);
+          .controller('RequestFormController', RequestFormController)
+          .controller('RequestHelpController', RequestHelpController)
+          .constant('apiHost', 'http://117.dmc.gov.lk/one-one-seven/public');
 
       app.config(function ($stateProvider, $urlRouterProvider) {
 

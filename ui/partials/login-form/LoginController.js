@@ -2,7 +2,7 @@
  * 
  */
 
-function LoginController($scope, $rootScope, $http, $state, $cookies) {
+function LoginController($scope, $rootScope, $http, $state, $cookies, apiHost) {
 
 	//$rootScope.encodedCredentials = "";
 	$cookies.put('encodedCredentials', "")
@@ -24,7 +24,7 @@ function LoginController($scope, $rootScope, $http, $state, $cookies) {
 
 		$http({
             method: 'POST',
-            url: 'http://117.dmc.gov.lk/one-one-seven/public/login',
+            url: apiHost + '/login',
             headers: {
     					'X-Authorization': 'Basic '+ encodedString
     				}

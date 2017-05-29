@@ -33,11 +33,12 @@
              * You must include the dependency on 'ngMaterial' 
              */
             var app = angular.module('177App', ['ui.router', 'ngAutocomplete', 'ngCookies', 'ui.bootstrap', "ngSanitize", "ngCsv"])
-                    .controller('DMCController', DMCController)
-                    .controller('ControlCenterController', ControlCenterController)
-                    .controller('LoginController', LoginController)
-                    .controller('ModalController', ModalController)
-                    .controller('DetailsModalController', DetailsModalController);
+                .controller('DMCController', DMCController)
+                .controller('ControlCenterController', ControlCenterController)
+                .controller('LoginController', LoginController)
+                .controller('ModalController', ModalController)
+                .controller('DetailsModalController', DetailsModalController)
+                .constant('apiHost', 'http://117.dmc.gov.lk/one-one-seven/public');
 
             app.config(function ($stateProvider, $urlRouterProvider) {
 

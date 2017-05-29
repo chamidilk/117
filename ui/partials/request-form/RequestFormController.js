@@ -2,7 +2,7 @@
  * 
  */
 
-function RequestFormController($scope, $http, $stateParams) {
+function RequestFormController($scope, $http, $stateParams, apiHost) {
 
 
     //Languages: 'SINHALA', 'TAMIL', 'ENGLISH'
@@ -207,7 +207,7 @@ function RequestFormController($scope, $http, $stateParams) {
         $scope.busy = true;
         $http({
             method: 'GET',
-            url: 'http://117.dmc.gov.lk/one-one-seven/public/locations',
+            url: apiHost + '/locations',
             params: $scope.locationFilters
         }).then(function successCallback(response) {
             var dsDivisions = [];
@@ -228,10 +228,10 @@ function RequestFormController($scope, $http, $stateParams) {
         } else {
             $scope.busy = true;
             $scope.calculateTotalHeadCount();
-            console.log($scope.model)
+            console.log($scope.model);
             $http({
                 method: 'POST',
-                url: 'http://117.dmc.gov.lk/one-one-seven/public/requests',
+                url: apiHost + '/requests',
                 data: $scope.model
             }).then(function successCallback(response) {
                 $scope.busy = false;
