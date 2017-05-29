@@ -44,9 +44,9 @@ $app->get('/statistics', function (Request $request, Response $response) {
     $totals['openedToday'] = 0;
     $totals['closedToday'] = 0;
     $totals['peopleSupportedToday'] = 0;
-    $totals['avgResolutionTime'] = 0.00;
-    $totals['avgResolutionTimeToday'] = 0.00;
-    $totals['closedPercentage'] = 0.00;
+    $totals['totalPeopleSupported'] = 0;
+    $totals['totalClosed'] = 0;
+    $totals['totalRequests'] = 0;
     $totals['daysToClose'] = 0;
 
     if($qParams['type']=='requests') {
@@ -70,15 +70,12 @@ $app->get('/statistics', function (Request $request, Response $response) {
                 $totals['openedToday'] += (int)$req['openedToday'];
                 $totals['closedToday'] += (int)$req['closedToday'];
                 $totals['peopleSupportedToday'] += (int)$req['peopleSupportedToday'];
-                $totals['avgResolutionTime'] += (float)$req['avgResolutionTime'];
-                $totals['avgResolutionTimeToday'] += (float)$req['avgResolutionTimeToday'];
-                $totals['closedPercentage'] += (float)$req['closedPercentage'];
+                $totals['totalPeopleSupported'] += (int)$req['totalPeopleSupported'];
+                $totals['totalClosed'] += (int)$req['totalClosed'];
+                $totals['totalRequests'] += (int)$req['totalRequests'];
                 $totals['daysToClose'] += (float)$req['daysToClose'];
                 $reqs[$index] = $req;
             }
-            $totals['avgResolutionTime'] = number_format($totals['avgResolutionTime'] / count($reqs), 2);
-            $totals['avgResolutionTimeToday'] = number_format($totals['avgResolutionTimeToday'] / count($reqs), 2);
-            $totals['closedPercentage'] = number_format($totals['closedPercentage'] / count($reqs), 2);
             $totals['daysToClose'] = number_format($totals['daysToClose'] / count($reqs), 2);
             $totals['req_type_REF'] = 'TOTAL';
             array_unshift($reqs, $totals);
@@ -91,11 +88,7 @@ $app->get('/statistics', function (Request $request, Response $response) {
     }
 });
 $app->post('/requests/status', function(Request $request, Response $response) {
-    if(!checkAuth($request->getHeaderLine('X-Authorization'))) {
-        return $response->withJson(array('error' => 'Authorization invalid'), 403);
-    }
     date_default_timezone_set('Asia/Colombo');
-    $db = getConnection();
     $body = $request->getParsedBody();
     $reqLog = new stdClass();
     $reqLog->req_log_ID = null;
@@ -104,6 +97,12 @@ $app->post('/requests/status', function(Request $request, Response $response) {
     $reqLog->req_status_comment = $body['req_status_comment'];
     $reqLog->req_status_change_date = date('Y-m-d H:i:s');
     $reqLog->req_status_REF = strtoupper($body['reqstatus_REF']);
+    if(!checkAuth($request->getHeaderLine('X-Authorization'), $reqLog->req_status_REF)) {
+        return $response->withJson(array('error' => 'Authorization invalid'), 403);
+    }
+
+    $db = getConnection();
+
 
     try {
         $updateSql = "UPDATE Request SET reqstatus_REF=:reqstatus_REF WHERE req_ID=:req_ID";
@@ -374,9 +373,10 @@ function insertObject($db, $table, &$object, $keyname = NULL) {
     $sth->execute();
     return $db->lastInsertId();
 }
-function checkAuth($authHeader) {
+function checkAuth($authHeader, $aclCheck = null) {
     $auth = array (
-      "dmc" => "dmc123"
+      "dmc" => new Auth("dmc", "dmc123", array("OPEN", "PARTIAL", "CLOSED", "ALLOCATED", "DUPLICATE", "REJECTED")),
+      "dmccallcenter" => new Auth("dmccallcenter", "dmc456", array("ALLOCATED"))
     );
     if(!isset($authHeader)) {
         return false;
@@ -386,7 +386,14 @@ function checkAuth($authHeader) {
     $username = $authParts[0];
     $password = $authParts[1];
 
-    if($auth[$username] == $password) {
+    if($auth[$username]->_password == $password) {
+        if(isset($aclCheck)) {
+           if(in_array($aclCheck, $auth[$username]->_access)) {
+               return true;
+           } else {
+               return false;
+           }
+        }
         return true;
     } else {
         return false;
@@ -398,4 +405,23 @@ function write_log($db, $message) {
     $log->id = null;
     $log->message = $message;
     insertObject($db,'Log',$log);
+}
+class Auth {
+    /**
+     * @var string Username
+     */
+    var $_username;
+    /**
+     * @var string Password
+     */
+    var $_password;
+    /**
+     * @var array Access Control Level
+     */
+    var $_access;
+    function __construct($username, $password, $acl) {
+        $this->_username = $username;
+        $this->_password = $password;
+        $this->_access = $acl;
+    }
 }
