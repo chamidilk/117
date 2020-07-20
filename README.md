@@ -2,6 +2,8 @@
 
 117 is a stand-alone system develpoed and deployed on behalf of the DMC in Sri Lanka after the disastrous floods of 2016. This system is primarily used to receive and track resource requests at the DMC.
 
+![Architecture Diagram](https://github.com/ramdesh/117/blob/master/dmc_117.png?raw=true)
+
 ### Backend
 
 The backend is developed using the [PHP Slim Framework](http://www.slimframework.com/). 
